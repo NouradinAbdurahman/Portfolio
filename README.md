@@ -4,7 +4,7 @@ A modern, responsive portfolio website built with Next.js 14, TypeScript, and Ta
 
 ## 🚀 Live Demo
 
-Visit the live portfolio: [https://nouraddin-portfolio.vercel.app](https://nouraddin-portfolio.vercel.app)
+Visit the live portfolio: [https://nouraddin-portfolio.vercel.app](https://portfolio-omega-self-73.vercel.app/)
 
 ## ✨ Features
 
