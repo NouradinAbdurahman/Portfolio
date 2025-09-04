@@ -21,7 +21,7 @@ import {
   Eye,
   Linkedin,
 } from "lucide-react"
-import { FaReact, FaPython, FaAws, FaDocker, FaInstagram } from "react-icons/fa"
+import { FaReact, FaPython, FaAws, FaDocker, FaInstagram, FaGitAlt } from "react-icons/fa"
 import {
   SiTypescript,
   SiNextdotjs,
@@ -326,6 +326,163 @@ export default function Portfolio() {
                   Download CV
                 </Button>
               </motion.div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section id="services" className="site-background py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl font-bold mb-4 text-foreground">Services</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Comprehensive solutions for your digital needs
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Web Development Service */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+            >
+              <Card className="p-6 h-full hover:shadow-xl transition-all duration-300 group cursor-pointer">
+                <motion.div whileHover={{ scale: 1.05 }} className="text-center space-y-4">
+                  <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mx-auto group-hover:bg-primary/20 transition-colors">
+                    <Code className="w-8 h-8 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground">Web Development</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    Modern web applications using React, Next.js, and Flutter. Responsive design with optimal
+                    performance.
+                  </p>
+                  <div className="flex flex-wrap gap-2 justify-center pt-2">
+                    <Badge variant="outline" className="text-xs flex items-center gap-1">
+                      <FaReact className="w-3 h-3 text-cyan-400" />
+                      React
+                    </Badge>
+                    <Badge variant="outline" className="text-xs flex items-center gap-1">
+                      <SiNextdotjs className="w-3 h-3 text-black dark:text-white" />
+                      Next.js
+                    </Badge>
+                    <Badge variant="outline" className="text-xs flex items-center gap-1">
+                      <SiTypescript className="w-3 h-3 text-blue-500" />
+                      TypeScript
+                    </Badge>
+                  </div>
+                </motion.div>
+              </Card>
+            </motion.div>
+
+            {/* Data Engineering Service */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <Card className="p-6 h-full hover:shadow-xl transition-all duration-300 group cursor-pointer">
+                <motion.div whileHover={{ scale: 1.05 }} className="text-center space-y-4">
+                  <div className="w-16 h-16 bg-accent/10 rounded-xl flex items-center justify-center mx-auto group-hover:bg-accent/20 transition-colors">
+                    <Database className="w-8 h-8 text-accent" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground">Data Engineering</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    ETL pipeline development, SQL optimization, and cloud-based data processing solutions.
+                  </p>
+                  <div className="flex flex-wrap gap-2 justify-center pt-2">
+                    <Badge variant="outline" className="text-xs flex items-center gap-1">
+                      <FaPython className="w-3 h-3 text-yellow-400" />
+                      Python
+                    </Badge>
+                    <Badge variant="outline" className="text-xs flex items-center gap-1">
+                      <SiPostgresql className="w-3 h-3 text-blue-600" />
+                      SQL
+                    </Badge>
+                    <Badge variant="outline" className="text-xs flex items-center gap-1">
+                      <Database className="w-3 h-3" />
+                      ETL
+                    </Badge>
+                  </div>
+                </motion.div>
+              </Card>
+            </motion.div>
+
+            {/* Mobile Development Service */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              <Card className="p-6 h-full hover:shadow-xl transition-all duration-300 group cursor-pointer">
+                <motion.div whileHover={{ scale: 1.05 }} className="text-center space-y-4">
+                  <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mx-auto group-hover:bg-primary/20 transition-colors">
+                    <Smartphone className="w-8 h-8 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground">Mobile Development</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    Cross-platform mobile applications using Flutter with native performance and beautiful UI.
+                  </p>
+                  <div className="flex flex-wrap gap-2 justify-center pt-2">
+                    <Badge variant="outline" className="text-xs flex items-center gap-1">
+                      <SiFlutter className="w-3 h-3 text-blue-500" />
+                      Flutter
+                    </Badge>
+                    <Badge variant="outline" className="text-xs flex items-center gap-1">
+                      <SiDart className="w-3 h-3 text-blue-400" />
+                      Dart
+                    </Badge>
+                    <Badge variant="outline" className="text-xs flex items-center gap-1">
+                      <SiFirebase className="w-3 h-3 text-orange-500" />
+                      Firebase
+                    </Badge>
+                  </div>
+                </motion.div>
+              </Card>
+            </motion.div>
+
+            {/* Cloud & Automation Service */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
+              <Card className="p-6 h-full hover:shadow-xl transition-all duration-300 group cursor-pointer">
+                <motion.div whileHover={{ scale: 1.05 }} className="text-center space-y-4">
+                  <div className="w-16 h-16 bg-accent/10 rounded-xl flex items-center justify-center mx-auto group-hover:bg-accent/20 transition-colors">
+                    <Cloud className="w-8 h-8 text-accent" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground">Cloud & Automation</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    AWS cloud solutions, automated workflows, and scalable infrastructure for growing businesses.
+                  </p>
+                  <div className="flex flex-wrap gap-2 justify-center pt-2">
+                    <Badge variant="outline" className="text-xs flex items-center gap-1">
+                      <FaAws className="w-3 h-3 text-orange-400" />
+                      AWS
+                    </Badge>
+                    <Badge variant="outline" className="text-xs flex items-center gap-1">
+                      <FaDocker className="w-3 h-3 text-blue-500" />
+                      Docker
+                    </Badge>
+                    <Badge variant="outline" className="text-xs flex items-center gap-1">
+                      <FaGitAlt className="w-3 h-3 text-orange-500" />
+                      CI/CD
+                    </Badge>
+                  </div>
+                </motion.div>
+              </Card>
             </motion.div>
           </div>
         </div>
@@ -743,7 +900,7 @@ export default function Portfolio() {
       </Suspense>
 
       {/* Social Links */}
-      <section className="py-12 bg-muted/30 dark:bg-slate-900">
+      <section className="py-12 site-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-center space-x-6">
             <motion.a

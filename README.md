@@ -73,9 +73,10 @@ Visit the live portfolio: [https://nouraddin-portfolio.vercel.app](https://noura
 
 1. **Hero Section** - Introduction with call-to-action buttons
 2. **About Me** - Personal information and skills
-3. **Portfolio** - Featured projects showcase + detail pages per project
-4. **Resume** - Education, experience, and certifications
-5. **Contact** - Contact form (zod validation, toasts, honeypot) and social links
+3. **Services** - Comprehensive service offerings with 4 service cards
+4. **Portfolio** - Featured projects showcase + detail pages per project
+5. **Resume** - Education, experience, and certifications
+6. **Contact** - Contact form (zod validation, toasts, honeypot) and social links
 
 ## 🚀 Getting Started
 
@@ -222,6 +223,13 @@ This project is open source and available under the [MIT License](LICENSE).
 - **Caching Strategy**: Added proper cache headers for static assets
 - **Loading States**: Implemented Suspense boundaries with custom loading components
 - **Performance Monitoring**: Added performance checker script for optimization tracking
+
+### 🎨 Design & UI Improvements (Latest)
+- **Services Section Restored**: Added comprehensive services showcase with 4 service cards
+- **Background Consistency**: Unified all sections (except hero) with `site-background` class
+- **Footer Background**: Updated footer component to match main page styling
+- **Visual Cohesion**: Consistent diagonal gradient backgrounds across all sections
+- **Hero Section**: Maintained unique gradient overlay styling for focal point impact
 
 ### 📱 Responsive Design Improvements
 - **Mobile-First Project Cards**: Buttons now visible by default on mobile devices

@@ -6,7 +6,7 @@ import { FaInstagram } from "react-icons/fa"
 
 export function Footer() {
   return (
-    <section className="py-12 bg-muted/30 dark:bg-slate-900">
+    <section className="py-12 site-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-center space-x-6">
           <motion.a aria-label="GitHub profile" whileHover={{ scale: 1.1, y: -2 }} href="https://github.com/NouradinAbdurahman" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent transition-colors">
