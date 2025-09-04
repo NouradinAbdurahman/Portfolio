@@ -365,8 +365,7 @@ export default function Portfolio() {
                     priority
                     className="object-cover"
                   />
-                  {/* Desktop hover overlay */}
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100 hidden md:flex">
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                     <div className="flex space-x-4">
                       <a href="/projects/github-profile-analyzer">
                       <Button
@@ -387,27 +386,6 @@ export default function Portfolio() {
                     </div>
                   </div>
                 </div>
-                
-                {/* Mobile buttons - visible on small screens */}
-                <div className="flex justify-center space-x-4 p-4 md:hidden">
-                  <a href="/projects/github-profile-analyzer">
-                    <Button
-                      size="sm"
-                      variant="secondary"
-                      className="bg-white/95 hover:bg-white text-slate-900 shadow-lg cursor-pointer"
-                    >
-                      <Eye className="w-4 h-4 mr-2" />
-                      Details
-                    </Button>
-                  </a>
-                  <a href="https://github-profile-analyzer-five.vercel.app/" target="_blank" rel="noopener noreferrer">
-                    <Button size="sm" className="bg-primary hover:bg-primary/90 shadow-lg cursor-pointer">
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      Live Demo
-                    </Button>
-                  </a>
-                </div>
-
                 <motion.div
                   className="p-6"
                   initial={{ y: 20 }}
@@ -454,8 +432,7 @@ export default function Portfolio() {
                     priority
                     className="object-cover"
                   />
-                  {/* Desktop hover overlay */}
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100 hidden md:flex">
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                     <div className="flex space-x-4">
                       <a href="/projects/intellistudy">
                       <Button
@@ -476,27 +453,6 @@ export default function Portfolio() {
                     </div>
                   </div>
                 </div>
-                
-                {/* Mobile buttons - visible on small screens */}
-                <div className="flex justify-center space-x-4 p-4 md:hidden">
-                  <a href="/projects/intellistudy">
-                    <Button
-                      size="sm"
-                      variant="secondary"
-                      className="bg-white/95 hover:bg-white text-slate-900 shadow-lg cursor-pointer"
-                    >
-                      <Eye className="w-4 h-4 mr-2" />
-                      Details
-                    </Button>
-                  </a>
-                  <a href="https://intellistudy.vercel.app/" target="_blank" rel="noopener noreferrer">
-                    <Button size="sm" className="bg-primary hover:bg-primary/90 shadow-lg cursor-pointer">
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      Live Demo
-                    </Button>
-                  </a>
-                </div>
-
                 <motion.div
                   className="p-6"
                   initial={{ y: 20 }}
@@ -542,8 +498,7 @@ export default function Portfolio() {
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover"
                   />
-                  {/* Desktop hover overlay */}
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100 hidden md:flex">
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                     <div className="flex space-x-4">
                       <a href="/projects/ohay">
                       <Button
@@ -564,27 +519,6 @@ export default function Portfolio() {
                     </div>
                   </div>
                 </div>
-                
-                {/* Mobile buttons - visible on small screens */}
-                <div className="flex justify-center space-x-4 p-4 md:hidden">
-                  <a href="/projects/ohay">
-                    <Button
-                      size="sm"
-                      variant="secondary"
-                      className="bg-white/95 hover:bg-white text-slate-900 shadow-lg cursor-pointer"
-                    >
-                      <Eye className="w-4 h-4 mr-2" />
-                      Details
-                    </Button>
-                  </a>
-                  <a href="https://admincontrol.ohayapp.com/" target="_blank" rel="noopener noreferrer">
-                    <Button size="sm" className="bg-primary hover:bg-primary/90 shadow-lg cursor-pointer">
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      Live Demo
-                    </Button>
-                  </a>
-                </div>
-
                 <motion.div
                   className="p-6"
                   initial={{ y: 20 }}
@@ -644,8 +578,7 @@ export default function Portfolio() {
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover"
                   />
-                  {/* Desktop hover overlay */}
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100 hidden md:flex">
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                     <div className="flex space-x-4">
                       <a href="/projects/viaggi-qatar-booking">
                         <Button
@@ -660,21 +593,6 @@ export default function Portfolio() {
                     </div>
                   </div>
                 </div>
-                
-                {/* Mobile buttons - visible on small screens */}
-                <div className="flex justify-center space-x-4 p-4 md:hidden">
-                  <a href="/projects/viaggi-qatar-booking">
-                    <Button
-                      size="sm"
-                      variant="secondary"
-                      className="bg-white/95 hover:bg-white text-slate-900 shadow-lg cursor-pointer"
-                    >
-                      <Eye className="w-4 h-4 mr-2" />
-                      Details
-                    </Button>
-                  </a>
-                </div>
-
                 <motion.div
                   className="p-6"
                   initial={{ y: 20 }}
