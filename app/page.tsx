@@ -35,6 +35,8 @@ import {
   User,
   Loader2,
   Send,
+  Check,
+  AlertCircle,
   Linkedin,
 } from "lucide-react"
 import { FaReact, FaNodeJs, FaPython, FaAws, FaGitAlt, FaDocker, FaInstagram } from "react-icons/fa"
@@ -55,13 +57,35 @@ export default function Portfolio() {
   const { theme, setTheme } = useTheme()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitState, setSubmitState] = useState<"idle" | "success" | "error">("idle")
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    const form = e.currentTarget
+    const data = {
+      firstName: (form.elements.namedItem("firstName") as HTMLInputElement)?.value,
+      lastName: (form.elements.namedItem("lastName") as HTMLInputElement)?.value,
+      email: (form.elements.namedItem("email") as HTMLInputElement)?.value,
+      subject: (form.elements.namedItem("subject") as HTMLInputElement)?.value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement)?.value,
+    }
+
     setIsSubmitting(true)
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-    setIsSubmitting(false)
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+      if (!res.ok) throw new Error("Failed to send message")
+      form.reset()
+      setSubmitState("success")
+    } catch (err) {
+      setSubmitState("error")
+    } finally {
+      setIsSubmitting(false)
+      setTimeout(() => setSubmitState("idle"), 3000)
+    }
   }
 
   return (
@@ -71,7 +95,20 @@ export default function Portfolio() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
-              <h1 className="text-xl font-bold dark:text-white light:text-foreground">Nouraddin</h1>
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault()
+                  window.location.href = "/"
+                }}
+                className="inline-flex items-center select-none cursor-pointer no-select-drag"
+                draggable={false}
+                aria-label="Go to home"
+              >
+                <span className="text-xl font-bold michroma-regular dark:text-white light:text-foreground no-select-drag">
+                  Nouraddin
+                </span>
+              </a>
             </motion.div>
 
             <div className="hidden md:flex items-center space-x-8">
@@ -250,10 +287,12 @@ export default function Portfolio() {
               transition={{ delay: 0.9, duration: 0.6 }}
               className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
             >
-              <Button size="lg" className="group neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/90 cursor-pointer">
-                View Portfolio
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
+              <a href="https://github.com/NouradinAbdurahman" target="_blank" rel="noopener noreferrer">
+                <Button size="lg" className="group neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/90 cursor-pointer">
+                  View Portfolio
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </a>
               <Button
                 variant="outline"
                 size="lg"
@@ -642,13 +681,12 @@ export default function Portfolio() {
               viewport={{ once: true }}
             >
               <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-500 border-primary/20 hover:border-primary/40">
-                <div className="relative">
-                  <div className="h-48 bg-gradient-to-br from-primary/20 to-accent/30 flex items-center justify-center">
-                    <div className="text-center">
-                      <Github className="w-16 h-16 text-primary mx-auto mb-2" />
-                      <div className="text-sm text-muted-foreground">GitHub Profile Analyzer</div>
-                    </div>
-                  </div>
+                <div className="relative w-full aspect-video">
+                  <img
+                    src="/projects/GitHubProfileAnalyzer.png"
+                    alt="GitHub Profile Analyzer"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                     <div className="flex space-x-4">
                       <Button
@@ -714,13 +752,12 @@ export default function Portfolio() {
               viewport={{ once: true }}
             >
               <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-500 border-primary/20 hover:border-primary/40">
-                <div className="relative">
-                  <div className="h-48 bg-gradient-to-br from-accent/20 to-primary/30 flex items-center justify-center">
-                    <div className="text-center">
-                      <Code className="w-16 h-16 text-accent mx-auto mb-2" />
-                      <div className="text-sm text-muted-foreground">IntelliStudy Platform</div>
-                    </div>
-                  </div>
+                <div className="relative w-full aspect-video">
+                  <img
+                    src="/projects/IntelliStudy.png"
+                    alt="IntelliStudy Platform"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                     <div className="flex space-x-4">
                       <Button
@@ -786,13 +823,12 @@ export default function Portfolio() {
               viewport={{ once: true }}
             >
               <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-500 border-primary/20 hover:border-primary/40">
-                <div className="relative">
-                  <div className="h-48 bg-gradient-to-br from-primary/30 to-accent/20 flex items-center justify-center">
-                    <div className="text-center">
-                      <Smartphone className="w-16 h-16 text-primary mx-auto mb-2" />
-                      <div className="text-sm text-muted-foreground">Ohay Mobile App</div>
-                    </div>
-                  </div>
+                <div className="relative w-full aspect-video">
+                  <img
+                    src="/projects/ohay.png"
+                    alt="Ohay Mobile App"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                     <div className="flex space-x-4">
                       <Button
@@ -858,12 +894,10 @@ export default function Portfolio() {
               viewport={{ once: true }}
             >
               <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-500 border-primary/20 hover:border-primary/40">
-                <div className="relative">
-                  <div className="h-48 bg-gradient-to-br from-accent/30 to-primary/20 flex items-center justify-center">
-                    <div className="text-center">
-                      <Cloud className="w-16 h-16 text-accent mx-auto mb-2" />
-                      <div className="text-sm text-muted-foreground">Viaggi Booking System</div>
-                    </div>
+                <div className="relative w-full aspect-video">
+                  <div className="absolute inset-0 bg-gradient-to-br from-accent/30 to-primary/20 flex flex-col items-center justify-center">
+                    <Cloud className="w-16 h-16 text-accent" />
+                    <div className="mt-2 text-sm text-muted-foreground">Viaggi Booking System</div>
                   </div>
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                     <div className="flex space-x-4">
@@ -931,10 +965,12 @@ export default function Portfolio() {
             viewport={{ once: true }}
             className="text-center mt-12"
           >
-            <Button size="lg" variant="outline" className="group bg-transparent cursor-pointer">
-              View All Projects
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
+            <a href="/projects">
+              <Button size="lg" variant="outline" className="group bg-transparent cursor-pointer">
+                View All Projects
+                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </a>
           </motion.div>
         </div>
       </section>
@@ -1061,6 +1097,7 @@ export default function Portfolio() {
                       </Label>
                       <Input
                         id="firstName"
+                        name="firstName"
                         placeholder="John"
                         className="focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                         required
@@ -1072,6 +1109,7 @@ export default function Portfolio() {
                       </Label>
                       <Input
                         id="lastName"
+                        name="lastName"
                         placeholder="Doe"
                         className="focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                         required
@@ -1085,6 +1123,7 @@ export default function Portfolio() {
                     </Label>
                     <Input
                       id="email"
+                      name="email"
                       type="email"
                       placeholder="john.doe@example.com"
                       className="focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
@@ -1098,6 +1137,7 @@ export default function Portfolio() {
                     </Label>
                     <Input
                       id="subject"
+                      name="subject"
                       placeholder="Project Discussion"
                       className="focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                       required
@@ -1110,6 +1150,7 @@ export default function Portfolio() {
                     </Label>
                     <Textarea
                       id="message"
+                      name="message"
                       placeholder="Tell me about your project, timeline, and requirements..."
                       rows={5}
                       className="focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-none"
@@ -1117,13 +1158,34 @@ export default function Portfolio() {
                     />
                   </div>
 
-                  <Button type="submit" size="lg" className="w-full group cursor-pointer" disabled={isSubmitting}>
-                    {isSubmitting ? (
+                  <Button
+                    type="submit"
+                    size="lg"
+                    className={
+                      `w-full group cursor-pointer transition-colors ` +
+                      (submitState === "success" ? " bg-green-600 hover:bg-green-600 " : submitState === "error" ? " bg-red-600 hover:bg-red-600 " : "")
+                    }
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting && (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         Sending Message...
                       </>
-                    ) : (
+                    )}
+                    {submitState === "success" && !isSubmitting && (
+                      <>
+                        <Check className="mr-2 h-4 w-4" />
+                        Thanks! Your message was sent.
+                      </>
+                    )}
+                    {submitState === "error" && !isSubmitting && (
+                      <>
+                        <AlertCircle className="mr-2 h-4 w-4" />
+                        Something went wrong. Try again.
+                      </>
+                    )}
+                    {submitState === "idle" && !isSubmitting && (
                       <>
                         Send Message
                         <Send className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
