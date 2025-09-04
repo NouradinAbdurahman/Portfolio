@@ -2,7 +2,7 @@
 
 A modern, responsive portfolio website built with Next.js 14, TypeScript, and Tailwind CSS. This portfolio showcases my skills as a Software Engineering student and Full-stack Developer.
 
-## 🚀 Live Demo
+## 🚀 Live Demo & Screenshots
 
 Visit the live portfolio: [https://nouraddin-portfolio.vercel.app](https://portfolio-omega-self-73.vercel.app/)
 
@@ -156,3 +156,23 @@ This project is open source and available under the [MIT License](LICENSE).
 ---
 
 **Built with ❤️ by Nouraddin Abdurahman**
+
+
+## Recent Updates
+- New `/projects` page with full list and Load More / Go Back controls (with icons)
+- Contact form now sends real emails via Resend API (server route)
+- Inline animated button states for sending/success/error
+- Unified single-tone background across all sections
+- Hero name uses Michroma font to match logo
+- Social footer and Instagram icon styling
+
+### Contact Form Setup
+1. Add to `.env.local` (do not commit):
+   - `RESEND_API_KEY=...`
+   - `CONTACT_TO_EMAIL=n.aden1208@gmail.com`
+2. Restart dev server.
+
+### Scripts
+- `npm run dev` — start dev server
+- `npm run build` — production build
+
