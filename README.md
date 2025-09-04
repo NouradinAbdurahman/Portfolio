@@ -34,6 +34,12 @@ Visit the live portfolio: [https://nouraddin-portfolio.vercel.app](https://noura
 - **React Icons** - Popular icon libraries
 - **Custom CSS** - Neumorphism and glassmorphism effects
 
+### Animation & Visual Effects
+- **Framer Motion** - Declarative animations for UI elements
+- **OGL Library** - WebGL-based rendering for complex background effects
+- **Custom Aurora Component** - WebGL Aurora animation with customizable color stops
+- **Custom Spotlight Component** - Dynamic gradient spotlight effects
+
 ## 📁 Project Structure
 
 ```
@@ -49,11 +55,14 @@ Visit the live portfolio: [https://nouraddin-portfolio.vercel.app](https://noura
 │       └── contact/route.ts             # Resend email route (sanitized + honeypot)
 ├── components/
 │   ├── navbar.tsx                       # Shared navbar (theme toggle, internal links)
-│   ├── footer.tsx                       # Shared footer (social links with aria-labels)
-│   ├── loading.tsx                      # Loading spinner component
+│   ├── footer.tsx                       # Unified footer component (social links with aria-labels)
+│   ├── loading.tsx                      # Loading component with Aurora animation
 │   ├── contact-form.tsx                 # Lazy-loaded contact form component
 │   ├── resume-section.tsx               # Lazy-loaded resume section component
+│   ├── LogoLoop.tsx                     # Animated technology logo carousel component
 │   ├── ui/                              # shadcn/ui components (Buttons, Cards, Inputs, etc.)
+│   │   ├── spotlight-new.tsx            # Spotlight background animation component
+│   │   └── aurora.tsx                   # WebGL Aurora background animation component
 │   └── theme-provider.tsx               # next-themes provider wrapper
 ├── hooks/
 │   ├── use-toast.ts                     # toast store used by Toaster
@@ -216,7 +225,15 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## Recent Updates
 
-### 🚀 Performance Optimizations (Latest)
+### 🎨 Visual Design & Animation Updates (Latest)
+- **Aurora Background Animation**: Added stunning WebGL-based Aurora animation to hero section with customizable color stops
+- **Spotlight Animation System**: Implemented dynamic Spotlight background effects for Portfolio and Resume sections
+- **Unified Background Colors**: Applied consistent `#060010` dark background across all sections for cohesive visual experience
+- **LogoLoop Carousel**: Added animated technology logo carousel with hover effects and smooth transitions
+- **Loading Page Enhancement**: Updated loading component with Aurora animation matching hero section
+- **Clean Section Design**: Removed animations from About, Services, and Contact sections for balanced visual hierarchy
+
+### 🚀 Performance Optimizations
 - **Code Splitting**: Implemented lazy loading for Contact Form and Resume Section components
 - **Bundle Optimization**: Added package import optimization for Framer Motion, Lucide React, and React Icons
 - **Image Optimization**: Enhanced with WebP/AVIF formats and priority loading
@@ -224,12 +241,12 @@ This project is open source and available under the [MIT License](LICENSE).
 - **Loading States**: Implemented Suspense boundaries with custom loading components
 - **Performance Monitoring**: Added performance checker script for optimization tracking
 
-### 🎨 Design & UI Improvements (Latest)
-- **Services Section Restored**: Added comprehensive services showcase with 4 service cards
-- **Background Consistency**: Unified all sections (except hero) with `site-background` class
-- **Footer Background**: Updated footer component to match main page styling
-- **Visual Cohesion**: Consistent diagonal gradient backgrounds across all sections
-- **Hero Section**: Maintained unique gradient overlay styling for focal point impact
+### 🎨 Design & UI Improvements
+- **Services Section**: Comprehensive services showcase with 4 service cards
+- **Footer Unification**: Created unified Footer component used across all pages with consistent styling
+- **Background Consistency**: Applied `#060010` background color across all sections for visual cohesion
+- **Hero Section**: Enhanced with Aurora animation and `#060010` base background
+- **Seamless Section Flow**: Removed borders between sections for continuous background appearance
 
 ### 📱 Responsive Design Improvements
 - **Mobile-First Project Cards**: Buttons now visible by default on mobile devices

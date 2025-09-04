@@ -8,6 +8,9 @@ import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Spotlight } from "@/components/ui/spotlight-new"
+import Aurora from "@/components/ui/aurora"
+import LogoLoop from "@/components/LogoLoop"
 import {
   ArrowRight,
   Download,
@@ -19,9 +22,8 @@ import {
   Github,
   ExternalLink,
   Eye,
-  Linkedin,
 } from "lucide-react"
-import { FaReact, FaPython, FaAws, FaDocker, FaInstagram, FaGitAlt } from "react-icons/fa"
+import { FaReact, FaPython, FaAws, FaDocker, FaInstagram, FaGitAlt, FaNodeJs } from "react-icons/fa"
 import {
   SiTypescript,
   SiNextdotjs,
@@ -29,6 +31,8 @@ import {
   SiDart,
   SiFirebase,
   SiPostgresql,
+  SiReact,
+  SiTailwindcss,
 } from "react-icons/si"
 
 import Navbar from "@/components/navbar"
@@ -42,16 +46,19 @@ const ResumeSection = lazy(() => import("@/components/resume-section"))
 export default function Portfolio() {
 
   return (
-    <div className="min-h-screen dark:dark-gradient-bg light:light-gradient-bg dark:text-white light:text-foreground">
+    <div className="min-h-screen dark:text-white light:text-foreground">
       {/* Navigation */}
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative pt-24 pb-20 overflow-hidden">
-        <div className="absolute top-0 right-0 h-1/2 w-1/2 hero-gradient-overlay" />
-        <div className="absolute top-0 left-0 h-1/2 w-1/2 -scale-x-100 hero-gradient-overlay" />
-        <div className="absolute inset-0 opacity-10">
-          <div className="h-full w-full bg-[linear-gradient(to_right,rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
+      <section className="relative pt-24 pb-20 overflow-hidden dark:bg-[#060010] bg-gray-50">
+        <div className="absolute inset-0 w-full h-full">
+          <Aurora
+            colorStops={["#060010", "#B19EEF", "#5227FF"]}
+            blend={0.5}
+            amplitude={1.0}
+            speed={0.5}
+          />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -219,8 +226,39 @@ export default function Portfolio() {
         </div>
       </section>
 
+      {/* Tech Stack Logos */}
+      <section className="py-6 dark:bg-[#060010] bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div style={{ height: '80px', position: 'relative', overflow: 'hidden' }}>
+            <LogoLoop
+              logos={[
+                { node: <SiReact className="text-cyan-400" />, title: "React", href: "https://react.dev" },
+                { node: <SiNextdotjs className="text-black dark:text-white" />, title: "Next.js", href: "https://nextjs.org" },
+                { node: <SiTypescript className="text-blue-500" />, title: "TypeScript", href: "https://www.typescriptlang.org" },
+                { node: <SiTailwindcss className="text-cyan-500" />, title: "Tailwind CSS", href: "https://tailwindcss.com" },
+                { node: <FaReact className="text-cyan-400" />, title: "React Native", href: "https://reactnative.dev" },
+                { node: <SiFlutter className="text-blue-500" />, title: "Flutter", href: "https://flutter.dev" },
+                { node: <FaNodeJs className="text-green-500" />, title: "Node.js", href: "https://nodejs.org" },
+                { node: <SiFirebase className="text-orange-500" />, title: "Firebase", href: "https://firebase.google.com" },
+                { node: <FaAws className="text-orange-400" />, title: "AWS", href: "https://aws.amazon.com" },
+                { node: <SiPostgresql className="text-blue-600" />, title: "PostgreSQL", href: "https://postgresql.org" },
+              ]}
+              speed={120}
+              direction="left"
+              logoHeight={48}
+              gap={40}
+              pauseOnHover
+              scaleOnHover
+              fadeOut
+              fadeOutColor="transparent"
+              ariaLabel="Technology partners"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* About Section */}
-      <section id="about" className="site-background py-20">
+      <section id="about" className="py-20 dark:bg-[#060010] bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -332,7 +370,7 @@ export default function Portfolio() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="site-background py-20">
+      <section id="services" className="py-20 dark:bg-[#060010] bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -489,8 +527,9 @@ export default function Portfolio() {
       </section>
 
       {/* Portfolio Section */}
-      <section id="portfolio" className="site-background py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="portfolio" className="py-20 relative overflow-hidden dark:bg-[#060010] bg-gray-50">
+        <Spotlight />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -899,47 +938,9 @@ export default function Portfolio() {
         <ResumeSection />
       </Suspense>
 
-      {/* Social Links */}
-      <section className="py-12 site-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-center space-x-6">
-            <motion.a
-              whileHover={{ scale: 1.1, y: -2 }}
-              href="https://github.com/NouradinAbdurahman"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-accent transition-colors"
-            >
-              <Github className="h-6 w-6" />
-            </motion.a>
-            <motion.a
-              whileHover={{ scale: 1.1, y: -2 }}
-              href="https://linkedin.com/in/nouraddin"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-accent transition-colors"
-            >
-              <Linkedin className="h-6 w-6" />
-            </motion.a>
-            <motion.a
-              whileHover={{ scale: 1.1, y: -2 }}
-              href="https://instagram.com/nouradiin_"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-pink-500 transition-colors"
-            >
-              <FaInstagram className="h-6 w-6" />
-            </motion.a>
-            <motion.a
-              whileHover={{ scale: 1.1, y: -2 }}
-              href="mailto:n.aden1208@gmail.com"
-              className="text-muted-foreground hover:text-accent transition-colors"
-            >
-              <Mail className="h-6 w-6" />
-            </motion.a>
-          </div>
-        </div>
-      </section>
+
+      {/* Footer */}
+      <Footer />
     </div>
   )
 }

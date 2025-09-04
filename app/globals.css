@@ -223,3 +223,32 @@
 .light .site-background {
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
 }
+
+/* No borders - seamless sections */
+#services {
+  background: linear-gradient(135deg, #060010 0%, #060010 100%);
+  position: relative;
+}
+
+#portfolio {
+  background: linear-gradient(135deg, #060010 0%, #060010 100%);
+  position: relative;
+}
+
+#contact {
+  background: linear-gradient(135deg, #060010 0%, #060010 100%);
+  position: relative;
+}
+
+#resume {
+  background: linear-gradient(135deg, #060010 0%, #060010 100%);
+  position: relative;
+}
+
+/* Light mode adjustments */
+.light #services,
+.light #portfolio,
+.light #contact,
+.light #resume {
+  background: linear-gradient(135deg, #f9fafb 0%, #f9fafb 100%);
+}

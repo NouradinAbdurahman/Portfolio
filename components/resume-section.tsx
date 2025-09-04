@@ -4,14 +4,16 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Spotlight } from "@/components/ui/spotlight-new"
 import { Download, Calendar, Award, Briefcase, GraduationCap, Code, Database } from "lucide-react"
 import { FaReact, FaNodeJs, FaPython, FaAws, FaGitAlt, FaDocker } from "react-icons/fa"
 import { SiTypescript, SiNextdotjs, SiFlutter, SiDart, SiFirebase, SiPostgresql, SiJavascript, SiExpress } from "react-icons/si"
 
 export default function ResumeSection() {
   return (
-    <section id="resume" className="site-background py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="resume" className="site-background py-20 relative overflow-hidden">
+      <Spotlight />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

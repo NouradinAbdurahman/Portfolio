@@ -18,12 +18,12 @@ export default function ProjectsPage() {
   const [visibleCount, setVisibleCount] = useState(4)
 
   return (
-    <div className="min-h-screen dark:dark-gradient-bg light:light-gradient-bg dark:text-white light:text-foreground">
+    <div className="min-h-screen dark:text-white light:text-foreground">
       {/* Navigation */}
       <Navbar basePath="/" />
 
       {/* Content */}
-      <section className="site-background pt-28 pb-20">
+      <section className="dark:bg-[#060010] bg-gray-50 pt-28 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="text-center mb-12">
             <h1 className="text-4xl font-bold mb-2 text-foreground">All Projects</h1>
