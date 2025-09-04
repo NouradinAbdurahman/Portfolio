@@ -35,3 +35,7 @@ next-env.d.ts
 ehthumbs.db
 Thumbs.db
 
+# macOS folders
+**/.DS_Store
+**/._*
+
