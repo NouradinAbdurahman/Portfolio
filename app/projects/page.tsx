@@ -9,6 +9,7 @@ import { useTheme } from "next-themes"
 import { Github, ExternalLink, Eye, Cloud, Smartphone, Database, Code, ChevronDown, ArrowLeft } from "lucide-react"
 import { FaReact } from "react-icons/fa"
 import { SiTypescript, SiNextdotjs, SiPostgresql, SiFlutter, SiDart, SiFirebase } from "react-icons/si"
+import { Spotlight } from "@/components/ui/spotlight-new"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import Loading from "@/components/loading"
@@ -18,13 +19,14 @@ export default function ProjectsPage() {
   const [visibleCount, setVisibleCount] = useState(4)
 
   return (
-    <div className="min-h-screen dark:text-white light:text-foreground">
+    <div className="min-h-screen dark:bg-[#060010] bg-gray-50 dark:text-white light:text-foreground">
       {/* Navigation */}
       <Navbar basePath="/" />
 
       {/* Content */}
-      <section className="dark:bg-[#060010] bg-gray-50 pt-28 pb-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="dark:bg-[#060010] bg-gray-50 pt-28 pb-20 relative overflow-hidden">
+        <Spotlight />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="text-center mb-12">
             <h1 className="text-4xl font-bold mb-2 text-foreground">All Projects</h1>
             <p className="text-muted-foreground">Explore additional projects beyond the featured ones.</p>
@@ -34,7 +36,7 @@ export default function ProjectsPage() {
             const allCards = [
             (
             <motion.div key="github-analyzer" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }} viewport={{ once: true }}>
-              <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-500 border-primary/20 hover:border-primary/40">
+              <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-500 border-primary/20 hover:border-primary/40 dark:bg-[#030C24] bg-gray-100">
                 <div className="relative w-full aspect-video">
                   <Image src="/projects/GitHubProfileAnalyzer.png" alt="GitHub Profile Analyzer" fill sizes="(max-width: 768px) 100vw, 50vw" priority className="object-cover" />
                   {/* Desktop hover overlay */}
@@ -80,7 +82,7 @@ export default function ProjectsPage() {
             ),
             (
             <motion.div key="intellistudy" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} viewport={{ once: true }}>
-              <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-500 border-primary/20 hover:border-primary/40">
+              <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-500 border-primary/20 hover:border-primary/40 dark:bg-[#030C24] bg-gray-100">
                 <div className="relative w-full aspect-video">
                   <Image src="/projects/IntelliStudy.png" alt="IntelliStudy" fill sizes="(max-width: 768px) 100vw, 50vw" priority className="object-cover" />
                   {/* Desktop hover overlay */}
@@ -126,7 +128,7 @@ export default function ProjectsPage() {
             ),
             (
             <motion.div key="ohay" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }} viewport={{ once: true }}>
-              <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-500 border-primary/20 hover:border-primary/40">
+              <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-500 border-primary/20 hover:border-primary/40 dark:bg-[#030C24] bg-gray-100">
                 <div className="relative w-full aspect-video">
                   <Image src="/projects/ohay.png" alt="Ohay App" fill sizes="(max-width: 768px) 100vw, 50vw" priority className="object-cover" />
                   {/* Desktop hover overlay */}
@@ -172,7 +174,7 @@ export default function ProjectsPage() {
             ),
             (
             <motion.div key="viaggi" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.4 }} viewport={{ once: true }}>
-              <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-500 border-primary/20 hover:border-primary/40">
+              <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-500 border-primary/20 hover:border-primary/40 dark:bg-[#030C24] bg-gray-100">
                 <div className="relative w-full aspect-video">
                   <Image src="/projects/viaggi-qatar.png" alt="Viaggi del Qatar Tour Booking System" fill sizes="(max-width: 768px) 100vw, 50vw" priority className="object-cover" />
                   {/* Desktop hover overlay */}

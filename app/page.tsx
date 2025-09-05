@@ -551,7 +551,7 @@ export default function Portfolio() {
               transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-500 border-primary/20 hover:border-primary/40">
+              <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-500 border-primary/20 hover:border-primary/40 dark:bg-[#030C24] bg-gray-100">
                 <div className="relative w-full aspect-video">
                   <Image
                     src="/projects/GitHubProfileAnalyzer.png"
@@ -640,7 +640,7 @@ export default function Portfolio() {
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-500 border-primary/20 hover:border-primary/40">
+              <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-500 border-primary/20 hover:border-primary/40 dark:bg-[#030C24] bg-gray-100">
                 <div className="relative w-full aspect-video">
                   <Image
                     src="/projects/IntelliStudy.png"
@@ -729,7 +729,7 @@ export default function Portfolio() {
               transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
             >
-              <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-500 border-primary/20 hover:border-primary/40">
+              <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-500 border-primary/20 hover:border-primary/40 dark:bg-[#030C24] bg-gray-100">
                 <div className="relative w-full aspect-video">
                   <Image
                     src="/projects/ohay.png"
@@ -831,7 +831,7 @@ export default function Portfolio() {
               transition={{ duration: 0.6, delay: 0.4 }}
               viewport={{ once: true }}
             >
-              <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-500 border-primary/20 hover:border-primary/40">
+              <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-500 border-primary/20 hover:border-primary/40 dark:bg-[#030C24] bg-gray-100">
                 <div className="relative w-full aspect-video">
                   <Image
                     src="/projects/viaggi-qatar.png"
