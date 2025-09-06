@@ -21,13 +21,13 @@ export default function ResumeSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4 text-foreground">Resume</h2>
+          <h2 className="text-4xl font-bold mb-4 dark:text-white text-black">Resume</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
             My professional journey and technical expertise
           </p>
           <Button 
             size="lg" 
-            className="group neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/90 cursor-pointer"
+            className="group neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 cursor-pointer"
             onClick={() => window.open('/resume/nouraddin-resume.pdf', '_blank')}
           >
             <Download className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
@@ -45,16 +45,16 @@ export default function ResumeSection() {
             className="space-y-8"
           >
             <div>
-              <h3 className="text-2xl font-bold text-foreground mb-6 flex items-center">
+              <h3 className="text-2xl font-bold dark:text-white text-black mb-6 flex items-center">
                 <GraduationCap className="w-6 h-6 mr-3 text-primary" />
                 Education
               </h3>
-              <Card className="p-6">
+              <Card className="p-6 bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 cursor-pointer">
                 <div className="space-y-4">
                   <div className="flex items-start space-x-4">
                     <div className="w-3 h-3 bg-primary rounded-full mt-2 flex-shrink-0"></div>
                     <div>
-                      <h4 className="font-semibold text-foreground">Bachelor of Engineering - BE, Software Engineering</h4>
+                      <h4 className="font-semibold dark:text-white text-black">Bachelor of Engineering - BE, Software Engineering</h4>
                       <p className="text-accent font-medium">OSTİM Teknik Üniversitesi</p>
                       <p className="text-sm text-muted-foreground flex items-center mt-1">
                         <Calendar className="w-4 h-4 mr-1" />
@@ -68,7 +68,7 @@ export default function ResumeSection() {
                   <div className="flex items-start space-x-4">
                     <div className="w-3 h-3 bg-accent rounded-full mt-2 flex-shrink-0"></div>
                     <div>
-                      <h4 className="font-semibold text-foreground">High School Diploma, Information Technology - Engineering</h4>
+                      <h4 className="font-semibold dark:text-white text-black">High School Diploma, Information Technology - Engineering</h4>
                       <p className="text-accent font-medium">Omar bin Abdul Aziz Secondary Independent School for Boys</p>
                       <p className="text-sm text-muted-foreground flex items-center mt-1">
                         <Calendar className="w-4 h-4 mr-1" />
@@ -84,30 +84,30 @@ export default function ResumeSection() {
             </div>
 
             <div>
-              <h3 className="text-2xl font-bold text-foreground mb-6 flex items-center">
+              <h3 className="text-2xl font-bold dark:text-white text-black mb-6 flex items-center">
                 <Award className="w-6 h-6 mr-3 text-accent" />
                 Certifications
               </h3>
-              <Card className="p-6">
+              <Card className="p-6 bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 cursor-pointer">
                 <div className="space-y-4">
                   <div className="flex items-start space-x-4">
                     <div className="w-3 h-3 bg-accent rounded-full mt-2 flex-shrink-0"></div>
                     <div>
-                      <h4 className="font-semibold text-foreground">Associate Data Engineer in SQL</h4>
+                      <h4 className="font-semibold dark:text-white text-black">Associate Data Engineer in SQL</h4>
                       <p className="text-sm text-muted-foreground">DataCamp • Jan 2025</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
                     <div className="w-3 h-3 bg-primary rounded-full mt-2 flex-shrink-0"></div>
                     <div>
-                      <h4 className="font-semibold text-foreground">Data Scientist in Python</h4>
+                      <h4 className="font-semibold dark:text-white text-black">Data Scientist in Python</h4>
                       <p className="text-sm text-muted-foreground">DataCamp • Jun 2024</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
                     <div className="w-3 h-3 bg-accent rounded-full mt-2 flex-shrink-0"></div>
                     <div>
-                      <h4 className="font-semibold text-foreground">Data Analyst in SQL</h4>
+                      <h4 className="font-semibold dark:text-white text-black">Data Analyst in SQL</h4>
                       <p className="text-sm text-muted-foreground">DataCamp • Jan 2024</p>
                     </div>
                   </div>
@@ -125,16 +125,16 @@ export default function ResumeSection() {
             className="space-y-8"
           >
             <div>
-              <h3 className="text-2xl font-bold text-foreground mb-6 flex items-center">
+              <h3 className="text-2xl font-bold dark:text-white text-black mb-6 flex items-center">
                 <Briefcase className="w-6 h-6 mr-3 text-primary" />
                 Experience
               </h3>
-              <Card className="p-6">
+              <Card className="p-6 bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 cursor-pointer">
                 <div className="space-y-6">
                   <div className="flex items-start space-x-4">
                     <div className="w-3 h-3 bg-primary rounded-full mt-2 flex-shrink-0"></div>
                     <div>
-                      <h4 className="font-semibold text-foreground">Full-stack Developer</h4>
+                      <h4 className="font-semibold dark:text-white text-black">Full-stack Developer</h4>
                       <p className="text-accent font-medium">DAKAEI AI • Full-time</p>
                       <p className="text-sm text-muted-foreground flex items-center mt-1">
                         <Calendar className="w-4 h-4 mr-1" />
@@ -151,7 +151,7 @@ export default function ResumeSection() {
                   <div className="flex items-start space-x-4">
                     <div className="w-3 h-3 bg-accent rounded-full mt-2 flex-shrink-0"></div>
                     <div>
-                      <h4 className="font-semibold text-foreground">Freelance Full-Stack Developer</h4>
+                      <h4 className="font-semibold dark:text-white text-black">Freelance Full-Stack Developer</h4>
                       <p className="text-accent font-medium">Self-Employed</p>
                       <p className="text-sm text-muted-foreground flex items-center mt-1">
                         <Calendar className="w-4 h-4 mr-1" />
@@ -168,46 +168,46 @@ export default function ResumeSection() {
             </div>
 
             <div>
-              <h3 className="text-2xl font-bold text-foreground mb-6 flex items-center">
+              <h3 className="text-2xl font-bold dark:text-white text-black mb-6 flex items-center">
                 <Code className="w-6 h-6 mr-3 text-accent" />
                 Technical Skills
               </h3>
-              <Card className="p-6">
+              <Card className="p-6 bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 cursor-pointer">
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-foreground mb-3">Programming Languages</h4>
+                    <h4 className="font-semibold dark:text-white text-black mb-3">Programming Languages</h4>
                     <div className="flex flex-wrap gap-2">
                       <Badge
                         variant="secondary"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform"
+                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
                       >
                         <SiJavascript className="w-3 h-3" />
                         JavaScript
                       </Badge>
                       <Badge
                         variant="secondary"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform"
+                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
                       >
                         <SiTypescript className="w-3 h-3 text-blue-500" />
                         TypeScript
                       </Badge>
                       <Badge
                         variant="secondary"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform"
+                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
                       >
                         <FaPython className="w-3 h-3 text-yellow-400" />
                         Python
                       </Badge>
                       <Badge
                         variant="secondary"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform"
+                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
                       >
                         <SiDart className="w-3 h-3 text-blue-400" />
                         Dart
                       </Badge>
                       <Badge
                         variant="secondary"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform"
+                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
                       >
                         <Database className="w-3 h-3" />
                         SQL
@@ -215,39 +215,39 @@ export default function ResumeSection() {
                     </div>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-foreground mb-3">Frameworks & Libraries</h4>
+                    <h4 className="font-semibold dark:text-white text-black mb-3">Frameworks & Libraries</h4>
                     <div className="flex flex-wrap gap-2">
                       <Badge
                         variant="outline"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform"
+                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
                       >
                         <FaReact className="w-3 h-3 text-cyan-400" />
                         React
                       </Badge>
                       <Badge
                         variant="outline"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform"
+                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
                       >
                         <SiNextdotjs className="w-3 h-3 text-black dark:text-white" />
                         Next.js
                       </Badge>
                       <Badge
                         variant="outline"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform"
+                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
                       >
                         <SiFlutter className="w-3 h-3 text-blue-500" />
                         Flutter
                       </Badge>
                       <Badge
                         variant="outline"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform"
+                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
                       >
                         <FaNodeJs className="w-3 h-3 text-green-500" />
                         Node.js
                       </Badge>
                       <Badge
                         variant="outline"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform"
+                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
                       >
                         <SiExpress className="w-3 h-3" />
                         Express
@@ -255,39 +255,39 @@ export default function ResumeSection() {
                     </div>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-foreground mb-3">Cloud & Tools</h4>
+                    <h4 className="font-semibold dark:text-white text-black mb-3">Cloud & Tools</h4>
                     <div className="flex flex-wrap gap-2">
                       <Badge
                         variant="secondary"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform"
+                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
                       >
                         <FaAws className="w-3 h-3 text-orange-400" />
                         AWS
                       </Badge>
                       <Badge
                         variant="secondary"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform"
+                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
                       >
                         <SiFirebase className="w-3 h-3 text-orange-500" />
                         Firebase
                       </Badge>
                       <Badge
                         variant="secondary"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform"
+                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
                       >
                         <FaDocker className="w-3 h-3 text-blue-500" />
                         Docker
                       </Badge>
                       <Badge
                         variant="secondary"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform"
+                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
                       >
                         <FaGitAlt className="w-3 h-3 text-orange-500" />
                         Git
                       </Badge>
                       <Badge
                         variant="secondary"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform"
+                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
                       >
                         <SiPostgresql className="w-3 h-3 text-blue-600" />
                         PostgreSQL

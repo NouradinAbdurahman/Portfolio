@@ -82,7 +82,7 @@ export default function ContactForm() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4 text-foreground">Get In Touch</h2>
+          <h2 className="text-4xl font-bold mb-4 dark:text-white text-black">Get In Touch</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Let's discuss your next project or collaboration opportunity
           </p>
@@ -98,7 +98,7 @@ export default function ContactForm() {
             className="space-y-8"
           >
             <div>
-              <h3 className="text-2xl font-bold text-foreground mb-6">Let's Connect</h3>
+              <h3 className="text-2xl font-bold dark:text-white text-black mb-6">Let's Connect</h3>
               <p className="text-muted-foreground leading-relaxed mb-8">
                 I'm always interested in new opportunities, challenging projects, and meaningful collaborations.
                 Whether you have a specific project in mind or just want to explore possibilities, I'd love to hear
@@ -109,39 +109,39 @@ export default function ContactForm() {
             <div className="space-y-6">
               <motion.div
                 whileHover={{ x: 5 }}
-                className="flex items-center space-x-4 p-4 rounded-lg hover:bg-muted/50 transition-colors"
+                className="flex items-center space-x-4 p-4 rounded-lg"
               >
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
                   <Mail className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <div className="font-semibold text-foreground">Email</div>
+                  <div className="font-semibold dark:text-white text-black">Email</div>
                   <div className="text-muted-foreground">n.aden1208@gmail.com</div>
                 </div>
               </motion.div>
 
               <motion.div
                 whileHover={{ x: 5 }}
-                className="flex items-center space-x-4 p-4 rounded-lg hover:bg-muted/50 transition-colors"
+                className="flex items-center space-x-4 p-4 rounded-lg"
               >
                 <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center">
                   <Phone className="w-6 h-6 text-accent" />
                 </div>
                 <div>
-                  <div className="font-semibold text-foreground">Phone</div>
+                  <div className="font-semibold dark:text-white text-black">Phone</div>
                   <div className="text-muted-foreground">+90 552 875 97 71</div>
                 </div>
               </motion.div>
 
               <motion.div
                 whileHover={{ x: 5 }}
-                className="flex items-center space-x-4 p-4 rounded-lg hover:bg-muted/50 transition-colors"
+                className="flex items-center space-x-4 p-4 rounded-lg"
               >
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
                   <MapPin className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <div className="font-semibold text-foreground">Location</div>
+                  <div className="font-semibold dark:text-white text-black">Location</div>
                   <div className="text-muted-foreground">Ankara, Turkey</div>
                 </div>
               </motion.div>
@@ -153,7 +153,7 @@ export default function ContactForm() {
                 href="https://github.com/NouradinAbdurahman"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors"
+                className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary"
               >
                 <Github className="w-5 h-5" />
               </motion.a>
@@ -162,7 +162,7 @@ export default function ContactForm() {
                 href="https://linkedin.com/in/nouraddin"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center text-accent hover:bg-accent hover:text-white transition-colors"
+                className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center text-accent"
               >
                 <Linkedin className="w-5 h-5" />
               </motion.a>
@@ -171,7 +171,7 @@ export default function ContactForm() {
                 href="https://instagram.com/nouradiin_"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center text-accent hover:bg-accent hover:text-white transition-colors"
+                className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center text-accent"
               >
                 <FaInstagram className="w-5 h-5" />
               </motion.a>
@@ -185,11 +185,11 @@ export default function ContactForm() {
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <Card className="p-8 shadow-xl">
+            <Card className="p-8 shadow-xl bg-transparent border-gray-300 dark:border-white/20">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="firstName" className="text-sm font-medium text-foreground">
+                    <Label htmlFor="firstName" className="text-sm font-medium dark:text-white text-black">
                       First Name
                     </Label>
                     <Input
@@ -202,7 +202,7 @@ export default function ContactForm() {
                     {errors.firstName && <p className="text-sm text-red-500">{errors.firstName}</p>}
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="lastName" className="text-sm font-medium text-foreground">
+                    <Label htmlFor="lastName" className="text-sm font-medium dark:text-white text-black">
                       Last Name
                     </Label>
                     <Input
@@ -217,7 +217,7 @@ export default function ContactForm() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="email" className="text-sm font-medium text-foreground">
+                  <Label htmlFor="email" className="text-sm font-medium dark:text-white text-black">
                     Email Address
                   </Label>
                   <Input
@@ -232,7 +232,7 @@ export default function ContactForm() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="subject" className="text-sm font-medium text-foreground">
+                  <Label htmlFor="subject" className="text-sm font-medium dark:text-white text-black">
                     Subject
                   </Label>
                   <Input
@@ -246,7 +246,7 @@ export default function ContactForm() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="message" className="text-sm font-medium text-foreground">
+                  <Label htmlFor="message" className="text-sm font-medium dark:text-white text-black">
                     Message
                   </Label>
                   <Textarea

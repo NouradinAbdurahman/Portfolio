@@ -21,24 +21,24 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #ffffff; /* Pure white background */
-  --foreground: #1f2937; /* Gray-800 for main text */
-  --card: #f1f5f9; /* Light gray card background */
-  --card-foreground: #1f2937; /* Gray-800 for card text */
-  --popover: #ffffff; /* White popover background */
-  --popover-foreground: #1f2937; /* Gray-800 for popover text */
+  --background: #060010; /* Dark background */
+  --foreground: #ffffff; /* White text for dark background */
+  --card: #1e293b; /* Dark card background */
+  --card-foreground: #ffffff; /* White text for dark background */
+  --popover: #1e293b; /* Dark popover background */
+  --popover-foreground: #ffffff; /* White text for dark background */
   --primary: #8b5cf6; /* Purple primary color for CTAs */
   --primary-foreground: #ffffff; /* White text on primary */
   --secondary: #6b7280; /* Gray-600 for secondary elements */
   --secondary-foreground: #ffffff; /* White text on secondary */
-  --muted: #f1f5f9; /* Light gray for muted sections */
-  --muted-foreground: #6b7280; /* Gray-600 for muted text */
+  --muted: #334155; /* Dark muted background */
+  --muted-foreground: #94a3b8; /* Light muted text */
   --accent: #8b5cf6; /* Purple accent color */
   --accent-foreground: #ffffff; /* White text on accent */
   --destructive: #be123c; /* Red for destructive actions */
   --destructive-foreground: #ffffff; /* White text on destructive */
   --border: #e5e7eb; /* Light gray borders */
-  --input: #f1f5f9; /* Light gray input background */
+  --input: #e5e7eb; /* Light gray input background */
   --ring: rgba(139, 92, 246, 0.5); /* Purple focus ring */
   --chart-1: #8b5cf6; /* Purple for charts */
   --chart-2: #ea580c; /* Orange for charts */
@@ -57,7 +57,7 @@
 }
 
 .dark {
-  --background: #0f172a; /* Dark slate background */
+  --background: #060010; /* Dark background */
   --foreground: #f8fafc; /* Light text */
   --card: #1e293b; /* Dark slate card */
   --card-foreground: #f8fafc; /* Light card text */
@@ -251,4 +251,101 @@
 .light #contact,
 .light #resume {
   background: linear-gradient(135deg, #f9fafb 0%, #f9fafb 100%);
+}
+
+/* 3D Card Animations */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-gpu {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Image Protection */
+img {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
+}
+
+/* Prevent image saving via CSS */
+img::selection {
+  background: transparent;
+}
+
+img::-moz-selection {
+  background: transparent;
+}
+
+/* Additional protection for profile image */
+.profile-image {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+
+/* Glowing tooltip animations */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 
+      0 0 5px rgba(139, 92, 246, 0.4),
+      0 0 10px rgba(139, 92, 246, 0.3),
+      0 0 15px rgba(139, 92, 246, 0.2),
+      0 0 20px rgba(139, 92, 246, 0.1);
+    border-color: rgba(139, 92, 246, 0.5);
+  }
+  50% {
+    box-shadow: 
+      0 0 10px rgba(139, 92, 246, 0.6),
+      0 0 20px rgba(139, 92, 246, 0.4),
+      0 0 30px rgba(139, 92, 246, 0.3),
+      0 0 40px rgba(139, 92, 246, 0.2);
+    border-color: rgba(139, 92, 246, 0.8);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    transform: scale(1);
+    filter: brightness(1);
+    box-shadow: 
+      0 0 10px rgba(139, 92, 246, 0.6),
+      0 0 20px rgba(139, 92, 246, 0.4),
+      0 0 30px rgba(139, 92, 246, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    filter: brightness(1.2);
+    box-shadow: 
+      0 0 15px rgba(139, 92, 246, 0.8),
+      0 0 30px rgba(139, 92, 246, 0.6),
+      0 0 45px rgba(139, 92, 246, 0.4);
+  }
+}
+
+.tooltip-glow {
+  animation: glow 2s ease-in-out infinite;
+  border: 2px solid rgba(139, 92, 246, 0.5);
+}
+
+.tooltip-pulse {
+  animation: pulse-glow 1.5s ease-in-out infinite;
 }

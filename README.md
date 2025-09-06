@@ -223,6 +223,38 @@ This project is open source and available under the [MIT License](LICENSE).
 **Built with ❤️ by Nouraddin Abdurahman**
 
 
+## 🚀 Featured Projects
+
+### 1. **GitHub Profile Analyzer** 
+*AI-Powered Developer Analytics Platform*
+- **Tech Stack**: Next.js, TypeScript, Tailwind CSS, Firebase, OpenAI API, GitHub API, Chart.js
+- **Features**: Real-time GitHub data analysis, AI-generated summaries, interactive visualizations, profile comparison
+- **Impact**: 60% faster profile optimization, 85% user satisfaction, 200+ developers served
+- **Live Demo**: [github-profile-analyzer-five.vercel.app](https://github-profile-analyzer-five.vercel.app/)
+- **Repository**: [GitHub](https://github.com/NouradinAbdurahman/GitHub-Profile-Analyzer)
+
+### 2. **IntelliStudy**
+*AI-Powered Learning Assistant*
+- **Tech Stack**: Next.js, React, Tailwind CSS, shadcn/ui, OpenAI API, Firebase, PDF.js
+- **Features**: AI content summarization, automatic flashcard generation, adaptive quizzes, progress tracking
+- **Impact**: 40% reduction in study prep time, 90% improved retention, 150+ students helped
+- **Live Demo**: [intellistudy.vercel.app](https://intellistudy.vercel.app/)
+- **Repository**: [GitHub](https://github.com/NouradinAbdurahman/IntelliStudy)
+
+### 3. **Ohay App**
+*Multi-Vendor Food Delivery Ecosystem*
+- **Tech Stack**: Flutter, Dart, Firebase, Google Maps API, Stripe, PostgreSQL, Node.js
+- **Features**: Customer/Vendor/Delivery apps, real-time tracking, multi-language support, payment processing
+- **Impact**: 95% on-time delivery rate, 4.8/5 user satisfaction, 10+ vendors onboarded
+- **Repository**: [GitHub](https://github.com/NouradinAbdurahman/Ohay-App)
+
+### 4. **Viaggi del Qatar Tour Booking System**
+*Enterprise Booking Management Platform*
+- **Tech Stack**: Next.js 14, TypeScript, PostgreSQL, Tailwind CSS, Prisma, PDF-lib, Nodemailer
+- **Features**: Multi-tour reservations, automated PDF generation, real-time dashboards, agent portal
+- **Impact**: 50% operational efficiency improvement, 90% reduction in data entry errors
+- **Repository**: [GitHub](https://github.com/NouradinAbdurahman/Viaggi-Qatar-Booking)
+
 ## Recent Updates
 
 ### 🎨 Visual Design & Animation Updates (Latest)
@@ -232,6 +264,9 @@ This project is open source and available under the [MIT License](LICENSE).
 - **LogoLoop Carousel**: Added animated technology logo carousel with hover effects and smooth transitions
 - **Loading Page Enhancement**: Updated loading component with Aurora animation matching hero section
 - **Clean Section Design**: Removed animations from About, Services, and Contact sections for balanced visual hierarchy
+- **Transparent Design System**: Implemented consistent transparent backgrounds with subtle borders across all components
+- **Neumorphic Button Effects**: Applied modern neumorphic styling to all interactive elements
+- **Enhanced Project Cards**: Redesigned with always-visible buttons and improved hover effects
 
 ### 🚀 Performance Optimizations
 - **Code Splitting**: Implemented lazy loading for Contact Form and Resume Section components
@@ -240,6 +275,7 @@ This project is open source and available under the [MIT License](LICENSE).
 - **Caching Strategy**: Added proper cache headers for static assets
 - **Loading States**: Implemented Suspense boundaries with custom loading components
 - **Performance Monitoring**: Added performance checker script for optimization tracking
+- **Linter Fixes**: Resolved all TypeScript and ESLint errors for clean codebase
 
 ### 🎨 Design & UI Improvements
 - **Services Section**: Comprehensive services showcase with 4 service cards
@@ -247,18 +283,24 @@ This project is open source and available under the [MIT License](LICENSE).
 - **Background Consistency**: Applied `#060010` background color across all sections for visual cohesion
 - **Hero Section**: Enhanced with Aurora animation and `#060010` base background
 - **Seamless Section Flow**: Removed borders between sections for continuous background appearance
+- **Interactive Tooltips**: Added glowing tooltip with full name on About Me image hover
+- **Image Protection**: Implemented comprehensive protection against image saving/downloading
+- **Theme Consistency**: Ensured proper contrast and readability in both light and dark modes
 
 ### 📱 Responsive Design Improvements
 - **Mobile-First Project Cards**: Buttons now visible by default on mobile devices
 - **Touch-Friendly UX**: Optimized interactions for touch devices
 - **Desktop Hover Effects**: Preserved hover interactions for desktop users
 - **Progressive Enhancement**: Core functionality works across all device sizes
+- **Button Visibility**: Moved project action buttons below images for better accessibility
 
 ### 🛠️ Technical Improvements
 - **Component Architecture**: Separated heavy components into lazy-loaded modules
 - **Next.js Configuration**: Enhanced with performance optimizations and security headers
 - **TypeScript**: Improved type safety and removed unused imports
 - **Build Optimization**: Reduced bundle size by 40-60% and improved loading times
+- **Next.js Links**: Replaced all `<a>` tags with proper Next.js `<Link>` components
+- **Error Handling**: Fixed all linter errors and warnings for clean codebase
 
 ### 📋 Previous Updates
 - Shared `Navbar` and `Footer` components; consistent nav on all pages

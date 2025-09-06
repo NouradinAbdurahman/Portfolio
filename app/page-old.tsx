@@ -3,9 +3,9 @@
 import type React from "react"
 import { useState, Suspense, lazy } from "react"
 import { motion } from "framer-motion"
-import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
+import Link from "next/link"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
@@ -22,17 +22,12 @@ import {
   Github,
   ExternalLink,
   Eye,
-  Sun,
-  Moon,
   MapPin,
   Phone,
   Calendar,
   Award,
   Briefcase,
   GraduationCap,
-  Menu,
-  X,
-  User,
   Loader2,
   Send,
   Check,
@@ -47,14 +42,11 @@ import {
   SiDart,
   SiFirebase,
   SiPostgresql,
-  SiChartdotjs,
-  SiStripe,
   SiJavascript,
   SiExpress,
 } from "react-icons/si"
 
 import Navbar from "@/components/navbar"
-import Footer from "@/components/footer"
 import Loading from "@/components/loading"
 import { z } from "zod"
 import { useToast } from "@/hooks/use-toast"
@@ -64,8 +56,6 @@ const ContactForm = lazy(() => import("@/components/contact-form"))
 const ResumeSection = lazy(() => import("@/components/resume-section"))
 
 export default function Portfolio() {
-  const { theme, setTheme } = useTheme()
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitState, setSubmitState] = useState<"idle" | "success" | "error">("idle")
   const { toast } = useToast()
@@ -98,7 +88,7 @@ export default function Portfolio() {
         const k = issue.path[0] as string
         if (!fieldErrors[k]) fieldErrors[k] = issue.message
       }
-      setErrors(fieldErrors as any)
+      setErrors(fieldErrors as Partial<Record<keyof z.infer<typeof ContactSchema>, string>>)
       setSubmitState("error")
       toast({ title: "Invalid form", description: "Please correct highlighted fields.", variant: "destructive" })
       return
@@ -116,7 +106,7 @@ export default function Portfolio() {
       form.reset()
       setSubmitState("success")
       toast({ title: "Message sent", description: "Thanks! I will get back to you soon." })
-    } catch (err) {
+    } catch {
       setSubmitState("error")
       toast({ title: "Send failed", description: "Something went wrong. Try again.", variant: "destructive" })
     } finally {
@@ -608,7 +598,7 @@ export default function Portfolio() {
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                     <div className="flex space-x-4">
-                      <a href="/projects/github-profile-analyzer">
+                      <Link href="/projects/github-profile-analyzer">
                       <Button
                         size="sm"
                         variant="secondary"
@@ -617,7 +607,7 @@ export default function Portfolio() {
                         <Eye className="w-4 h-4 mr-2" />
                         Details
                       </Button>
-                      </a>
+                      </Link>
                       <a href="https://github-profile-analyzer-five.vercel.app/" target="_blank" rel="noopener noreferrer">
                         <Button size="sm" className="bg-primary hover:bg-primary/90 shadow-lg cursor-pointer">
                         <ExternalLink className="w-4 h-4 mr-2" />
@@ -675,7 +665,7 @@ export default function Portfolio() {
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                     <div className="flex space-x-4">
-                      <a href="/projects/intellistudy">
+                      <Link href="/projects/intellistudy">
                       <Button
                         size="sm"
                         variant="secondary"
@@ -684,7 +674,7 @@ export default function Portfolio() {
                         <Eye className="w-4 h-4 mr-2" />
                         Details
                       </Button>
-                      </a>
+                      </Link>
                       <a href="https://intellistudy.vercel.app/" target="_blank" rel="noopener noreferrer">
                         <Button size="sm" className="bg-primary hover:bg-primary/90 shadow-lg cursor-pointer">
                         <ExternalLink className="w-4 h-4 mr-2" />
@@ -741,7 +731,7 @@ export default function Portfolio() {
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                     <div className="flex space-x-4">
-                      <a href="/projects/ohay">
+                      <Link href="/projects/ohay">
                       <Button
                         size="sm"
                         variant="secondary"
@@ -750,7 +740,7 @@ export default function Portfolio() {
                         <Eye className="w-4 h-4 mr-2" />
                         Details
                       </Button>
-                      </a>
+                      </Link>
                       <a href="https://admincontrol.ohayapp.com/" target="_blank" rel="noopener noreferrer">
                         <Button size="sm" className="bg-primary hover:bg-primary/90 shadow-lg cursor-pointer">
                         <ExternalLink className="w-4 h-4 mr-2" />
@@ -821,7 +811,7 @@ export default function Portfolio() {
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                     <div className="flex space-x-4">
-                      <a href="/projects/viaggi-qatar-booking">
+                      <Link href="/projects/viaggi-qatar-booking">
                         <Button
                           size="sm"
                           variant="secondary"
@@ -830,7 +820,7 @@ export default function Portfolio() {
                           <Eye className="w-4 h-4 mr-2" />
                           Details
                         </Button>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -881,12 +871,12 @@ export default function Portfolio() {
             viewport={{ once: true }}
             className="text-center mt-12"
           >
-            <a href="/projects">
+            <Link href="/projects">
               <Button size="lg" variant="outline" className="group bg-transparent cursor-pointer">
               View All Projects
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
-            </a>
+            </Link>
           </motion.div>
         </div>
       </section>
@@ -913,7 +903,7 @@ export default function Portfolio() {
           >
             <h2 className="text-4xl font-bold mb-4 text-foreground">Get In Touch</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Let's discuss your next project or collaboration opportunity
+              Let&apos;s discuss your next project or collaboration opportunity
             </p>
           </motion.div>
 
@@ -927,10 +917,10 @@ export default function Portfolio() {
               className="space-y-8"
             >
               <div>
-                <h3 className="text-2xl font-bold text-foreground mb-6">Let's Connect</h3>
+                <h3 className="text-2xl font-bold text-foreground mb-6">Let&apos;s Connect</h3>
                 <p className="text-muted-foreground leading-relaxed mb-8">
-                  I'm always interested in new opportunities, challenging projects, and meaningful collaborations.
-                  Whether you have a specific project in mind or just want to explore possibilities, I'd love to hear
+                  I&apos;m always interested in new opportunities, challenging projects, and meaningful collaborations.
+                  Whether you have a specific project in mind or just want to explore possibilities, I&apos;d love to hear
                   from you.
                 </p>
               </div>
