@@ -91,29 +91,29 @@ Reply directly to this email or visit: https://nouradin.com`
           
           <table style="width: 100%; margin-bottom: 30px; border-collapse: collapse;">
             <tr>
-              <td style="padding: 15px; border: 1px solid #dddddd; background-color: #f9f9f9; font-weight: bold; width: 30%;">Name:</td>
-              <td style="padding: 15px; border: 1px solid #dddddd;">${safe.firstName} ${safe.lastName}</td>
+              <td style="padding: 15px; background-color: #f9f9f9; font-weight: bold; width: 30%;">Name:</td>
+              <td style="padding: 15px;">${safe.firstName} ${safe.lastName}</td>
             </tr>
             <tr>
-              <td style="padding: 15px; border: 1px solid #dddddd; background-color: #f9f9f9; font-weight: bold;">Email:</td>
-              <td style="padding: 15px; border: 1px solid #dddddd;"><a href="mailto:${safe.email}" style="color: #0066cc; text-decoration: none;">${safe.email}</a></td>
+              <td style="padding: 15px; background-color: #f9f9f9; font-weight: bold;">Email:</td>
+              <td style="padding: 15px;"><a href="mailto:${safe.email}" style="color: #0066cc; text-decoration: none;">${safe.email}</a></td>
             </tr>
             <tr>
-              <td style="padding: 15px; border: 1px solid #dddddd; background-color: #f9f9f9; font-weight: bold;">Subject:</td>
-              <td style="padding: 15px; border: 1px solid #dddddd;">${safe.subject}</td>
+              <td style="padding: 15px; background-color: #f9f9f9; font-weight: bold;">Subject:</td>
+              <td style="padding: 15px;">${safe.subject}</td>
             </tr>
           </table>
           
           <!-- Message -->
           <h3 style="margin: 0 0 15px 0; font-size: 18px; color: #333333;">Message:</h3>
-          <div style="background-color: #f9f9f9; border: 1px solid #dddddd; padding: 20px; margin-bottom: 30px;">
+          <div style="background-color: #f9f9f9; padding: 20px; margin-bottom: 30px;">
             <p style="margin: 0; line-height: 1.6; white-space: pre-wrap;">${safe.message}</p>
           </div>
           
           <!-- Action Buttons -->
           <div style="text-align: center; margin-bottom: 30px;">
-            <a href="mailto:${safe.email}?subject=Re: ${safe.subject}&body=Hi ${safe.firstName},%0D%0A%0D%0AThank you for reaching out through my portfolio contact form.%0D%0A%0D%0ABest regards,%0D%0ANouraddin" style="display: inline-block; background-color: #333333; color: #ffffff; text-decoration: none; padding: 12px 24px; margin: 0 10px; border-radius: 4px; font-weight: bold;">Reply via Email</a>
-            <a href="https://nouradin.com" style="display: inline-block; background-color: #ffffff; color: #333333; text-decoration: none; padding: 12px 24px; margin: 0 10px; border: 2px solid #333333; border-radius: 4px; font-weight: bold;">View Portfolio</a>
+            <a href="mailto:${safe.email}?subject=Re: ${safe.subject}&body=Hi ${safe.firstName},%0D%0A%0D%0AThank you for reaching out through my portfolio contact form.%0D%0A%0D%0ABest regards,%0D%0ANouraddin" style="display: inline-block; background-color: #333333; color: #ffffff; text-decoration: none; padding: 12px 24px; margin: 0 20px; border-radius: 4px; font-weight: bold;">Reply via Email</a>
+            <a href="https://nouradin.com" style="display: inline-block; background-color: #ffffff; color: #333333; text-decoration: none; padding: 12px 24px; margin: 0 20px; border: 2px solid #333333; border-radius: 4px; font-weight: bold;">View Portfolio</a>
           </div>
           
         </div>
