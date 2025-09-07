@@ -33,7 +33,7 @@ function HeroSection({ className }: HeroSectionProps) {
             transition={{ duration: 0.8 }}
             className="space-y-6"
           >
-            <Typography variant="h1" className="text-5xl md:text-6xl font-bold dark:text-white text-black">
+            <Typography variant="h1" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold dark:text-white text-black">
               Software Engineer • Full-Stack Developer • Data Engineer
             </Typography>
             <Typography variant="lead" className="text-xl max-w-4xl mx-auto dark:text-white text-black">

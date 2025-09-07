@@ -27,6 +27,12 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Prevent horizontal scrolling on small screens */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 :root {
   --background: #060010; /* Dark background */
   --foreground: #ffffff; /* White text for dark background */

@@ -80,7 +80,7 @@ function AboutSection({ className }: AboutSectionProps) {
               Nouraddin Abdurahman Aden
             </Typography>
             
-            <Typography variant="h4" className="text-xl md:text-2xl font-semibold text-muted-foreground">
+            <Typography variant="h4" className="text-xl md:text-2xl font-semibold text-muted-foreground dark:text-primary">
               Software Engineering Student & Developer
             </Typography>
             
