@@ -1,5 +1,6 @@
 import * as React from "react"
 import { motion } from "framer-motion"
+import Link from "next/link"
 import { Section } from "@/components/ui/section"
 import { SectionHeader } from "@/components/ui/section-header"
 import { ProjectCard } from "@/components/ui/project-card"
@@ -50,13 +51,15 @@ function ProjectsSection({
             viewport={{ once: true }}
             className="text-center mt-12"
           >
-            <Button 
-              size="lg"
-              className="group neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/90 cursor-pointer border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/60"
-            >
-              View All Projects
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
+            <Link href="/projects">
+              <Button 
+                size="lg"
+                className="group neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/90 cursor-pointer border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/60"
+              >
+                View All Projects
+                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
           </motion.div>
         )}
       </div>
