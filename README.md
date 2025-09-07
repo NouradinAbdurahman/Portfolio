@@ -44,30 +44,34 @@ Visit the live portfolio: [https://www.nouradin.com](https://www.nouradin.com)
 
 ```
 ├── app/
-│   ├── globals.css                      # Global styles, tokens (light/dark), subtle patterns
-│   ├── layout.tsx                       # Root layout (theme, Analytics, SEO metadata, JSON-LD, Toaster)
-│   ├── page.tsx                         # Home page (hero, about, services, portfolio, contact, resume)
+│   ├── globals.css                      # Global styles & design tokens
+│   ├── layout.tsx                       # Root layout (theme, Analytics, SEO, JSON-LD, Toaster)
+│   ├── page.tsx                         # Home page (Hero, About, Services, Skills, Projects, Contact, Resume)
 │   ├── loading.tsx                      # Loading component for Suspense boundaries
 │   ├── projects/
-│   │   ├── page.tsx                     # Projects index (grid with Load More)
+│   │   ├── page.tsx                     # Projects index
 │   │   └── [slug]/page.tsx              # Project detail (problem → solution → tech → outcome)
 │   └── api/
 │       └── contact/route.ts             # Resend email route (sanitized + honeypot)
 ├── components/
 │   ├── navbar.tsx                       # Shared navbar (theme toggle, internal links)
 │   ├── footer.tsx                       # Unified footer component (social links with aria-labels)
-│   ├── loading.tsx                      # Loading component with Aurora animation
-│   ├── contact-form.tsx                 # Lazy-loaded contact form component
-│   ├── resume-section.tsx               # Lazy-loaded resume section component
-│   ├── LogoLoop.tsx                     # Animated technology logo carousel component
-│   ├── ui/                              # shadcn/ui components (Buttons, Cards, Inputs, etc.)
-│   │   ├── spotlight-new.tsx            # Spotlight background animation component
-│   │   └── aurora.tsx                   # WebGL Aurora background animation component
-│   └── theme-provider.tsx               # next-themes provider wrapper
+│   ├── loading.tsx                      # Loading component
+│   ├── contact-form.tsx                 # Lazy-loaded contact form
+│   ├── resume-section.tsx               # Lazy-loaded resume section
+│   ├── sections/                        # Section composables (Hero, About, Services, Skills, Projects)
+│   └── ui/                              # Atomic UI components & utilities
+│       ├── aurora.tsx                   # Aurora background animation
+│       ├── spotlight-new.tsx            # Spotlight background animation
+│       ├── tech-stack-loop.tsx          # Continuous tech logo marquee
+│       ├── tech-badge.tsx               # Auto-icon/color tech badge
+│       ├── project-card.tsx, service-card.tsx, skill-card.tsx, typography.tsx, section.tsx, section-header.tsx, grid.tsx
+│       └── … all shadcn/ui primitives (button, card, input, etc.)
 ├── hooks/
 │   ├── use-toast.ts                     # toast store used by Toaster
 │   └── use-mobile.ts                    # isMobile hook (media query)
 ├── lib/
+│   ├── data.ts                          # Centralized content (projects, services, skills)
 │   └── utils.ts                         # cn() helper (clsx + tailwind-merge)
 ├── scripts/
 │   └── performance-check.js             # Performance optimization checker
@@ -246,14 +250,14 @@ This project is open source and available under the [MIT License](LICENSE).
 - **Tech Stack**: Flutter, Dart, Firebase, Google Maps API, Stripe, PostgreSQL, Node.js
 - **Features**: Customer/Vendor/Delivery apps, real-time tracking, multi-language support, payment processing
 - **Impact**: 95% on-time delivery rate, 4.8/5 user satisfaction, 10+ vendors onboarded
-- **Repository**: [GitHub](https://github.com/NouradinAbdurahman/Ohay-App)
+
 
 ### 4. **Viaggi del Qatar Tour Booking System**
 *Enterprise Booking Management Platform*
 - **Tech Stack**: Next.js 14, TypeScript, PostgreSQL, Tailwind CSS, Prisma, PDF-lib, Nodemailer
 - **Features**: Multi-tour reservations, automated PDF generation, real-time dashboards, agent portal
 - **Impact**: 50% operational efficiency improvement, 90% reduction in data entry errors
-- **Repository**: [GitHub](https://github.com/NouradinAbdurahman/Viaggi-Qatar-Booking)
+
 
 ## Recent Updates
 

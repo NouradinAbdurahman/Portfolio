@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { useTheme } from "next-themes"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Sun, Moon, Menu, X, Download } from "lucide-react"
 
@@ -21,20 +22,30 @@ export function Navbar({ basePath = "" }: NavbarProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
-            <a href="/" className="inline-flex items-center select-none cursor-pointer no-select-drag" draggable={false} aria-label="Go to home">
+            <Link href="/" className="inline-flex items-center select-none cursor-pointer no-select-drag" draggable={false} aria-label="Go to home">
               <span className="text-3xl font-bold dark:text-white text-black no-select-drag lobster-regular">Nouraddin</span>
-            </a>
+            </Link>
           </motion.div>
 
-          <div className="hidden md:flex items-center space-x-8">
-            <a aria-label="Go to About section" href={href("#about")} className="dark:text-white/70 text-black hover:text-primary transition-colors">About</a>
-            <a aria-label="Go to Portfolio section" href={href("#portfolio")} className="dark:text-white/70 text-black hover:text-primary transition-colors">Portfolio</a>
-            <a aria-label="Go to Services section" href={href("#services")} className="dark:text-white/70 text-black hover:text-primary transition-colors">Services</a>
-            <a aria-label="Go to Contact section" href={href("#contact")} className="dark:text-white/70 text-black hover:text-primary transition-colors">Contact</a>
-            <a aria-label="Go to Resume section" href={href("#resume")} className="dark:text-white/70 text-black hover:text-primary transition-colors">Resume</a>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.05 }}
+            className="hidden md:flex items-center space-x-8"
+          >
+            <Link aria-label="Go to About section" href={href("#about")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}>About</Link>
+            <Link aria-label="Go to Portfolio section" href={href("#portfolio")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}>Portfolio</Link>
+            <Link aria-label="Go to Services section" href={href("#services")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}>Services</Link>
+            <Link aria-label="Go to Contact section" href={href("#contact")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}>Contact</Link>
+            <Link aria-label="Go to Resume section" href={href("#resume")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}>Resume</Link>
+          </motion.div>
 
-          <div className="flex items-center space-x-4">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="flex items-center space-x-4"
+          >
             <Button
               variant="ghost"
               size="sm"
@@ -62,17 +73,17 @@ export function Navbar({ basePath = "" }: NavbarProps) {
               {isMobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
               <span className="sr-only">Toggle menu</span>
             </Button>
-          </div>
+          </motion.div>
         </div>
 
         {isMobileMenuOpen && (
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="md:hidden py-4 border-t border-border">
             <div className="flex flex-col space-y-4">
-              <a href={href("#about")} className="dark:text-muted-foreground text-black hover:text-primary transition-colors" onClick={() => setIsMobileMenuOpen(false)}>About</a>
-              <a href={href("#portfolio")} className="dark:text-muted-foreground text-black hover:text-primary transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Portfolio</a>
-              <a href={href("#services")} className="dark:text-muted-foreground text-black hover:text-primary transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Services</a>
-              <a href={href("#contact")} className="dark:text-muted-foreground text-black hover:text-primary transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Contact</a>
-              <a href={href("#resume")} className="dark:text-muted-foreground text-black hover:text-primary transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Resume</a>
+              <Link href={href("#about")} className="dark:text-muted-foreground text-black hover:text-primary transition-colors" prefetch={false} onClick={() => setIsMobileMenuOpen(false)}>About</Link>
+              <Link href={href("#portfolio")} className="dark:text-muted-foreground text-black hover:text-primary transition-colors" prefetch={false} onClick={() => setIsMobileMenuOpen(false)}>Portfolio</Link>
+              <Link href={href("#services")} className="dark:text-muted-foreground text-black hover:text-primary transition-colors" prefetch={false} onClick={() => setIsMobileMenuOpen(false)}>Services</Link>
+              <Link href={href("#contact")} className="dark:text-muted-foreground text-black hover:text-primary transition-colors" prefetch={false} onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
+              <Link href={href("#resume")} className="dark:text-muted-foreground text-black hover:text-primary transition-colors" prefetch={false} onClick={() => setIsMobileMenuOpen(false)}>Resume</Link>
               <Button aria-label="Open resume PDF" size="sm" className="w-fit neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/80 cursor-pointer" onClick={() => window.open('/resume/nouraddin-resume.pdf', '_blank')}>
                 <Download className="w-4 h-4 mr-2" />
                 Resume
