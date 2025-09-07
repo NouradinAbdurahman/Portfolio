@@ -5,6 +5,7 @@ import { GeistMono } from "geist/font/mono"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
 import { ThemeProvider } from "next-themes"
+import Script from "next/script"
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
 
@@ -101,6 +102,20 @@ export default function RootLayout({
         </ThemeProvider>
         <Analytics />
         <Toaster />
+        
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-ZJED4365EB"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-ZJED4365EB');
+          `}
+        </Script>
       </body>
     </html>
   )
