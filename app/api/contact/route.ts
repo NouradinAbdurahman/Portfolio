@@ -112,8 +112,12 @@ Reply directly to this email or visit: https://nouradin.com`
           
           <!-- Action Buttons -->
           <div style="text-align: center; margin-bottom: 30px;">
-            <a href="mailto:${safe.email}?subject=Re: ${safe.subject}&body=Hi ${safe.firstName},%0D%0A%0D%0AThank you for reaching out through my portfolio contact form.%0D%0A%0D%0ABest regards,%0D%0ANouraddin" style="display: inline-block; background-color: #333333; color: #ffffff; text-decoration: none; padding: 12px 24px; margin: 0 20px; border-radius: 4px; font-weight: bold;">Reply via Email</a>
-            <a href="https://nouradin.com" style="display: inline-block; background-color: #ffffff; color: #333333; text-decoration: none; padding: 12px 24px; margin: 0 20px; border: 2px solid #333333; border-radius: 4px; font-weight: bold;">View Portfolio</a>
+            <div style="margin-bottom: 20px;">
+              <a href="mailto:${safe.email}?subject=Re: ${safe.subject}&body=Hi ${safe.firstName},%0D%0A%0D%0AThank you for reaching out through my portfolio contact form.%0D%0A%0D%0ABest regards,%0D%0ANouraddin" style="display: inline-block; background-color: #333333; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 4px; font-weight: bold;">Reply via Email</a>
+            </div>
+            <div>
+              <a href="https://nouradin.com" style="display: inline-block; background-color: #ffffff; color: #333333; text-decoration: none; padding: 12px 24px; border: 2px solid #333333; border-radius: 4px; font-weight: bold;">View Portfolio</a>
+            </div>
           </div>
           
         </div>
