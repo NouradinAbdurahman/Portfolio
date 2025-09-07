@@ -134,7 +134,7 @@ export default function ResumeSection() {
                   <div className="flex items-start space-x-4">
                     <div className="w-3 h-3 bg-primary rounded-full mt-2 flex-shrink-0"></div>
                     <div>
-                      <h4 className="font-semibold dark:text-white text-black">Full-stack Developer</h4>
+                      <h4 className="font-semibold dark:text-white text-black">Full-Stack Developer</h4>
                       <p className="text-accent font-medium">DAKAEI AI • Full-time</p>
                       <p className="text-sm text-muted-foreground flex items-center mt-1">
                         <Calendar className="w-4 h-4 mr-1" />
@@ -145,21 +145,6 @@ export default function ResumeSection() {
                       </p>
                       <p className="text-sm text-muted-foreground mt-2">
                         Developing full-stack applications using React.js, TypeScript, Node.js, Next.js, JavaScript, SQL, HTML, CSS, Firebase, PostgreSQL, and Databases.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-4">
-                    <div className="w-3 h-3 bg-accent rounded-full mt-2 flex-shrink-0"></div>
-                    <div>
-                      <h4 className="font-semibold dark:text-white text-black">Freelance Full-Stack Developer</h4>
-                      <p className="text-accent font-medium">Self-Employed</p>
-                      <p className="text-sm text-muted-foreground flex items-center mt-1">
-                        <Calendar className="w-4 h-4 mr-1" />
-                        2023 - 2025
-                      </p>
-                      <p className="text-sm text-muted-foreground mt-2">
-                        Developed web and mobile applications for various clients, specializing in React, Next.js, and
-                        Flutter.
                       </p>
                     </div>
                   </div>

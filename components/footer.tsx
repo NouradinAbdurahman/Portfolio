@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Github, Linkedin, Mail } from "lucide-react"
-import { FaInstagram } from "react-icons/fa"
+import { FaInstagram, FaXTwitter } from "react-icons/fa6"
 
 export function Footer() {
   return (
@@ -17,6 +17,9 @@ export function Footer() {
           </motion.a>
           <motion.a aria-label="Instagram profile" whileHover={{ scale: 1.1, y: -2 }} href="https://instagram.com/nouradiin_" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-pink-500 transition-colors">
             <FaInstagram className="h-6 w-6" />
+          </motion.a>
+          <motion.a aria-label="X (Twitter) profile" whileHover={{ scale: 1.1, y: -2 }} href="https://x.com/Nouradin1208" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-black dark:hover:text-white transition-colors">
+            <FaXTwitter className="h-6 w-6" />
           </motion.a>
           <motion.a aria-label="Send email" whileHover={{ scale: 1.1, y: -2 }} href="mailto:n.aden1208@gmail.com" className="text-muted-foreground hover:text-accent transition-colors">
             <Mail className="h-6 w-6" />

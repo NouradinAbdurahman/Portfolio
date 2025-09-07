@@ -35,6 +35,7 @@ import {
   Linkedin,
 } from "lucide-react"
 import { FaReact, FaNodeJs, FaPython, FaAws, FaGitAlt, FaDocker, FaInstagram } from "react-icons/fa"
+import { FaXTwitter } from "react-icons/fa6"
 import {
   SiTypescript,
   SiNextdotjs,
@@ -994,6 +995,15 @@ export default function Portfolio() {
                 >
                   <FaInstagram className="w-5 h-5" />
                 </motion.a>
+                <motion.a
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  href="https://x.com/Nouradin1208"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center text-accent hover:bg-accent hover:text-white transition-colors"
+                >
+                  <FaXTwitter className="w-5 h-5" />
+                </motion.a>
               </div>
             </motion.div>
 
@@ -1441,6 +1451,15 @@ export default function Portfolio() {
               className="text-muted-foreground hover:text-pink-500 transition-colors"
             >
               <FaInstagram className="h-6 w-6" />
+            </motion.a>
+            <motion.a
+              whileHover={{ scale: 1.1, y: -2 }}
+              href="https://x.com/Nouradin1208"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-black dark:hover:text-white transition-colors"
+            >
+              <FaXTwitter className="h-6 w-6" />
             </motion.a>
             <motion.a
               whileHover={{ scale: 1.1, y: -2 }}

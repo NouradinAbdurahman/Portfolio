@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Mail, Phone, MapPin, Loader2, Send, Check, AlertCircle } from "lucide-react"
 import { Github, Linkedin } from "lucide-react"
-import { FaInstagram } from "react-icons/fa"
+import { FaInstagram, FaXTwitter } from "react-icons/fa6"
 import { z } from "zod"
 import { useToast } from "@/hooks/use-toast"
 
@@ -174,6 +174,15 @@ export default function ContactForm() {
                 className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center text-accent"
               >
                 <FaInstagram className="w-5 h-5" />
+              </motion.a>
+              <motion.a
+                whileHover={{ scale: 1.1, y: -2 }}
+                href="https://x.com/Nouradin1208"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center text-accent"
+              >
+                <FaXTwitter className="w-5 h-5" />
               </motion.a>
             </div>
           </motion.div>

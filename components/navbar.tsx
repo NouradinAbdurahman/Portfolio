@@ -22,7 +22,7 @@ export function Navbar({ basePath = "" }: NavbarProps) {
         <div className="flex justify-between items-center py-4">
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
             <a href="/" className="inline-flex items-center select-none cursor-pointer no-select-drag" draggable={false} aria-label="Go to home">
-              <span className="text-xl font-bold dark:text-white text-black no-select-drag">Nouraddin</span>
+              <span className="text-3xl font-bold dark:text-white text-black no-select-drag courgette-regular">Nouraddin</span>
             </a>
           </motion.div>
 
