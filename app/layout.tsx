@@ -8,6 +8,7 @@ import { ThemeProvider } from "next-themes"
 import Script from "next/script"
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
+import { JsonLd } from "@/components/json-ld"
 
 export const metadata: Metadata = {
   title: "Nouraddin Abdurahman Aden - Software Engineer & Data Engineer",
@@ -95,79 +96,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Lobster&display=swap" rel="stylesheet" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify([
-              {
-                "@context": "https://schema.org",
-                "@type": "Person",
-                "name": "Nouraddin Abdurahman Aden",
-                "url": "https://nouradin.com",
-                "image": "https://nouradin.com/favicon.png",
-                "jobTitle": "Software Engineer",
-                "description": "Full-Stack Developer, Data Engineer, and Cloud Solutions Architect. Building scalable applications and data-driven systems.",
-                "sameAs": [
-                  "https://github.com/NouradinAbdurahman",
-                  "https://linkedin.com/in/nouraddin",
-                  "https://instagram.com/nouradiin_",
-                  "https://x.com/Nouradin1208"
-                ],
-                "knowsAbout": [
-                  "JavaScript",
-                  "TypeScript", 
-                  "React",
-                  "Next.js",
-                  "Python",
-                  "Flutter",
-                  "Node.js",
-                  "AWS",
-                  "Firebase",
-                  "PostgreSQL"
-                ],
-                "alumniOf": "Software Engineering Student",
-                "worksFor": {
-                  "@type": "Organization",
-                  "name": "Freelance"
-                }
-              },
-              {
-                "@context": "https://schema.org",
-                "@type": "WebSite",
-                "name": "Nouraddin Portfolio",
-                "url": "https://nouradin.com",
-                "description": "Portfolio of Nouraddin Abdurahman Aden - Software Engineer, Full-Stack Developer, and Data Engineer",
-                "author": {
-                  "@type": "Person",
-                  "name": "Nouraddin Abdurahman Aden"
-                },
-                "potentialAction": {
-                  "@type": "SearchAction",
-                  "target": "https://nouradin.com/?q={search_term_string}",
-                  "query-input": "required name=search_term_string"
-                }
-              },
-              {
-                "@context": "https://schema.org",
-                "@type": "ProfessionalService",
-                "name": "Nouraddin Abdurahman Aden - Software Development Services",
-                "description": "Full-Stack Development, Mobile App Development, Data Engineering, and Cloud Solutions",
-                "provider": {
-                  "@type": "Person",
-                  "name": "Nouraddin Abdurahman Aden"
-                },
-                "serviceType": [
-                  "Web Development",
-                  "Mobile Development", 
-                  "Data Engineering",
-                  "Cloud Solutions"
-                ],
-                "areaServed": "Worldwide",
-                "url": "https://nouradin.com"
-              }
-            ]),
-          }}
-        />
+        <JsonLd />
       </head>
       <body 
         className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}
