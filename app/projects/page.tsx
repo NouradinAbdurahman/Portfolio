@@ -14,11 +14,16 @@ import { projects } from "@/lib/data"
 
 export default function ProjectsPage() {
   return (
-    <div className="min-h-screen">
+    <motion.div 
+      className="min-h-screen"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <Section className="pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Back Button */}
-            <motion.div 
+          <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -33,27 +38,45 @@ export default function ProjectsPage() {
                 <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
                 Go Back
               </Link>
-                    </Button>
-            </motion.div>
+            </Button>
+          </motion.div>
 
           {/* Header */}
-          <SectionHeader 
-            title="All Projects"
-            description="A comprehensive showcase of my work and technical expertise"
-          />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <SectionHeader 
+              title="All Projects"
+              description="A comprehensive showcase of my work and technical expertise"
+            />
+          </motion.div>
 
           {/* Projects Grid */}
-          <Grid cols={2} gap="lg">
-            {projects.map((project) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                showButtons={true}
-              />
-            ))}
-          </Grid>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <Grid cols={2} gap="lg">
+              {projects.map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
+                >
+                  <ProjectCard
+                    project={project}
+                    showButtons={true}
+                  />
+                </motion.div>
+              ))}
+            </Grid>
+          </motion.div>
         </div>
       </Section>
-    </div>
+    </motion.div>
   )
 }

@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { Suspense, lazy } from "react"
+import { motion } from "framer-motion"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import Loading from "@/components/loading"
@@ -16,28 +17,85 @@ const ResumeSection = lazy(() => import("@/components/resume-section"))
 
 export default function Portfolio() {
   return (
-    <div className="min-h-screen">
+    <motion.div 
+      className="min-h-screen"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <Navbar />
 
       <main>
-        <HeroSection />
-        <AboutSection />
-        <ServicesSection />
-        <SkillsSection />
-        <ProjectsSection />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <HeroSection />
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          <AboutSection />
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
+          <ServicesSection />
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+        >
+          <SkillsSection />
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.0 }}
+        >
+          <ProjectsSection />
+        </motion.div>
 
-      {/* Contact Section - Lazy Loaded */}
-      <Suspense fallback={<Loading />}>
-        <ContactForm />
-      </Suspense>
+        {/* Contact Section - Lazy Loaded */}
+        <Suspense fallback={<Loading />}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.2 }}
+          >
+            <ContactForm />
+          </motion.div>
+        </Suspense>
 
-      {/* Resume Section - Lazy Loaded */}
-      <Suspense fallback={<Loading />}>
-        <ResumeSection />
-      </Suspense>
+        {/* Resume Section - Lazy Loaded */}
+        <Suspense fallback={<Loading />}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.4 }}
+          >
+            <ResumeSection />
+          </motion.div>
+        </Suspense>
       </main>
 
-      <Footer />
-    </div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 1.6 }}
+      >
+        <Footer />
+      </motion.div>
+    </motion.div>
   )
 }

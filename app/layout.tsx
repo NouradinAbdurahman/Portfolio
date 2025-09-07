@@ -9,6 +9,7 @@ import Script from "next/script"
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
 import { JsonLd } from "@/components/json-ld"
+import { GlobalLoading } from "@/components/global-loading"
 
 export const metadata: Metadata = {
   title: "Nouraddin Abdurahman Aden - Software Engineer & Data Engineer",
@@ -103,6 +104,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange={false}>
+          <GlobalLoading />
           <Suspense fallback={null}>{children}</Suspense>
         </ThemeProvider>
         <Analytics />
