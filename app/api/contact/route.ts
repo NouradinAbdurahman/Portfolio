@@ -70,6 +70,8 @@ Reply directly to this email or visit: https://nouradin.com`
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="color-scheme" content="light dark">
+      <meta name="supported-color-schemes" content="light dark">
       <title>New Contact Form Submission</title>
       <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
@@ -80,11 +82,22 @@ Reply directly to this email or visit: https://nouradin.com`
           color: #1a1a1a;
         }
         
-        /* Dark mode support */
+        /* Universal text colors - high contrast for all email clients */
+        .text-dark-mode {
+          color: #1a1a1a !important;
+        }
+        .text-light-mode {
+          color: #ffffff !important;
+        }
+        .bg-dark-mode {
+          background: #ffffff !important;
+        }
+        .bg-light-mode {
+          background: #1a1a1a !important;
+        }
+        
+        /* Dark mode detection using multiple methods */
         @media (prefers-color-scheme: dark) {
-          .email-container {
-            color: #ffffff;
-          }
           .text-dark-mode {
             color: #ffffff !important;
           }
@@ -106,23 +119,30 @@ Reply directly to this email or visit: https://nouradin.com`
           }
         }
         
-        /* Light mode support */
-        @media (prefers-color-scheme: light) {
-          .text-dark-mode {
-            color: #1a1a1a !important;
-          }
-          .text-light-mode {
-            color: #ffffff !important;
-          }
-          .bg-dark-mode {
-            background: #ffffff !important;
-          }
-          .bg-light-mode {
-            background: #1a1a1a !important;
-          }
-          .section-icon-light {
-            background: linear-gradient(135deg, #060010 0%, #1a0b2e 100%) !important;
-          }
+        /* Additional dark mode detection methods */
+        [data-theme="dark"] .text-dark-mode,
+        .dark .text-dark-mode,
+        .dark-mode .text-dark-mode {
+          color: #ffffff !important;
+        }
+        
+        [data-theme="dark"] .text-light-mode,
+        .dark .text-light-mode,
+        .dark-mode .text-light-mode {
+          color: #1a1a1a !important;
+        }
+        
+        [data-theme="dark"] .section-icon-light,
+        .dark .section-icon-light,
+        .dark-mode .section-icon-light {
+          background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%) !important;
+        }
+        
+        [data-theme="dark"] .info-card,
+        .dark .info-card,
+        .dark-mode .info-card {
+          background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%) !important;
+          border-left: 4px solid #60a5fa !important;
         }
         
         .gradient-bg {
@@ -305,7 +325,7 @@ Reply directly to this email or visit: https://nouradin.com`
             
             <!-- Contact Information Header -->
             <div style="text-align: center; margin-bottom: 28px;">
-              <h2 style="margin: 0 0 6px; font-size: 22px; font-weight: 700; letter-spacing: -0.5px;" class="mobile-section-header text-dark-mode">Contact Information</h2>
+              <h2 style="margin: 0 0 6px; font-size: 22px; font-weight: 700; letter-spacing: -0.5px; color: #1a1a1a;" class="mobile-section-header text-dark-mode">Contact Information</h2>
               <div style="width: 50px; height: 3px; background: linear-gradient(135deg, #060010 0%, #1a0b2e 100%); margin: 0 auto; border-radius: 2px;"></div>
             </div>
             
@@ -318,9 +338,9 @@ Reply directly to this email or visit: https://nouradin.com`
                       <circle cx="12" cy="7" r="4"></circle>
                     </svg>
                   </div>
-                  <p style="margin: 0; font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 1px;" class="mobile-label-text text-dark-mode">Full Name</p>
+                  <p style="margin: 0; font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 1px;" class="mobile-label-text">Full Name</p>
                 </div>
-                <p style="margin: 0; font-size: 20px; font-weight: 700; letter-spacing: -0.5px;" class="mobile-name-text text-dark-mode">${safe.firstName} ${safe.lastName}</p>
+                <p style="margin: 0; font-size: 20px; font-weight: 700; letter-spacing: -0.5px; color: #1a1a1a;" class="mobile-name-text text-dark-mode">${safe.firstName} ${safe.lastName}</p>
               </div>
               
               <div style="padding: 20px; border-radius: 12px;" class="info-card">
@@ -331,9 +351,9 @@ Reply directly to this email or visit: https://nouradin.com`
                       <polyline points="22,6 12,13 2,6"></polyline>
                     </svg>
                   </div>
-                  <p style="margin: 0; font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 1px;" class="mobile-label-text text-dark-mode">Email Address</p>
+                  <p style="margin: 0; font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 1px;" class="mobile-label-text">Email Address</p>
                 </div>
-                <p style="margin: 0; font-size: 16px; font-weight: 600; word-break: break-all;" class="mobile-email-text text-dark-mode">${safe.email}</p>
+                <p style="margin: 0; font-size: 16px; font-weight: 600; word-break: break-all; color: #1a1a1a;" class="mobile-email-text text-dark-mode">${safe.email}</p>
               </div>
             </div>
 
@@ -350,9 +370,9 @@ Reply directly to this email or visit: https://nouradin.com`
                       <polyline points="10,9 9,9 8,9"></polyline>
                     </svg>
                   </div>
-                  <p style="margin: 0; font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 1px;" class="mobile-label-text text-dark-mode">Subject Line</p>
+                  <p style="margin: 0; font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 1px;" class="mobile-label-text">Subject Line</p>
                 </div>
-                <p style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.5px;" class="mobile-subject-text text-dark-mode">${safe.subject}</p>
+                <p style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.5px; color: #1a1a1a;" class="mobile-subject-text text-dark-mode">${safe.subject}</p>
               </div>
             </div>
 
@@ -364,10 +384,10 @@ Reply directly to this email or visit: https://nouradin.com`
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                   </svg>
                 </div>
-                <p style="margin: 0; font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 1px;" class="mobile-label-text text-dark-mode">Message Content</p>
+                <p style="margin: 0; font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 1px;" class="mobile-label-text">Message Content</p>
               </div>
               <div style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); border-radius: 12px; padding: 24px; border-left: 4px solid #060010; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);">
-                <p style="margin: 0; white-space: pre-wrap; font-size: 16px; line-height: 1.7; font-weight: 500;" class="mobile-message-text text-dark-mode">${safe.message}</p>
+                <p style="margin: 0; white-space: pre-wrap; font-size: 16px; line-height: 1.7; font-weight: 500; color: #1a1a1a;" class="mobile-message-text text-dark-mode">${safe.message}</p>
               </div>
             </div>
 
