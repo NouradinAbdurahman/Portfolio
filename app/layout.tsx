@@ -60,7 +60,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/favicon.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Courgette&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Lobster&display=swap" rel="stylesheet" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
