@@ -72,68 +72,71 @@ Reply directly to this email or visit: https://nouradin.com`
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>New Contact Form Submission</title>
     </head>
-    <body style="margin: 0; padding: 0; background: #f8fafc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-      <div style="padding: 20px; max-width: 600px; margin: 0 auto;">
-        <div style="background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); overflow: hidden; border: 1px solid #e5e7eb;">
+    <body style="margin: 0; padding: 0; background: #050010; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; min-height: 100vh;">
+      <div style="padding: 24px; max-width: 600px; margin: 0 auto;">
+        <!-- Main Card -->
+        <div style="background: white; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); overflow: hidden;">
+          
           <!-- Header -->
-          <div style="background: #667eea; padding: 20px; text-align: center; color: white;">
-            <div style="width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 50%; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <div style="background: #050010; padding: 32px 24px; text-align: center; color: white;">
+            <div style="width: 48px; height: 48px; background: rgba(255,255,255,0.1); border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                 <polyline points="22,6 12,13 2,6"></polyline>
               </svg>
             </div>
-            <h1 style="margin: 0; font-size: 20px; font-weight: 600;">New Contact Form Submission</h1>
-            <p style="margin: 6px 0 0; font-size: 14px; opacity: 0.9;">Someone wants to connect with you!</p>
+            <h1 style="margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.5px;">New Contact Form Submission</h1>
+            <p style="margin: 8px 0 0; font-size: 16px; opacity: 0.8;">Someone wants to connect with you!</p>
           </div>
 
           <!-- Content -->
-          <div style="padding: 20px;">
-            <!-- Contact Details -->
-            <div style="background: #f8fafc; border-radius: 8px; padding: 16px; margin-bottom: 16px; border-left: 4px solid #667eea;">
-              <h3 style="margin: 0 0 12px; font-size: 14px; font-weight: 600; color: #374151; text-transform: uppercase; letter-spacing: 0.5px;">Contact Information</h3>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div style="padding: 32px 24px;">
+            
+            <!-- Contact Info -->
+            <div style="margin-bottom: 24px;">
+              <h3 style="margin: 0 0 16px; font-size: 16px; font-weight: 600; color: #374151; text-transform: uppercase; letter-spacing: 0.5px;">Contact Information</h3>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div>
-                  <p style="margin: 0 0 4px; font-size: 12px; font-weight: 500; color: #6b7280; text-transform: uppercase;">Name</p>
-                  <p style="margin: 0; font-size: 16px; font-weight: 500; color: #1f2937;">${safe.firstName} ${safe.lastName}</p>
+                  <p style="margin: 0 0 6px; font-size: 12px; font-weight: 500; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px;">Name</p>
+                  <p style="margin: 0; font-size: 18px; font-weight: 600; color: #1f2937;">${safe.firstName} ${safe.lastName}</p>
                 </div>
                 <div>
-                  <p style="margin: 0 0 4px; font-size: 12px; font-weight: 500; color: #6b7280; text-transform: uppercase;">Email</p>
-                  <p style="margin: 0; font-size: 14px; font-weight: 500; color: #1f2937; word-break: break-all;">${safe.email}</p>
+                  <p style="margin: 0 0 6px; font-size: 12px; font-weight: 500; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px;">Email</p>
+                  <p style="margin: 0; font-size: 16px; font-weight: 500; color: #1f2937; word-break: break-all;">${safe.email}</p>
                 </div>
               </div>
             </div>
 
             <!-- Subject -->
-            <div style="background: #f8fafc; border-radius: 8px; padding: 16px; margin-bottom: 16px; border-left: 4px solid #10b981;">
-              <p style="margin: 0 0 4px; font-size: 12px; font-weight: 500; color: #6b7280; text-transform: uppercase;">Subject</p>
-              <p style="margin: 0; font-size: 16px; font-weight: 500; color: #1f2937;">${safe.subject}</p>
+            <div style="margin-bottom: 24px;">
+              <p style="margin: 0 0 6px; font-size: 12px; font-weight: 500; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px;">Subject</p>
+              <p style="margin: 0; font-size: 18px; font-weight: 600; color: #1f2937;">${safe.subject}</p>
             </div>
 
             <!-- Message -->
-            <div style="background: #f8fafc; border-radius: 8px; padding: 16px; margin-bottom: 20px; border-left: 4px solid #8b5cf6;">
-              <p style="margin: 0 0 8px; font-size: 12px; font-weight: 500; color: #6b7280; text-transform: uppercase;">Message</p>
-              <div style="background: white; border-radius: 6px; padding: 12px; border: 1px solid #e5e7eb; white-space: pre-wrap; font-size: 14px; line-height: 1.5; color: #374151;">${safe.message}</div>
+            <div style="margin-bottom: 32px;">
+              <p style="margin: 0 0 12px; font-size: 12px; font-weight: 500; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px;">Message</p>
+              <div style="background: #f8fafc; border-radius: 12px; padding: 20px; border: 1px solid #e5e7eb; white-space: pre-wrap; font-size: 16px; line-height: 1.6; color: #374151; min-height: 80px;">${safe.message}</div>
             </div>
 
             <!-- Action Buttons -->
-            <div style="text-align: center;">
-              <a href="mailto:${safe.email}?subject=Re: ${safe.subject}" style="display: inline-block; background: #667eea; color: white; text-decoration: none; padding: 10px 20px; border-radius: 6px; font-weight: 500; font-size: 14px; margin-right: 8px; box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);">
+            <div style="text-align: center; margin-bottom: 24px;">
+              <a href="mailto:${safe.email}?subject=Re: ${safe.subject}" style="display: inline-block; background: #050010; color: white; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: 600; font-size: 16px; margin-right: 12px; box-shadow: 0 4px 12px rgba(5, 0, 16, 0.3); transition: all 0.2s;">
                 Reply via Email
               </a>
-              <a href="https://nouradin.com" style="display: inline-block; background: #f8fafc; color: #374151; text-decoration: none; padding: 10px 20px; border-radius: 6px; font-weight: 500; font-size: 14px; border: 1px solid #e5e7eb;">
+              <a href="https://nouradin.com" style="display: inline-block; background: #f8fafc; color: #374151; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: 600; font-size: 16px; border: 1px solid #e5e7eb; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                 View Portfolio
               </a>
             </div>
           </div>
 
           <!-- Footer -->
-          <div style="background: #f8fafc; padding: 12px 20px; text-align: center; border-top: 1px solid #e5e7eb;">
-            <p style="margin: 0; color: #6b7280; font-size: 12px;">
+          <div style="background: #f8fafc; padding: 20px 24px; text-align: center; border-top: 1px solid #e5e7eb;">
+            <p style="margin: 0; color: #6b7280; font-size: 14px;">
               This email was sent from your portfolio contact form at 
-              <a href="https://nouradin.com" style="color: #667eea; text-decoration: none; font-weight: 500;">nouradin.com</a>
+              <a href="https://nouradin.com" style="color: #050010; text-decoration: none; font-weight: 600;">nouradin.com</a>
             </p>
-            <p style="margin: 2px 0 0; color: #9ca3af; font-size: 11px;">
+            <p style="margin: 4px 0 0; color: #9ca3af; font-size: 12px;">
               Sent on ${new Date().toLocaleDateString('en-US', { 
                 weekday: 'long', 
                 year: 'numeric', 
