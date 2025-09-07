@@ -1,7 +1,6 @@
-"use client"
-
 import * as React from "react"
 import { notFound } from "next/navigation"
+import { Metadata } from "next"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
@@ -16,6 +15,55 @@ interface ProjectDetailsPageProps {
   params: Promise<{ slug: string }>
 }
 
+// Generate metadata for each project page
+export async function generateMetadata({ params }: ProjectDetailsPageProps): Promise<Metadata> {
+  const { slug } = await params
+  const project = projects.find(p => p.slug === slug)
+
+  if (!project) {
+    return {
+      title: "Project Not Found",
+      description: "The requested project could not be found."
+    }
+  }
+
+  const title = `${project.title} – Nouraddin`
+  const description = project.description.length > 160 
+    ? project.description.substring(0, 157) + "..."
+    : project.description
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `https://nouradin.com/projects/${slug}`,
+      siteName: "Nouraddin Portfolio",
+      images: [
+        {
+          url: `https://nouradin.com${project.cover || project.image}`,
+          width: 1200,
+          height: 630,
+          alt: project.title,
+        },
+      ],
+      locale: "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      creator: "@nouradiin_",
+      images: [`https://nouradin.com${project.cover || project.image}`],
+    },
+    alternates: {
+      canonical: `https://nouradin.com/projects/${slug}`,
+    },
+  }
+}
+
 export default async function ProjectDetailsPage({ params }: ProjectDetailsPageProps) {
   const { slug } = await params
   const project = projects.find(p => p.slug === slug)
@@ -24,8 +72,44 @@ export default async function ProjectDetailsPage({ params }: ProjectDetailsPageP
     notFound()
   }
 
+  // JSON-LD structured data for the project
+  const projectSchema = {
+    "@context": "https://schema.org",
+    "@type": "Project",
+    "name": project.title,
+    "description": project.description,
+    "url": `https://nouradin.com/projects/${slug}`,
+    "image": `https://nouradin.com${project.cover || project.image}`,
+    "author": {
+      "@type": "Person",
+      "name": "Nouraddin Abdurahman Aden",
+      "url": "https://nouradin.com"
+    },
+    "programmingLanguage": project.tech || project.technologies,
+    "codeRepository": project.repo || project.githubUrl,
+    "applicationCategory": "SoftwareApplication",
+    "operatingSystem": "Web, Mobile",
+    "dateCreated": "2024",
+    "dateModified": new Date().toISOString().split('T')[0],
+    "keywords": project.tech?.join(", ") || project.technologies.join(", "),
+    "license": "MIT",
+    "creator": {
+      "@type": "Person",
+      "name": "Nouraddin Abdurahman Aden",
+      "jobTitle": "Software Engineer",
+      "url": "https://nouradin.com"
+    }
+  }
+
   return (
     <div className="min-h-screen">
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(projectSchema),
+        }}
+      />
       <Section className="pt-32 pb-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Back Button */}
@@ -111,10 +195,12 @@ export default async function ProjectDetailsPage({ params }: ProjectDetailsPageP
             <div className="relative w-full aspect-video rounded-lg overflow-hidden">
               <Image
                 src={project.cover || project.image}
-                alt={project.title}
+                alt={`${project.title} - ${project.description.substring(0, 100)}...`}
                 fill
                 className="object-cover"
                 priority
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                quality={90}
               />
             </div>
               </motion.div>

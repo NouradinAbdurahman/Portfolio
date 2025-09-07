@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://nouradin.com/sitemap.xml
+
+# Disallow admin or private areas (if any)
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Allow all project pages
+Allow: /projects/
+
+# Allow all static assets
+Allow: /favicon.png
+Allow: /photo.png
+Allow: /projects/
+Allow: /resume/

@@ -14,7 +14,7 @@ Visit the live portfolio: [https://www.nouradin.com](https://www.nouradin.com)
 - **Fast**: Built with Next.js 14 for optimal performance with advanced optimizations
 - **TypeScript**: Fully typed for better development experience
 - **Accessible**: Built with accessibility best practices
-- **SEO-ready**: OpenGraph, Twitter cards, and JSON-LD metadata
+- **Advanced SEO**: Comprehensive SEO optimization with dynamic metadata, structured data, sitemap, and robots.txt
 - **Optimized images**: next/image with responsive sizes and priority for above-the-fold
 - **Performance Optimized**: Code splitting, lazy loading, and bundle optimization
 - **Mobile-First UX**: Responsive project cards with touch-friendly interactions
@@ -40,6 +40,41 @@ Visit the live portfolio: [https://www.nouradin.com](https://www.nouradin.com)
 - **Custom Aurora Component** - WebGL Aurora animation with customizable color stops
 - **Custom Spotlight Component** - Dynamic gradient spotlight effects
 
+## 🔍 SEO & Performance Features
+
+### Advanced SEO Implementation
+- **Dynamic Metadata**: Each project page has unique, optimized metadata with proper titles, descriptions, and OpenGraph data
+- **JSON-LD Structured Data**: Rich snippets for Person, WebSite, ProfessionalService, and Project schemas
+- **Canonical URLs**: Proper canonical URL implementation to prevent duplicate content issues
+- **Sitemap Generation**: Automatic sitemap.xml generation with all pages and projects
+- **Robots.txt**: Comprehensive robots.txt for optimal search engine crawling
+- **Meta Keywords**: Strategic keyword targeting for better search visibility
+- **OpenGraph & Twitter Cards**: Rich social media previews with optimized images and descriptions
+
+### Performance Optimizations
+- **Next.js Image Optimization**: All images use next/image with responsive sizing and priority loading
+- **Code Splitting**: Lazy loading of non-critical components (ContactForm, ResumeSection)
+- **Bundle Optimization**: Tree shaking and minimal bundle size
+- **Server-Side Rendering**: SEO-friendly SSR for all pages
+- **Font Optimization**: Preloaded Google Fonts with display=swap
+- **Analytics Integration**: Google Analytics with proper privacy compliance
+
+### Accessibility Features
+- **Semantic HTML**: Proper heading hierarchy and semantic elements
+- **ARIA Labels**: Comprehensive ARIA labeling for screen readers
+- **Keyboard Navigation**: Full keyboard accessibility support
+- **Color Contrast**: WCAG AA compliant color contrast ratios
+- **Focus Management**: Visible focus indicators and logical tab order
+- **Alt Text**: Descriptive alt text for all images
+
+### Search Engine Optimization
+- **Rich Snippets**: Structured data for enhanced search results
+- **Mobile-First Indexing**: Optimized for Google's mobile-first indexing
+- **Core Web Vitals**: Optimized for LCP, FID, and CLS metrics
+- **Page Speed**: Fast loading times with optimized assets
+- **Internal Linking**: Strategic internal linking structure
+- **URL Structure**: Clean, SEO-friendly URLs
+
 ## 📁 Project Structure
 
 ```
@@ -48,6 +83,7 @@ Visit the live portfolio: [https://www.nouradin.com](https://www.nouradin.com)
 │   ├── layout.tsx                       # Root layout (theme, Analytics, SEO, JSON-LD, Toaster)
 │   ├── page.tsx                         # Home page (Hero, About, Services, Skills, Projects, Contact, Resume)
 │   ├── loading.tsx                      # Loading component for Suspense boundaries
+│   ├── sitemap.ts                       # Dynamic sitemap generation
 │   ├── projects/
 │   │   ├── page.tsx                     # Projects index
 │   │   └── [slug]/page.tsx              # Project detail (problem → solution → tech → outcome)
@@ -72,12 +108,16 @@ Visit the live portfolio: [https://www.nouradin.com](https://www.nouradin.com)
 │   └── use-mobile.ts                    # isMobile hook (media query)
 ├── lib/
 │   ├── data.ts                          # Centralized content (projects, services, skills)
-│   └── utils.ts                         # cn() helper (clsx + tailwind-merge)
+│   ├── utils.ts                         # cn() helper (clsx + tailwind-merge)
+│   └── seo.ts                           # SEO utilities (metadata generation, structured data)
 ├── scripts/
-│   └── performance-check.js             # Performance optimization checker
+│   ├── performance-check.js             # Performance optimization checker
+│   └── lighthouse-audit.js              # Lighthouse SEO/performance audit script
 ├── public/
 │   ├── resume/                          # Resume PDF files
-│   └── photo.png                        # Profile photo (and /projects/*.png covers)
+│   ├── photo.png                        # Profile photo (and /projects/*.png covers)
+│   ├── robots.txt                       # Search engine crawling instructions
+│   └── favicon.png                      # Site favicon
 ├── next.config.mjs                      # Next.js configuration with optimizations
 └── README.md
 ```
@@ -90,6 +130,36 @@ Visit the live portfolio: [https://www.nouradin.com](https://www.nouradin.com)
 4. **Portfolio** - Featured projects showcase + detail pages per project
 5. **Resume** - Education, experience, and certifications
 6. **Contact** - Contact form (zod validation, toasts, honeypot) and social links
+
+## 🔍 SEO Implementation Details
+
+### Dynamic Metadata Generation
+Each project page automatically generates optimized metadata including:
+- **Title**: `{Project Name} – Nouraddin` format
+- **Description**: Truncated to 160 characters for optimal display
+- **OpenGraph**: Complete social media preview data
+- **Twitter Cards**: Optimized for Twitter sharing
+- **Canonical URLs**: Prevents duplicate content issues
+
+### Structured Data (JSON-LD)
+Comprehensive structured data implementation:
+- **Person Schema**: Personal information, skills, and social links
+- **WebSite Schema**: Site information with search functionality
+- **ProfessionalService Schema**: Service offerings and expertise
+- **Project Schema**: Individual project details with technologies and links
+
+### Search Engine Optimization
+- **Sitemap**: Auto-generated sitemap.xml with all pages and projects
+- **Robots.txt**: Comprehensive crawling instructions
+- **Meta Keywords**: Strategic keyword targeting
+- **Image Optimization**: Next.js Image with responsive sizing and alt text
+- **Performance**: Optimized for Core Web Vitals
+
+### SEO Utility Functions
+Located in `lib/seo.ts`:
+- `generateMetadata()`: Create metadata for any page
+- `generateProjectSchema()`: Generate Project structured data
+- `generatePersonSchema()`: Generate Person structured data
 
 ## 🚀 Getting Started
 

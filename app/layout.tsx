@@ -13,8 +13,39 @@ export const metadata: Metadata = {
   title: "Nouraddin Abdurahman Aden - Software Engineer & Data Engineer",
   description:
     "Portfolio of Nouraddin Abdurahman Aden - Full-Stack Developer, Data Engineer, and Cloud Solutions Architect. Building scalable applications and data-driven systems.",
-  generator: "v0.app",
+  generator: "Next.js",
   metadataBase: new URL("https://nouradin.com"),
+  keywords: [
+    "Nouraddin Abdurahman Aden",
+    "Software Engineer",
+    "Full-Stack Developer",
+    "Data Engineer",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Python",
+    "Flutter",
+    "AWS",
+    "Firebase",
+    "Portfolio",
+    "Web Development",
+    "Mobile Development",
+    "Cloud Solutions"
+  ],
+  authors: [{ name: "Nouraddin Abdurahman Aden" }],
+  creator: "Nouraddin Abdurahman Aden",
+  publisher: "Nouraddin Abdurahman Aden",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   icons: {
     icon: "/favicon.png",
     shortcut: "/favicon.png",
@@ -23,15 +54,15 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Nouraddin Abdurahman Aden - Software Engineer & Data Engineer",
     description:
-      "Portfolio of Nouraddin Abdurahman Aden - Full-Stack Developer, Data Engineer, and Cloud Solutions Architect.",
+      "Portfolio of Nouraddin Abdurahman Aden - Full-Stack Developer, Data Engineer, and Cloud Solutions Architect. Building scalable applications and data-driven systems.",
     url: "https://nouradin.com",
     siteName: "Nouraddin Portfolio",
     images: [
       {
-        url: "/favicon.png",
-        width: 800,
-        height: 800,
-        alt: "Nouraddin Abdurahman Aden",
+        url: "https://nouradin.com/favicon.png",
+        width: 1200,
+        height: 630,
+        alt: "Nouraddin Abdurahman Aden - Software Engineer & Data Engineer",
       },
     ],
     locale: "en_US",
@@ -41,9 +72,12 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Nouraddin Abdurahman Aden - Software Engineer & Data Engineer",
     description:
-      "Portfolio of Nouraddin Abdurahman Aden - Full-Stack Developer, Data Engineer, and Cloud Solutions Architect.",
+      "Portfolio of Nouraddin Abdurahman Aden - Full-Stack Developer, Data Engineer, and Cloud Solutions Architect. Building scalable applications and data-driven systems.",
     creator: "@nouradiin_",
     images: ["https://nouradin.com/favicon.png"],
+  },
+  alternates: {
+    canonical: "https://nouradin.com",
   },
 }
 
@@ -72,22 +106,64 @@ export default function RootLayout({
                 "url": "https://nouradin.com",
                 "image": "https://nouradin.com/favicon.png",
                 "jobTitle": "Software Engineer",
+                "description": "Full-Stack Developer, Data Engineer, and Cloud Solutions Architect. Building scalable applications and data-driven systems.",
                 "sameAs": [
                   "https://github.com/NouradinAbdurahman",
                   "https://linkedin.com/in/nouraddin",
-                  "https://instagram.com/nouradiin_"
-                ]
+                  "https://instagram.com/nouradiin_",
+                  "https://x.com/Nouradin1208"
+                ],
+                "knowsAbout": [
+                  "JavaScript",
+                  "TypeScript", 
+                  "React",
+                  "Next.js",
+                  "Python",
+                  "Flutter",
+                  "Node.js",
+                  "AWS",
+                  "Firebase",
+                  "PostgreSQL"
+                ],
+                "alumniOf": "Software Engineering Student",
+                "worksFor": {
+                  "@type": "Organization",
+                  "name": "Freelance"
+                }
               },
               {
                 "@context": "https://schema.org",
                 "@type": "WebSite",
                 "name": "Nouraddin Portfolio",
                 "url": "https://nouradin.com",
+                "description": "Portfolio of Nouraddin Abdurahman Aden - Software Engineer, Full-Stack Developer, and Data Engineer",
+                "author": {
+                  "@type": "Person",
+                  "name": "Nouraddin Abdurahman Aden"
+                },
                 "potentialAction": {
                   "@type": "SearchAction",
                   "target": "https://nouradin.com/?q={search_term_string}",
                   "query-input": "required name=search_term_string"
                 }
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "ProfessionalService",
+                "name": "Nouraddin Abdurahman Aden - Software Development Services",
+                "description": "Full-Stack Development, Mobile App Development, Data Engineering, and Cloud Solutions",
+                "provider": {
+                  "@type": "Person",
+                  "name": "Nouraddin Abdurahman Aden"
+                },
+                "serviceType": [
+                  "Web Development",
+                  "Mobile Development", 
+                  "Data Engineering",
+                  "Cloud Solutions"
+                ],
+                "areaServed": "Worldwide",
+                "url": "https://nouradin.com"
               }
             ]),
           }}
