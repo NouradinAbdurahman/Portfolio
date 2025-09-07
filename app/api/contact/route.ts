@@ -74,10 +74,10 @@ Reply directly to this email or visit: https://nouradin.com`
       <meta name="supported-color-schemes" content="light dark">
       <title>New Contact Form Submission</title>
       <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        /* Using system fonts instead of external Google Fonts for better email client compatibility */
         
         .email-container {
-          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
           line-height: 1.6;
           color: #1a1a1a;
         }
@@ -158,7 +158,8 @@ Reply directly to this email or visit: https://nouradin.com`
           left: 0;
           right: 0;
           bottom: 0;
-          background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" strokeWidth="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>') repeat;
+          background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
         }
         
         .glass-card {
@@ -307,10 +308,7 @@ Reply directly to this email or visit: https://nouradin.com`
           <div style="padding: 32px 24px; text-align: center; color: white; position: relative;" class="gradient-bg">
             <div style="position: relative; z-index: 2;">
               <div style="width: 60px; height: 60px; background: rgba(255, 255, 255, 0.15); border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(15px); border: 2px solid rgba(255, 255, 255, 0.25); box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                  <polyline points="22,6 12,13 2,6"></polyline>
-                </svg>
+                <span style="font-size: 28px; color: white;">✉️</span>
               </div>
               
               <h1 style="margin: 0 0 12px; font-size: 28px; font-weight: 800; letter-spacing: -1px; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);" class="mobile-title">New Contact Form Submission</h1>
@@ -333,10 +331,7 @@ Reply directly to this email or visit: https://nouradin.com`
               <div style="padding: 20px; border-radius: 12px;" class="info-card">
                 <div style="display: flex; align-items: center; margin-bottom: 12px;">
                   <div class="section-icon section-icon-light">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                      <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
+                    <span style="font-size: 16px; color: white;">👤</span>
                   </div>
                   <p style="margin: 0; font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 1px;" class="mobile-label-text">Full Name</p>
                 </div>
@@ -346,10 +341,7 @@ Reply directly to this email or visit: https://nouradin.com`
               <div style="padding: 20px; border-radius: 12px;" class="info-card">
                 <div style="display: flex; align-items: center; margin-bottom: 12px;">
                   <div class="section-icon section-icon-light">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                      <polyline points="22,6 12,13 2,6"></polyline>
-                    </svg>
+                    <span style="font-size: 16px; color: white;">📧</span>
                   </div>
                   <p style="margin: 0; font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 1px;" class="mobile-label-text">Email Address</p>
                 </div>
@@ -362,13 +354,7 @@ Reply directly to this email or visit: https://nouradin.com`
               <div style="padding: 20px; border-radius: 12px; border: 2px solid #e2e8f0; background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);">
                 <div style="display: flex; align-items: center; margin-bottom: 12px;">
                   <div class="section-icon section-icon-light">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                      <polyline points="14,2 14,8 20,8"></polyline>
-                      <line x1="16" y1="13" x2="8" y2="13"></line>
-                      <line x1="16" y1="17" x2="8" y2="17"></line>
-                      <polyline points="10,9 9,9 8,9"></polyline>
-                    </svg>
+                    <span style="font-size: 16px; color: white;">📄</span>
                   </div>
                   <p style="margin: 0; font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 1px;" class="mobile-label-text">Subject Line</p>
                 </div>
@@ -380,9 +366,7 @@ Reply directly to this email or visit: https://nouradin.com`
             <div style="margin-bottom: 32px;">
               <div style="display: flex; align-items: center; margin-bottom: 16px;">
                 <div class="section-icon section-icon-light">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                  </svg>
+                  <span style="font-size: 16px; color: white;">💬</span>
                 </div>
                 <p style="margin: 0; font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 1px;" class="mobile-label-text">Message Content</p>
               </div>
@@ -394,7 +378,7 @@ Reply directly to this email or visit: https://nouradin.com`
             <!-- Action Buttons -->
             <div style="text-align: center; margin-bottom: 28px;">
               <div style="display: flex; justify-content: center; align-items: center; gap: 16px;" class="responsive-buttons">
-                <a href="mailto:${safe.email}?subject=Re: ${safe.subject}" style="display: inline-block; color: white; text-decoration: none; padding: 16px 28px; border-radius: 12px; font-weight: 700; font-size: 15px; letter-spacing: 0.5px; text-transform: uppercase;" class="btn-primary mobile-button-text">
+                <a href="mailto:${safe.email}?subject=Re: ${safe.subject}&body=Hi ${safe.firstName},%0D%0A%0D%0AThank you for reaching out through my portfolio contact form.%0D%0A%0D%0ABest regards,%0D%0ANouraddin" style="display: inline-block; color: white; text-decoration: none; padding: 16px 28px; border-radius: 12px; font-weight: 700; font-size: 15px; letter-spacing: 0.5px; text-transform: uppercase;" class="btn-primary mobile-button-text">
                   ✉️ Reply via Email
                 </a>
                 <a href="https://nouradin.com" style="display: inline-block; color: #060010; text-decoration: none; padding: 16px 28px; border-radius: 12px; font-weight: 700; font-size: 15px; letter-spacing: 0.5px; text-transform: uppercase;" class="btn-secondary mobile-button-text">
@@ -445,6 +429,17 @@ Reply directly to this email or visit: https://nouradin.com`
         subject: `[Portfolio] ${subject}`,
         html,
         text: content,
+        headers: {
+          "X-Priority": "3",
+          "X-Mailer": "Portfolio Contact Form",
+          "X-Entity-Ref-ID": "portfolio-contact-form",
+        },
+        tags: [
+          {
+            name: "contact-form",
+            value: "portfolio"
+          }
+        ]
       }),
     })
 
