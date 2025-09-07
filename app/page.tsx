@@ -33,6 +33,8 @@ import {
   SiPostgresql,
   SiReact,
   SiTailwindcss,
+  SiJavascript,
+  SiExpress,
 } from "react-icons/si"
 
 import Navbar from "@/components/navbar"
@@ -234,12 +236,19 @@ export default function Portfolio() {
                 { node: <SiReact className="text-cyan-400" />, title: "React", href: "https://react.dev" },
                 { node: <SiNextdotjs className="text-black dark:text-white" />, title: "Next.js", href: "https://nextjs.org" },
                 { node: <SiTypescript className="text-blue-500" />, title: "TypeScript", href: "https://www.typescriptlang.org" },
+                { node: <SiJavascript className="text-yellow-400" />, title: "JavaScript", href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
+                { node: <FaPython className="text-yellow-500" />, title: "Python", href: "https://www.python.org" },
+                { node: <SiDart className="text-blue-400" />, title: "Dart", href: "https://dart.dev" },
                 { node: <SiTailwindcss className="text-cyan-500" />, title: "Tailwind CSS", href: "https://tailwindcss.com" },
                 { node: <FaReact className="text-cyan-400" />, title: "React Native", href: "https://reactnative.dev" },
                 { node: <SiFlutter className="text-blue-500" />, title: "Flutter", href: "https://flutter.dev" },
                 { node: <FaNodeJs className="text-green-500" />, title: "Node.js", href: "https://nodejs.org" },
                 { node: <SiFirebase className="text-orange-500" />, title: "Firebase", href: "https://firebase.google.com" },
                 { node: <FaAws className="text-orange-400" />, title: "AWS", href: "https://aws.amazon.com" },
+                { node: <FaDocker className="text-blue-500" />, title: "Docker", href: "https://www.docker.com" },
+                { node: <FaGitAlt className="text-orange-500" />, title: "Git", href: "https://git-scm.com" },
+                { node: <SiExpress className="text-gray-600 dark:text-gray-300" />, title: "Express", href: "https://expressjs.com" },
+                { node: <Database className="text-blue-500" />, title: "SQL", href: "https://www.w3schools.com/sql/" },
                 { node: <SiPostgresql className="text-blue-600" />, title: "PostgreSQL", href: "https://postgresql.org" },
               ]}
               speed={120}
@@ -708,11 +717,11 @@ export default function Portfolio() {
                 {/* Action buttons - visible on all screens */}
                 <div className="flex justify-center space-x-4 p-4">
                   <Link href="/projects/intellistudy">
-                      <Button
-                        size="sm"
-                        variant="secondary"
+                    <Button
+                      size="sm"
+                      variant="secondary"
                         className="group neumorphic-button dark:text-white text-black hover:text-black dark:border-white/20 border-white/20 hover:border-white/40 dark:bg-transparent bg-gray-100 hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer"
-                      >
+                    >
                       <Eye className="w-4 h-4 mr-2" />
                       Details
                     </Button>
@@ -785,11 +794,11 @@ export default function Portfolio() {
                 {/* Action buttons - visible on all screens */}
                 <div className="flex justify-center space-x-4 p-4">
                   <Link href="/projects/ohay">
-                      <Button
-                        size="sm"
-                        variant="secondary"
+                    <Button
+                      size="sm"
+                      variant="secondary"
                         className="group neumorphic-button dark:text-white text-black hover:text-black dark:border-white/20 border-white/20 hover:border-white/40 dark:bg-transparent bg-gray-100 hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer"
-                      >
+                    >
                       <Eye className="w-4 h-4 mr-2" />
                       Details
                     </Button>
@@ -870,11 +879,11 @@ export default function Portfolio() {
                 {/* Action buttons - visible on all screens */}
                 <div className="flex justify-center space-x-4 p-4">
                   <Link href="/projects/viaggi-qatar-booking">
-                      <Button
-                        size="sm"
-                        variant="secondary"
+                    <Button
+                      size="sm"
+                      variant="secondary"
                         className="group neumorphic-button dark:text-white text-black hover:text-black dark:border-white/20 border-white/20 hover:border-white/40 dark:bg-transparent bg-gray-100 hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer"
-                      >
+                    >
                       <Eye className="w-4 h-4 mr-2" />
                       Details
                     </Button>
