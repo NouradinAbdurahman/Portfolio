@@ -116,7 +116,7 @@ export default function Loading() {
           transition={{ delay: 0.3, duration: 0.6 }}
         >
           <motion.h2
-            className="text-2xl font-bold text-white mb-2"
+            className="text-2xl font-bold dark:text-white text-black mb-2"
             animate={{ opacity: [0.7, 1, 0.7] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
@@ -124,7 +124,7 @@ export default function Loading() {
           </motion.h2>
           
           <motion.p
-            className="text-white/70 text-lg mb-6"
+            className="dark:text-white/70 text-black/70 text-lg mb-6"
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 1.5, repeat: Infinity, delay: 0.5 }}
           >
