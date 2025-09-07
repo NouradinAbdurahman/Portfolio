@@ -290,14 +290,14 @@ export default function Portfolio() {
                   msUserSelect: 'none'
                 }}
               >
-                <div className="relative w-80 h-80 rounded-2xl overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center border-2 border-gray-300 dark:border-white/20">
+                <div className="relative w-80 h-80 rounded-full overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center border-2 border-gray-300 dark:border-white/20">
                   <Image 
                     src="/photo.png"
                     alt="Nouraddin - Software Engineering Student & Developer"
                     fill
                     sizes="(max-width: 640px) 320px, (max-width: 1024px) 480px, 640px"
                     priority
-                    className="object-cover rounded-2xl select-none pointer-events-none profile-image"
+                    className="object-cover rounded-full select-none pointer-events-none profile-image"
                     draggable={false}
                     onContextMenu={(e) => e.preventDefault()}
                     onDragStart={(e) => e.preventDefault()}

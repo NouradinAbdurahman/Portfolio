@@ -16,9 +16,9 @@ export const metadata: Metadata = {
   generator: "v0.app",
   metadataBase: new URL("https://nouradin.com"),
   icons: {
-    icon: "/photo.png",
-    shortcut: "/photo.png",
-    apple: "/photo.png",
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
   },
   openGraph: {
     title: "Nouraddin Abdurahman Aden - Software Engineer & Data Engineer",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     siteName: "Nouraddin Portfolio",
     images: [
       {
-        url: "/photo.png",
+        url: "/favicon.png",
         width: 800,
         height: 800,
         alt: "Nouraddin Abdurahman Aden",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     description:
       "Portfolio of Nouraddin Abdurahman Aden - Full-Stack Developer, Data Engineer, and Cloud Solutions Architect.",
     creator: "@nouradiin_",
-    images: ["https://nouradin.com/photo.png"],
+    images: ["https://nouradin.com/favicon.png"],
   },
 }
 
@@ -55,9 +55,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/photo.png" type="image/png" />
-        <link rel="shortcut icon" href="/photo.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/photo.png" />
+        <link rel="icon" href="/favicon.png" type="image/png" />
+        <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Courgette&display=swap" rel="stylesheet" />
@@ -70,7 +70,7 @@ export default function RootLayout({
                 "@type": "Person",
                 "name": "Nouraddin Abdurahman Aden",
                 "url": "https://nouradin.com",
-                "image": "https://nouradin.com/photo.png",
+                "image": "https://nouradin.com/favicon.png",
                 "jobTitle": "Software Engineer",
                 "sameAs": [
                   "https://github.com/NouradinAbdurahman",
