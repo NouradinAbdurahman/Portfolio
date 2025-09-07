@@ -161,7 +161,7 @@ Reply directly to this email or visit: https://nouradin.com`
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "Nouraddin Portfolio <onboarding@resend.dev>",
+        from: "Nouraddin Portfolio <contact@nouradin.com>",
         to: [toEmail],
         reply_to: email,
         subject: `[Portfolio] ${subject}`,
