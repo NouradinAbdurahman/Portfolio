@@ -80,6 +80,51 @@ Reply directly to this email or visit: https://nouradin.com`
           color: #1a1a1a;
         }
         
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+          .email-container {
+            color: #ffffff;
+          }
+          .text-dark-mode {
+            color: #ffffff !important;
+          }
+          .text-light-mode {
+            color: #1a1a1a !important;
+          }
+          .bg-dark-mode {
+            background: #1a1a1a !important;
+          }
+          .bg-light-mode {
+            background: #ffffff !important;
+          }
+          .section-icon-light {
+            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%) !important;
+          }
+          .info-card {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%) !important;
+            border-left: 4px solid #60a5fa !important;
+          }
+        }
+        
+        /* Light mode support */
+        @media (prefers-color-scheme: light) {
+          .text-dark-mode {
+            color: #1a1a1a !important;
+          }
+          .text-light-mode {
+            color: #ffffff !important;
+          }
+          .bg-dark-mode {
+            background: #ffffff !important;
+          }
+          .bg-light-mode {
+            background: #1a1a1a !important;
+          }
+          .section-icon-light {
+            background: linear-gradient(135deg, #060010 0%, #1a0b2e 100%) !important;
+          }
+        }
+        
         .gradient-bg {
           background: linear-gradient(135deg, #060010 0%, #1a0b2e 100%);
           position: relative;
@@ -107,6 +152,31 @@ Reply directly to this email or visit: https://nouradin.com`
           background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
           border-left: 4px solid #060010;
           transition: all 0.3s ease;
+        }
+        
+        .info-card-dark {
+          background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+          border-left: 4px solid #60a5fa;
+          color: #ffffff;
+        }
+        
+        .section-icon {
+          width: 32px;
+          height: 32px;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 12px;
+          transition: all 0.3s ease;
+        }
+        
+        .section-icon-light {
+          background: linear-gradient(135deg, #060010 0%, #1a0b2e 100%);
+        }
+        
+        .section-icon-dark {
+          background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
         }
         
         .btn-primary {
@@ -235,35 +305,35 @@ Reply directly to this email or visit: https://nouradin.com`
             
             <!-- Contact Information Header -->
             <div style="text-align: center; margin-bottom: 28px;">
-              <h2 style="margin: 0 0 6px; font-size: 22px; font-weight: 700; color: #1a202c; letter-spacing: -0.5px;" class="mobile-section-header">Contact Information</h2>
+              <h2 style="margin: 0 0 6px; font-size: 22px; font-weight: 700; letter-spacing: -0.5px;" class="mobile-section-header text-dark-mode">Contact Information</h2>
               <div style="width: 50px; height: 3px; background: linear-gradient(135deg, #060010 0%, #1a0b2e 100%); margin: 0 auto; border-radius: 2px;"></div>
             </div>
             
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 28px;" class="responsive-grid">
-              <div style="padding: 18px; border-radius: 12px;" class="info-card">
-                <div style="display: flex; align-items: center; margin-bottom: 8px;">
-                  <div style="width: 28px; height: 28px; background: #060010; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-right: 10px;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 28px;" class="responsive-grid">
+              <div style="padding: 20px; border-radius: 12px;" class="info-card">
+                <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                  <div class="section-icon section-icon-light">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                       <circle cx="12" cy="7" r="4"></circle>
                     </svg>
                   </div>
-                  <p style="margin: 0; font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 1px;" class="mobile-label-text">Full Name</p>
+                  <p style="margin: 0; font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 1px;" class="mobile-label-text text-dark-mode">Full Name</p>
                 </div>
-                <p style="margin: 0; font-size: 20px; font-weight: 700; color: #1a202c; letter-spacing: -0.5px;" class="mobile-name-text">${safe.firstName} ${safe.lastName}</p>
+                <p style="margin: 0; font-size: 20px; font-weight: 700; letter-spacing: -0.5px;" class="mobile-name-text text-dark-mode">${safe.firstName} ${safe.lastName}</p>
               </div>
               
-              <div style="padding: 18px; border-radius: 12px;" class="info-card">
-                <div style="display: flex; align-items: center; margin-bottom: 8px;">
-                  <div style="width: 28px; height: 28px; background: #060010; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-right: 10px;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <div style="padding: 20px; border-radius: 12px;" class="info-card">
+                <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                  <div class="section-icon section-icon-light">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                       <polyline points="22,6 12,13 2,6"></polyline>
                     </svg>
                   </div>
-                  <p style="margin: 0; font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 1px;" class="mobile-label-text">Email Address</p>
+                  <p style="margin: 0; font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 1px;" class="mobile-label-text text-dark-mode">Email Address</p>
                 </div>
-                <p style="margin: 0; font-size: 16px; font-weight: 600; color: #060010; word-break: break-all;" class="mobile-email-text">${safe.email}</p>
+                <p style="margin: 0; font-size: 16px; font-weight: 600; word-break: break-all;" class="mobile-email-text text-dark-mode">${safe.email}</p>
               </div>
             </div>
 
@@ -271,8 +341,8 @@ Reply directly to this email or visit: https://nouradin.com`
             <div style="margin-bottom: 28px;">
               <div style="padding: 20px; border-radius: 12px; border: 2px solid #e2e8f0; background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);">
                 <div style="display: flex; align-items: center; margin-bottom: 12px;">
-                  <div style="width: 28px; height: 28px; background: #060010; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-right: 10px;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <div class="section-icon section-icon-light">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                       <polyline points="14,2 14,8 20,8"></polyline>
                       <line x1="16" y1="13" x2="8" y2="13"></line>
@@ -280,24 +350,24 @@ Reply directly to this email or visit: https://nouradin.com`
                       <polyline points="10,9 9,9 8,9"></polyline>
                     </svg>
                   </div>
-                  <p style="margin: 0; font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 1px;" class="mobile-label-text">Subject Line</p>
+                  <p style="margin: 0; font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 1px;" class="mobile-label-text text-dark-mode">Subject Line</p>
                 </div>
-                <p style="margin: 0; font-size: 22px; font-weight: 700; color: #1a202c; letter-spacing: -0.5px;" class="mobile-subject-text">${safe.subject}</p>
+                <p style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.5px;" class="mobile-subject-text text-dark-mode">${safe.subject}</p>
               </div>
             </div>
 
             <!-- Message Section -->
             <div style="margin-bottom: 32px;">
               <div style="display: flex; align-items: center; margin-bottom: 16px;">
-                <div style="width: 28px; height: 28px; background: #060010; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-right: 10px;">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <div class="section-icon section-icon-light">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                   </svg>
                 </div>
-                <p style="margin: 0; font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 1px;" class="mobile-label-text">Message Content</p>
+                <p style="margin: 0; font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 1px;" class="mobile-label-text text-dark-mode">Message Content</p>
               </div>
               <div style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); border-radius: 12px; padding: 24px; border-left: 4px solid #060010; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);">
-                <p style="margin: 0; white-space: pre-wrap; font-size: 16px; line-height: 1.7; color: #374151; font-weight: 500;" class="mobile-message-text">${safe.message}</p>
+                <p style="margin: 0; white-space: pre-wrap; font-size: 16px; line-height: 1.7; font-weight: 500;" class="mobile-message-text text-dark-mode">${safe.message}</p>
               </div>
             </div>
 
