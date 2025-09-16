@@ -19,6 +19,58 @@ Visit the live portfolio: [https://www.nouradin.com](https://www.nouradin.com)
 - **Performance Optimized**: Code splitting, lazy loading, and bundle optimization
 - **Mobile-First UX**: Responsive project cards with touch-friendly interactions
 
+## 🔐 Admin Panel (CMS)
+
+All admin pages require Supabase email/password auth (limited to the configured admin email). A consistent neumorphic UI, responsive layout, and auto-dismiss toasts are used across pages.
+
+- **Admin Login** (`/admin/login`)
+  - Email/password via Supabase
+  - Failure feedback with animated toasts
+
+- **Admin Dashboard** (`/admin/dashboard`)
+  - Modern gradient card with subtle aurora accents
+  - Quick links: Manage Site Settings, Manage Site Content
+  - Log out (Supabase sign-out)
+
+- **Manage Site Settings** (`/admin/settings`)
+  - Theme
+    - Page font family and Logo font family (font pickers)
+    - Primary color and Background color (color input + hex)
+    - Per-section background map (hero/about/services/skills/projects/contact/resume/footer)
+  - Loading Behavior
+    - Always show loading animation
+    - Smart loading (shows only on slow networks)
+    - Mutually exclusive toggles handled in UI logic
+  - UI Controls
+    - `show_theme_toggle`: hide/show Navbar theme toggle (Sun/Moon)
+  - Section Order
+    - Drag-and-drop reorder + Up/Down buttons; persisted as `section_order`
+  - Actions
+    - Reset All to Default, Undo last change, Back to Dashboard, Save Settings
+  - Implementation
+    - Reads/writes `site_settings` (Supabase)
+    - Server route: `app/api/settings/route.ts` (admin RPC `update_site_setting`)
+    - Live theme application via `contexts/settings-context.tsx` + `components/dynamic-theme.tsx`
+
+- **Manage Site Content** (`/admin/content`)
+  - Sidebar sections: hero, about, services, projects, skills, contact, resume, footer
+    - Active section has a subtle always-on glow; hover glow on others
+    - Mobile-friendly spacing and layout
+  - Per-section controls
+    - Global hide/unhide for the section
+    - Title / Lead / Subtitle fields with per-field hide toggles
+    - Hero: Primary/Secondary CTA label + href fields
+    - About: Markdown body with live preview (react-markdown + GFM) and quick-insert helpers
+    - Services: add/remove/reorder service items; item hide/unhide; title, description, icon, technologies
+    - Skills: three category cards; add/remove/reorder with fields (name, icon, color, category)
+    - Contact/Footer: email, phone, location + social links
+  - Actions
+    - Save Content (per active section) and Reset to Default
+    - Back to Dashboard
+  - Implementation
+    - Reads/writes `site_content` (Supabase)
+    - Server route: `app/api/content/route.ts` (GET shape by section/tag; POST single or expanded batch)
+
 ## 🛠️ Tech Stack
 
 ### Frontend

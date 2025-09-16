@@ -8,8 +8,17 @@ import { Spotlight } from "@/components/ui/spotlight-new"
 import { Download, Calendar, Award, Briefcase, GraduationCap, Code, Database } from "lucide-react"
 import { FaReact, FaNodeJs, FaPython, FaAws, FaGitAlt, FaDocker } from "react-icons/fa"
 import { SiTypescript, SiNextdotjs, SiFlutter, SiDart, SiFirebase, SiPostgresql, SiJavascript, SiExpress } from "react-icons/si"
+import { useSectionContent } from "@/hooks/use-content"
 
 export default function ResumeSection() {
+  const content = useSectionContent('resume', {
+    title: 'Resume',
+    lead: 'My professional journey and technical expertise',
+    hidden: false,
+    title_hidden: false,
+    lead_hidden: false
+  })
+  if ((content as any).hidden) return null
   return (
     <section id="resume" className="site-background py-20 relative overflow-hidden">
       <Spotlight />
@@ -21,10 +30,12 @@ export default function ResumeSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4 dark:text-white text-black">Resume</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-            My professional journey and technical expertise
-          </p>
+          {!content.title_hidden && (
+            <h2 className="text-4xl font-bold mb-4 dark:text-white text-black">{content.title}</h2>
+          )}
+          {!content.lead_hidden && (
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">{content.lead}</p>
+          )}
           <Button 
             size="lg" 
             className="group neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 cursor-pointer"

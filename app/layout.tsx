@@ -10,6 +10,7 @@ import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
 import { JsonLd } from "@/components/json-ld"
 import { GlobalLoading } from "@/components/global-loading"
+import { SettingsProvider } from "@/contexts/settings-context"
 
 export const metadata: Metadata = {
   title: "Nouraddin Abdurahman Aden - Software Engineer & Data Engineer",
@@ -96,7 +97,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/favicon.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Lobster&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Lobster&family=Inter:wght@300;400;600&family=Roboto:wght@300;400;700&family=Poppins:wght@300;400;600&family=Open+Sans:wght@300;400;700&family=Montserrat:wght@300;500;700&family=Lato:wght@300;400;700&family=Source+Sans+3:wght@300;400;700&family=Nunito:wght@300;600;800&family=Fira+Sans:wght@300;400;700&family=Rubik:wght@300;500;700&family=Merriweather:wght@300;400;700&family=Work+Sans:wght@300;500;700&family=DM+Sans:wght@400;700&family=Manrope:wght@400;700&display=swap" rel="stylesheet" />
         <JsonLd />
       </head>
       <body 
@@ -104,8 +105,10 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange={false}>
-          <GlobalLoading />
-          <Suspense fallback={null}>{children}</Suspense>
+          <SettingsProvider>
+            <GlobalLoading />
+            <Suspense fallback={null}>{children}</Suspense>
+          </SettingsProvider>
         </ThemeProvider>
         <Analytics />
         <Toaster />

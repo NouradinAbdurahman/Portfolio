@@ -11,6 +11,7 @@ import { Mail, Phone, MapPin, Loader2, Send, Check, AlertCircle } from "lucide-r
 import { Github, Linkedin } from "lucide-react"
 import { FaInstagram, FaXTwitter } from "react-icons/fa6"
 import { z } from "zod"
+import { useSectionContent } from "@/hooks/use-content"
 import { useToast } from "@/hooks/use-toast"
 
 const ContactSchema = z.object({
@@ -22,6 +23,21 @@ const ContactSchema = z.object({
 })
 
 export default function ContactForm() {
+  const content = useSectionContent('contact', {
+    title: 'Get In Touch',
+    lead: "Let's discuss your next project or collaboration opportunity",
+    email: 'n.aden1208@gmail.com',
+    phone: '+90 552 875 97 71',
+    location: 'Ankara, Turkey',
+    github: 'https://github.com/NouradinAbdurahman',
+    linkedin: 'https://linkedin.com/in/nouraddin',
+    instagram: 'https://instagram.com/nouradiin_',
+    twitter: 'https://x.com/Nouradin1208',
+    hidden: false,
+    title_hidden: false,
+    lead_hidden: false
+  })
+  if ((content as any).hidden) return null
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitState, setSubmitState] = useState<"idle" | "success" | "error">("idle")
   const { toast } = useToast()
@@ -82,10 +98,12 @@ export default function ContactForm() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4 dark:text-white text-black">Get In Touch</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Let's discuss your next project or collaboration opportunity
-          </p>
+          {!content.title_hidden && (
+            <h2 className="text-4xl font-bold mb-4 dark:text-white text-black">{content.title}</h2>
+          )}
+          {!content.lead_hidden && (
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">{content.lead}</p>
+          )}
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -116,7 +134,7 @@ export default function ContactForm() {
                 </div>
                 <div>
                   <div className="font-semibold dark:text-white text-black">Email</div>
-                  <div className="text-muted-foreground">n.aden1208@gmail.com</div>
+                  <div className="text-muted-foreground">{content.email}</div>
                 </div>
               </motion.div>
 
@@ -129,7 +147,7 @@ export default function ContactForm() {
                 </div>
                 <div>
                   <div className="font-semibold dark:text-white text-black">Phone</div>
-                  <div className="text-muted-foreground">+90 552 875 97 71</div>
+                  <div className="text-muted-foreground">{content.phone}</div>
                 </div>
               </motion.div>
 
@@ -142,7 +160,7 @@ export default function ContactForm() {
                 </div>
                 <div>
                   <div className="font-semibold dark:text-white text-black">Location</div>
-                  <div className="text-muted-foreground">Ankara, Turkey</div>
+                  <div className="text-muted-foreground">{content.location}</div>
                 </div>
               </motion.div>
             </div>
@@ -150,7 +168,7 @@ export default function ContactForm() {
             <div className="flex space-x-4 pt-4">
               <motion.a
                 whileHover={{ scale: 1.1, y: -2 }}
-                href="https://github.com/NouradinAbdurahman"
+                href={content.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary"
@@ -159,7 +177,7 @@ export default function ContactForm() {
               </motion.a>
               <motion.a
                 whileHover={{ scale: 1.1, y: -2 }}
-                href="https://linkedin.com/in/nouraddin"
+                href={content.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center text-accent"
@@ -168,7 +186,7 @@ export default function ContactForm() {
               </motion.a>
               <motion.a
                 whileHover={{ scale: 1.1, y: -2 }}
-                href="https://instagram.com/nouradiin_"
+                href={content.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center text-accent"
@@ -177,7 +195,7 @@ export default function ContactForm() {
               </motion.a>
               <motion.a
                 whileHover={{ scale: 1.1, y: -2 }}
-                href="https://x.com/Nouradin1208"
+                href={content.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center text-accent"

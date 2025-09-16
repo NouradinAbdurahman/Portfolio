@@ -48,6 +48,11 @@ html, body {
   --muted-foreground: #94a3b8; /* Light muted text */
   --accent: #8b5cf6; /* Purple accent color */
   --accent-foreground: #ffffff; /* White text on accent */
+  
+  /* Dynamic theme variables */
+  --font-family: 'Inter', sans-serif;
+  --primary-color: #3b82f6;
+  --background-color: #0f172a;
   --destructive: #be123c; /* Red for destructive actions */
   --destructive-foreground: #ffffff; /* White text on destructive */
   --border: #e5e7eb; /* Light gray borders */
@@ -236,6 +241,15 @@ html, body {
 .light .site-background {
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
 }
+
+/* Section background variables */
+section#about { background: var(--section-about-bg, transparent); }
+section#services { background: var(--section-services-bg, transparent); }
+section#portfolio { background: var(--section-projects-bg, transparent); }
+section#contact { background: var(--section-contact-bg, transparent); }
+section#resume { background: var(--section-resume-bg, transparent); }
+section#skills { background: var(--section-skills-bg, transparent); }
+section#footer { background: var(--section-footer-bg, transparent); }
 
 /* No borders - seamless sections */
 #services {

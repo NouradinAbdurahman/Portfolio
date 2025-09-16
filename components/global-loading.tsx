@@ -1,32 +1,52 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import Loading from "./loading"
+import { useSettings } from "@/contexts/settings-context"
 
 export function GlobalLoading() {
+  const { settings } = useSettings()
   const [isInitialLoading, setIsInitialLoading] = useState(true)
   const [isNavigating, setIsNavigating] = useState(false)
   const [currentPath, setCurrentPath] = useState("")
   const pathname = usePathname()
 
+  // Decide whether loading is enabled based on settings and network conditions
+  const isLoadingEnabled = useMemo(() => {
+    if (settings?.loading_always) return true
+    if (settings?.loading_smart) {
+      const nav = (navigator as any)
+      const connection = nav?.connection || nav?.mozConnection || nav?.webkitConnection
+      if (!connection) return false
+      const effectiveType = connection.effectiveType as string | undefined
+      // Consider 2g/slow-2g or saveData as slow
+      const saveData = Boolean(connection.saveData)
+      if (saveData) return true
+      if (!effectiveType) return false
+      return ["slow-2g","2g"].includes(effectiveType)
+    }
+    return false
+  }, [settings])
+
   // Handle initial page load
   useEffect(() => {
+    if (!isLoadingEnabled) { setIsInitialLoading(false); return }
     const timer = setTimeout(() => {
       setIsInitialLoading(false)
-    }, 2500) // Show for 2.5 seconds on initial load
-
+    }, 1500)
     return () => clearTimeout(timer)
-  }, [])
+  }, [isLoadingEnabled])
 
   // Handle navigation between pages
   useEffect(() => {
+    if (!isLoadingEnabled) { setCurrentPath(pathname || ""); setIsNavigating(false); return }
     if (currentPath && currentPath !== pathname) {
       setIsNavigating(true)
       const timer = setTimeout(() => {
         setIsNavigating(false)
         setCurrentPath(pathname)
-      }, 1200) // Show for 1.2 seconds during navigation
+      }, 800)
 
       return () => clearTimeout(timer)
     } else if (!currentPath) {

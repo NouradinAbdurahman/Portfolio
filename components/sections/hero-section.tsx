@@ -1,6 +1,7 @@
 import * as React from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
+import { useSectionContent } from "@/hooks/use-content"
 import { Typography } from "@/components/ui/typography"
 import { TechStackLoop } from "@/components/ui/tech-stack-loop"
 import { TechBadge } from "@/components/ui/tech-badge"
@@ -13,6 +14,18 @@ interface HeroSectionProps {
 }
 
 function HeroSection({ className }: HeroSectionProps) {
+  const content = useSectionContent('hero', {
+    title: 'Software Engineer • Full-Stack Developer • Data Engineer',
+    subtitle: 'Building scalable applications, cloud-driven systems, and data-powered solutions. Passionate about creating efficient ETL pipelines, modern web experiences, and automated workflows.',
+    ctaPrimaryLabel: 'View Portfolio',
+    ctaPrimaryHref: '#portfolio',
+    ctaSecondaryLabel: 'Contact Me',
+    ctaSecondaryHref: '#contact',
+    hidden: false,
+    title_hidden: false,
+    subtitle_hidden: false
+  })
+  if (content.hidden) return null
   return (
     <section className={cn("relative pt-50 pb-20 overflow-hidden bg-gray-50 dark:bg-[#060010]", className)}>
       {/* Gradient/Aurora only in dark mode */}
@@ -33,13 +46,16 @@ function HeroSection({ className }: HeroSectionProps) {
             transition={{ duration: 0.8 }}
             className="space-y-6"
           >
-            <Typography variant="h1" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold dark:text-white text-black">
-              Software Engineer • Full-Stack Developer • Data Engineer
-            </Typography>
-            <Typography variant="lead" className="text-xl max-w-4xl mx-auto dark:text-white text-black">
-              Building scalable applications, cloud-driven systems, and data-powered solutions. 
-              Passionate about creating efficient ETL pipelines, modern web experiences, and automated workflows.
-            </Typography>
+            {!content.title_hidden && (
+              <Typography variant="h1" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold dark:text-white text-black">
+                {content.title}
+              </Typography>
+            )}
+            {!content.subtitle_hidden && (
+              <Typography variant="lead" className="text-xl max-w-4xl mx-auto dark:text-white text-black">
+                {content.subtitle}
+              </Typography>
+            )}
           </motion.div>
 
           {/* Tech Stack Preview */}
@@ -74,8 +90,8 @@ function HeroSection({ className }: HeroSectionProps) {
               size="lg" 
               className="group neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/90 cursor-pointer border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/60"
             >
-              <a href="#portfolio">
-                View Portfolio
+              <a href={content.ctaPrimaryHref}>
+                {content.ctaPrimaryLabel}
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </a>
             </Button>
@@ -88,9 +104,9 @@ function HeroSection({ className }: HeroSectionProps) {
               variant="outline"
               className="group neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/90 cursor-pointer border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/60"
             >
-              <a href="#contact">
+              <a href={content.ctaSecondaryHref}>
                 <Mail className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
-                Contact Me
+                {content.ctaSecondaryLabel}
               </a>
             </Button>
           </motion.div>

@@ -6,6 +6,7 @@ import { useTheme } from "next-themes"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Sun, Moon, Menu, X, Download } from "lucide-react"
+import { useSettings } from "@/contexts/settings-context"
 
 interface NavbarProps {
   basePath?: string
@@ -14,6 +15,7 @@ interface NavbarProps {
 export function Navbar({ basePath = "" }: NavbarProps) {
   const { theme, setTheme } = useTheme()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const { settings } = useSettings()
 
   const href = (hash: string) => `${basePath}${hash}`
 
@@ -23,7 +25,7 @@ export function Navbar({ basePath = "" }: NavbarProps) {
         <div className="flex justify-between items-center py-4">
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
             <Link href="/" className="inline-flex items-center select-none cursor-pointer no-select-drag" draggable={false} aria-label="Go to home">
-              <span className="text-3xl font-bold dark:text-white text-black no-select-drag lobster-regular">Nouraddin</span>
+              <span className="text-3xl font-bold dark:text-white text-black no-select-drag" style={{ fontFamily: 'var(--logo-font-family, Lobster), cursive' }}>Nouraddin</span>
             </Link>
           </motion.div>
 
@@ -46,16 +48,18 @@ export function Navbar({ basePath = "" }: NavbarProps) {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="flex items-center space-x-4"
           >
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="w-9 h-9 p-0 dark:text-white text-black hover:bg-muted/50 cursor-pointer"
-            >
-              <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-              <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-              <span className="sr-only">Toggle theme</span>
-            </Button>
+            {settings?.show_theme_toggle !== false && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                className="w-9 h-9 p-0 dark:text-white text-black hover:bg-muted/50 cursor-pointer"
+              >
+                <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                <span className="sr-only">Toggle theme</span>
+              </Button>
+            )}
             <Button
               size="sm"
               className="hidden md:inline-flex neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/80 cursor-pointer"

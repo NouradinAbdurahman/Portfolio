@@ -4,43 +4,58 @@ import { SectionHeader } from "@/components/ui/section-header"
 import { SkillCard } from "@/components/ui/skill-card"
 import { Grid } from "@/components/ui/grid"
 import { Code, Database, Cloud, Smartphone } from "lucide-react"
-import { skills } from "@/lib/data"
+import { skills as defaultSkills } from "@/lib/data"
+import { useSectionContent } from "@/hooks/use-content"
 
 interface SkillsSectionProps {
   className?: string
 }
 
 function SkillsSection({ className }: SkillsSectionProps) {
-  // Group skills by category
+  const content = useSectionContent('skills', {
+    title: 'Technical Skills',
+    lead: 'Technologies and tools I work with',
+    items: defaultSkills,
+    hidden: false,
+    title_hidden: false,
+    lead_hidden: false,
+    catFullTitle: 'Full-Stack Development',
+    catFullDesc: 'React, Next.js, Flutter, Node.js',
+    catDataTitle: 'Data Engineering',
+    catDataDesc: 'ETL Pipelines, SQL, Python, Analytics',
+    catCloudTitle: 'Cloud & DevOps',
+    catCloudDesc: 'AWS, Firebase, Automation, CI/CD',
+    itemsFull: defaultSkills.filter(s => ["React","Next.js","Flutter","Node.js","Express","React Native"].includes(s.name)),
+    itemsData: defaultSkills.filter(s => ["Python","SQL","PostgreSQL"].includes(s.name)),
+    itemsCloud: defaultSkills.filter(s => ["AWS","Firebase","Docker","Git"].includes(s.name))
+  })
+  if ((content as any).hidden) return null
+  // Group skills by category using per-category arrays when provided
   const skillsByCategory = {
-    "Full-Stack Development": {
-      description: "React, Next.js, Flutter, Node.js",
+    [content.catFullTitle]: {
+      description: content.catFullDesc,
       icon: Code,
-      skills: skills.filter(skill => 
-        ["React", "Next.js", "Flutter", "Node.js", "Express", "React Native"].includes(skill.name)
-      )
+      skills: (content.itemsFull || defaultSkills.filter((s)=>["React","Next.js","Flutter","Node.js","Express","React Native"].includes(s.name))).filter((s: any) => !s.hidden)
     },
-    "Data Engineering": {
-      description: "ETL Pipelines, SQL, Python, Analytics",
+    [content.catDataTitle]: {
+      description: content.catDataDesc,
       icon: Database,
-      skills: skills.filter(skill => 
-        ["Python", "SQL", "PostgreSQL"].includes(skill.name)
-      )
+      skills: (content.itemsData || defaultSkills.filter((s)=>["Python","SQL","PostgreSQL"].includes(s.name))).filter((s: any) => !s.hidden)
     },
-    "Cloud & DevOps": {
-      description: "AWS, Firebase, Automation, CI/CD",
+    [content.catCloudTitle]: {
+      description: content.catCloudDesc,
       icon: Cloud,
-      skills: skills.filter(skill => 
-        ["AWS", "Firebase", "Docker", "Git"].includes(skill.name)
-      )
+      skills: (content.itemsCloud || defaultSkills.filter((s)=>["AWS","Firebase","Docker","Git"].includes(s.name))).filter((s: any) => !s.hidden)
     }
   }
 
   return (
-    <Section className={className}>
+    <Section id="skills" className={className}>
       <SectionHeader 
-        title="Technical Skills"
-        description="Technologies and tools I work with"
+        title={content.title}
+        description={content.lead}
+        titleHidden={content.title_hidden}
+        descriptionHidden={content.lead_hidden}
       />
 
       <Grid cols={3} gap="lg">

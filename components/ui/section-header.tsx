@@ -8,13 +8,17 @@ interface SectionHeaderProps {
   description?: string
   className?: string
   delay?: number
+  titleHidden?: boolean
+  descriptionHidden?: boolean
 }
 
 function SectionHeader({ 
   title, 
   description, 
   className,
-  delay = 0 
+  delay = 0,
+  titleHidden = false,
+  descriptionHidden = false
 }: SectionHeaderProps) {
   return (
     <motion.div
@@ -24,10 +28,12 @@ function SectionHeader({
       viewport={{ once: true }}
       className={cn("text-center mb-16", className)}
     >
-      <Typography variant="h2" className="mb-4 dark:text-white text-black">
-        {title}
-      </Typography>
-      {description && (
+      {!titleHidden && (
+        <Typography variant="h2" className="mb-4 dark:text-white text-black">
+          {title}
+        </Typography>
+      )}
+      {description && !descriptionHidden && (
         <Typography variant="lead" className="max-w-2xl mx-auto text-muted-foreground">
           {description}
         </Typography>

@@ -4,6 +4,9 @@ import Image from "next/image"
 import { Section } from "@/components/ui/section"
 import { SectionHeader } from "@/components/ui/section-header"
 import { Typography } from "@/components/ui/typography"
+import ReactMarkdown from "react-markdown"
+import remarkGfm from "remark-gfm"
+import { useSectionContent } from "@/hooks/use-content"
 // Button removed in this section per request
 
 interface AboutSectionProps {
@@ -11,11 +14,25 @@ interface AboutSectionProps {
 }
 
 function AboutSection({ className }: AboutSectionProps) {
+  const content = useSectionContent('about', {
+    title: 'About Me',
+    subtitle: 'Nouraddin - Software Engineering Student & Developer',
+    body: '',
+    name: 'Nouraddin Abdurahman Aden',
+    role: 'Software Engineering Student & Developer',
+    hidden: false,
+    title_hidden: false,
+    subtitle_hidden: false,
+    name_hidden: false,
+    role_hidden: false,
+    body_hidden: false
+  })
+  if (content.hidden) return null
   return (
     <Section id="about" className={className}>
       <SectionHeader 
-        title="About Me"
-        description="Nouraddin - Software Engineering Student & Developer"
+        title={content.title}
+        description={content.subtitle}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -76,19 +93,23 @@ function AboutSection({ className }: AboutSectionProps) {
           className="space-y-6"
         >
           <div className="space-y-4">
-            <Typography variant="h3" className="text-2xl md:text-3xl font-bold">
-              Nouraddin Abdurahman Aden
-            </Typography>
-            
-            <Typography variant="h4" className="text-xl md:text-2xl font-semibold text-muted-foreground dark:text-primary">
-              Software Engineering Student & Developer
-            </Typography>
-            
-            <Typography variant="p" className="text-lg leading-relaxed">
-              Hi, I&apos;m Nouraddin! Currently pursuing Software Engineering at OSTİM Teknik University, 
-              I specialize in building scalable applications and data-driven solutions. My passion lies 
-              in creating efficient systems that bridge the gap between complex data and user-friendly interfaces.
-            </Typography>
+            {!content.name_hidden && (
+              <Typography variant="h3" className="text-2xl md:text-3xl font-bold">
+                {content.name}
+              </Typography>
+            )}
+            {!content.role_hidden && (
+              <Typography variant="h4" className="text-xl md:text-2xl font-semibold text-muted-foreground dark:text-primary">
+                {content.role}
+              </Typography>
+            )}
+            {!content.body_hidden && (
+              <div className="prose prose-invert max-w-none">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {content.body || `Hi, I'm Nouraddin! Currently pursuing Software Engineering at OSTİM Teknik University, I specialize in building scalable applications and data-driven solutions. My passion lies in creating efficient systems that bridge the gap between complex data and user-friendly interfaces.`}
+                </ReactMarkdown>
+              </div>
+            )}
           </div>
 
           <div className="space-y-4">

@@ -6,6 +6,8 @@ import { motion } from "framer-motion"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import Loading from "@/components/loading"
+import { DynamicTheme } from "@/components/dynamic-theme"
+import { useSettings } from "@/contexts/settings-context"
 import { HeroSection } from "@/components/sections/hero-section"
 import { AboutSection } from "@/components/sections/about-section"
 import { ServicesSection } from "@/components/sections/services-section"
@@ -16,6 +18,30 @@ const ContactForm = lazy(() => import("@/components/contact-form"))
 const ResumeSection = lazy(() => import("@/components/resume-section"))
 
 export default function Portfolio() {
+  const { settings } = useSettings()
+
+  // Section mapping
+  const sectionComponents = {
+    hero: <HeroSection />,
+    about: <AboutSection />,
+    services: <ServicesSection />,
+    skills: <SkillsSection />,
+    projects: <ProjectsSection />,
+    contact: (
+      <Suspense fallback={<Loading />}>
+        <ContactForm />
+      </Suspense>
+    ),
+    resume: (
+      <Suspense fallback={<Loading />}>
+        <ResumeSection />
+      </Suspense>
+    )
+  }
+
+  // Get section order from settings or use default
+  const sectionOrder = settings?.section_order || ["hero", "about", "services", "skills", "projects", "contact", "resume"]
+
   return (
     <motion.div 
       className="min-h-screen"
@@ -23,70 +49,25 @@ export default function Portfolio() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
+      <DynamicTheme />
       <Navbar />
 
       <main>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <HeroSection />
-        </motion.div>
-        
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          <AboutSection />
-        </motion.div>
-        
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-        >
-          <ServicesSection />
-        </motion.div>
-        
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-        >
-          <SkillsSection />
-        </motion.div>
-        
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.0 }}
-        >
-          <ProjectsSection />
-        </motion.div>
+        {sectionOrder.map((sectionId, index) => {
+          const section = sectionComponents[sectionId as keyof typeof sectionComponents]
+          if (!section) return null
 
-        {/* Contact Section - Lazy Loaded */}
-        <Suspense fallback={<Loading />}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.2 }}
-          >
-            <ContactForm />
-          </motion.div>
-        </Suspense>
-
-        {/* Resume Section - Lazy Loaded */}
-        <Suspense fallback={<Loading />}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.4 }}
-          >
-            <ResumeSection />
-          </motion.div>
-        </Suspense>
+          return (
+            <motion.div
+              key={sectionId}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 + (index * 0.2) }}
+            >
+              {section}
+            </motion.div>
+          )
+        })}
       </main>
 
       <motion.div

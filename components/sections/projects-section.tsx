@@ -10,6 +10,7 @@ import { Grid } from "@/components/ui/grid"
 import { Spotlight } from "@/components/ui/spotlight-new"
 import { projects } from "@/lib/data"
 import { cn } from "@/lib/utils"
+import { useSectionContent } from "@/hooks/use-content"
 
 interface ProjectsSectionProps {
   className?: string
@@ -22,6 +23,14 @@ function ProjectsSection({
   showAll = false, 
   maxItems = 4 
 }: ProjectsSectionProps) {
+  const content = useSectionContent('projects', {
+    title: 'Featured Projects',
+    subtitle: 'A showcase of my recent work and technical expertise',
+    hidden: false,
+    title_hidden: false,
+    subtitle_hidden: false
+  })
+  if ((content as any).hidden) return null
   const displayProjects = showAll ? projects : projects.slice(0, maxItems)
 
   return (
@@ -29,8 +38,10 @@ function ProjectsSection({
       <Spotlight />
       <div className="relative z-10">
         <SectionHeader 
-          title="Featured Projects"
-          description="A showcase of my recent work and technical expertise"
+          title={content.title}
+          description={content.subtitle}
+          titleHidden={content.title_hidden}
+          descriptionHidden={content.subtitle_hidden}
         />
 
         <Grid cols={2} gap="lg">
