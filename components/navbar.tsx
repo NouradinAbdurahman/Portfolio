@@ -22,7 +22,7 @@ export function Navbar({ basePath = "" }: NavbarProps) {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-navbar border-b dark:border-white/10 light:border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
+        <div className="flex justify-between items-center py-2 sm:py-4">
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
             <Link href="/" className="inline-flex items-center select-none cursor-pointer no-select-drag" draggable={false} aria-label="Go to home">
               <span className="text-3xl font-bold dark:text-white text-black no-select-drag" style={{ fontFamily: 'var(--logo-font-family, Lobster), cursive' }}>Nouraddin</span>
@@ -81,7 +81,7 @@ export function Navbar({ basePath = "" }: NavbarProps) {
         </div>
 
         {isMobileMenuOpen && (
-          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="md:hidden py-4 border-t border-border">
+          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="md:hidden py-2 sm:py-4 border-t border-border">
             <div className="flex flex-col space-y-4">
               <Link href={href("#about")} className="dark:text-muted-foreground text-black hover:text-primary transition-colors" prefetch={false} onClick={() => setIsMobileMenuOpen(false)}>About</Link>
               <Link href={href("#portfolio")} className="dark:text-muted-foreground text-black hover:text-primary transition-colors" prefetch={false} onClick={() => setIsMobileMenuOpen(false)}>Portfolio</Link>
