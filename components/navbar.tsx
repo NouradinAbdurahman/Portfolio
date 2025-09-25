@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { useTheme } from "next-themes"
+import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Sun, Moon, Menu, X, Download } from "lucide-react"
@@ -69,13 +70,19 @@ export function Navbar({ basePath = "" }: NavbarProps) {
               Resume
             </Button>
             <Button
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
               variant="ghost"
               size="sm"
               className="md:hidden w-9 h-9 p-0 dark:text-white text-black hover:bg-muted/50 cursor-pointer"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
-              {isMobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-              <span className="sr-only">Toggle menu</span>
+              {isMobileMenuOpen ? (
+                <X className="h-4 w-4" />
+              ) : ((settings?.mobile_menu_icon ?? 'image') === 'image' ? (
+                <Image src="/favicon.png" alt="Open menu" width={20} height={20} className="rounded" />
+              ) : (
+                <Menu className="h-4 w-4" />
+              ))}
             </Button>
           </motion.div>
         </div>

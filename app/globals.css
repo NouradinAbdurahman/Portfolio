@@ -34,29 +34,30 @@ html, body {
 }
 
 :root {
-  --background: #060010; /* Dark background */
-  --foreground: #ffffff; /* White text for dark background */
-  --card: #1e293b; /* Dark card background */
-  --card-foreground: #ffffff; /* White text for dark background */
-  --popover: #1e293b; /* Dark popover background */
-  --popover-foreground: #ffffff; /* White text for dark background */
-  --primary: #8b5cf6; /* Purple primary color for CTAs */
-  --primary-foreground: #ffffff; /* White text on primary */
-  --secondary: #6b7280; /* Gray-600 for secondary elements */
-  --secondary-foreground: #ffffff; /* White text on secondary */
-  --muted: #334155; /* Dark muted background */
-  --muted-foreground: #94a3b8; /* Light muted text */
-  --accent: #8b5cf6; /* Purple accent color */
-  --accent-foreground: #ffffff; /* White text on accent */
+  /* LIGHT MODE DEFAULT TOKENS */
+  --background: #f9fafb; /* Light background */
+  --foreground: #0b0f1a; /* Dark text for light background */
+  --card: #ffffff; /* Light card */
+  --card-foreground: #0b0f1a; /* Dark card text */
+  --popover: #ffffff; /* Light popover */
+  --popover-foreground: #0b0f1a; /* Dark popover text */
+  --primary: #8b5cf6; /* Primary remains purple */
+  --primary-foreground: #ffffff;
+  --secondary: #e5e7eb; /* Light gray secondary */
+  --secondary-foreground: #111827; /* Dark secondary text */
+  --muted: #f3f4f6; /* Light muted */
+  --muted-foreground: #6b7280; /* Muted text */
+  --accent: #8b5cf6;
+  --accent-foreground: #ffffff;
   
   /* Dynamic theme variables */
   --font-family: 'Inter', sans-serif;
   --primary-color: #3b82f6;
   --background-color: #0f172a;
-  --destructive: #be123c; /* Red for destructive actions */
-  --destructive-foreground: #ffffff; /* White text on destructive */
-  --border: #e5e7eb; /* Light gray borders */
-  --input: #e5e7eb; /* Light gray input background */
+  --destructive: #be123c;
+  --destructive-foreground: #ffffff;
+  --border: #e5e7eb;
+  --input: #e5e7eb;
   --ring: rgba(139, 92, 246, 0.5); /* Purple focus ring */
   --chart-1: #8b5cf6; /* Purple for charts */
   --chart-2: #ea580c; /* Orange for charts */
@@ -242,41 +243,52 @@ html, body {
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
 }
 
-/* Section background variables */
-section#about { background: var(--section-about-bg, transparent); }
-section#services { background: var(--section-services-bg, transparent); }
-section#portfolio { background: var(--section-projects-bg, transparent); }
-section#contact { background: var(--section-contact-bg, transparent); }
-section#resume { background: var(--section-resume-bg, transparent); }
-section#skills { background: var(--section-skills-bg, transparent); }
-section#footer { background: var(--section-footer-bg, transparent); }
+/* CSS vars to allow per-section font-size control */
+:root {
+  --fs-section-title: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
+  --fs-section-description: 1.125rem;
+  --fs-body: 1rem;
+}
 
-/* No borders - seamless sections */
-#services {
-  background: linear-gradient(135deg, #060010 0%, #060010 100%);
+.section-title { font-size: var(--fs-section-title); }
+.section-description { font-size: var(--fs-section-description); }
+body { font-size: var(--fs-body); }
+
+/* Hero title responsive CSS vars */
+:root {
+  --fs-hero-title-sm: 2.25rem;
+  --fs-hero-title-md: 3rem;
+  --fs-hero-title-lg: 3.75rem;
+}
+.hero-title { font-size: var(--fs-hero-title-sm); }
+@media (min-width: 768px) { .hero-title { font-size: var(--fs-hero-title-md); } }
+@media (min-width: 1024px) { .hero-title { font-size: var(--fs-hero-title-lg); } }
+
+/* Section background variables - provide sensible light fallbacks */
+section#about { background: var(--section-about-bg, #f9fafb); }
+section#services { background: var(--section-services-bg, #f9fafb); }
+section#portfolio { background: var(--section-projects-bg, #f9fafb); }
+section#contact { background: var(--section-contact-bg, #f9fafb); }
+section#resume { background: var(--section-resume-bg, #f9fafb); }
+section#skills { background: var(--section-skills-bg, #f9fafb); }
+section#footer { background: var(--section-footer-bg, #f9fafb); }
+
+/* Section gradients by theme */
+#services, #portfolio, #contact, #resume {
   position: relative;
 }
 
-#portfolio {
+.dark #services,
+.dark #portfolio,
+.dark #contact,
+.dark #resume {
   background: linear-gradient(135deg, #060010 0%, #060010 100%);
-  position: relative;
 }
 
-#contact {
-  background: linear-gradient(135deg, #060010 0%, #060010 100%);
-  position: relative;
-}
-
+#services,
+#portfolio,
+#contact,
 #resume {
-  background: linear-gradient(135deg, #060010 0%, #060010 100%);
-  position: relative;
-}
-
-/* Light mode adjustments */
-.light #services,
-.light #portfolio,
-.light #contact,
-.light #resume {
   background: linear-gradient(135deg, #f9fafb 0%, #f9fafb 100%);
 }
 

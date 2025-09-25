@@ -14,6 +14,8 @@ interface SiteSettings {
   loading_smart?: boolean
   // UI controls
   show_theme_toggle?: boolean
+  // Mobile menu icon style
+  mobile_menu_icon?: 'image' | 'hamburger'
 }
 
 interface SettingsContextType {
@@ -43,7 +45,8 @@ const defaultSettings: SiteSettings = {
   },
   loading_always: false,
   loading_smart: true,
-  show_theme_toggle: true
+  show_theme_toggle: true,
+  mobile_menu_icon: 'image'
 }
 
 export function SettingsProvider({ children }: { children: ReactNode }) {

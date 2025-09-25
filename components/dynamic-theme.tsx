@@ -2,9 +2,11 @@
 
 import { useSettings } from "@/contexts/settings-context"
 import { useEffect } from "react"
+import { useTheme } from "next-themes"
 
 export function DynamicTheme() {
   const { settings } = useSettings()
+  const { theme } = useTheme()
 
   useEffect(() => {
     if (!settings) return
@@ -16,8 +18,23 @@ export function DynamicTheme() {
     }
 
     // Apply logo font if provided (used by Navbar brand text)
-    if ((settings as any).logo_font_family) {
-      document.documentElement.style.setProperty('--logo-font-family', (settings as any).logo_font_family as string)
+    const logoFamily = (settings as unknown as { logo_font_family?: string }).logo_font_family
+    if (logoFamily) {
+      document.documentElement.style.setProperty('--logo-font-family', logoFamily)
+      // Ensure the chosen logo font is actually loaded on the public site
+      const id = 'gf-logo-font'
+      const existing = document.getElementById(id) as HTMLLinkElement | null
+      const familyParam = encodeURIComponent(logoFamily)
+      const href = `https://fonts.googleapis.com/css2?family=${familyParam}:wght@300;400;600;700&display=swap`
+      if (!existing) {
+        const link = document.createElement('link')
+        link.id = id
+        link.rel = 'stylesheet'
+        link.href = href
+        document.head.appendChild(link)
+      } else if (existing.href !== href) {
+        existing.href = href
+      }
     }
 
     // Apply primary color
@@ -40,13 +57,34 @@ export function DynamicTheme() {
     }
 
     // Apply per-section backgrounds as CSS vars
-    const sectionBgs = (settings as any).section_backgrounds as Record<string, string> | undefined
+    const sectionBgs = (settings as unknown as { section_backgrounds?: Record<string, string> }).section_backgrounds
     if (sectionBgs) {
       Object.entries(sectionBgs).forEach(([key, color]) => {
-        document.documentElement.style.setProperty(`--section-${key}-bg`, color)
+        // In dark mode, enforce admin-configured section backgrounds.
+        // In light mode, clear them so components fall back to light backgrounds.
+        if (theme === 'dark') {
+          document.documentElement.style.setProperty(`--section-${key}-bg`, color)
+        } else {
+          document.documentElement.style.removeProperty(`--section-${key}-bg`)
+        }
       })
     }
-  }, [settings])
+
+    // Apply font size variables when provided
+    const fsTitle = (settings as unknown as { fs_section_title?: string }).fs_section_title
+    const fsDesc = (settings as unknown as { fs_section_description?: string }).fs_section_description
+    const fsBody = (settings as unknown as { fs_body?: string }).fs_body
+    if (fsTitle) document.documentElement.style.setProperty('--fs-section-title', fsTitle)
+    if (fsDesc) document.documentElement.style.setProperty('--fs-section-description', fsDesc)
+    if (fsBody) document.documentElement.style.setProperty('--fs-body', fsBody)
+
+    const fsHeroSm = (settings as unknown as { fs_hero_title_sm?: string }).fs_hero_title_sm
+    const fsHeroMd = (settings as unknown as { fs_hero_title_md?: string }).fs_hero_title_md
+    const fsHeroLg = (settings as unknown as { fs_hero_title_lg?: string }).fs_hero_title_lg
+    if (fsHeroSm) document.documentElement.style.setProperty('--fs-hero-title-sm', fsHeroSm)
+    if (fsHeroMd) document.documentElement.style.setProperty('--fs-hero-title-md', fsHeroMd)
+    if (fsHeroLg) document.documentElement.style.setProperty('--fs-hero-title-lg', fsHeroLg)
+  }, [settings, theme])
 
   return null
 }

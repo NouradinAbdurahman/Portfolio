@@ -15,7 +15,7 @@ export function Footer() {
   })
   if ((content as any).hidden) return null
   return (
-    <section id="footer" className="py-12" style={{ background: 'var(--section-footer-bg, transparent)' }}>
+    <section id="footer" className="py-12 bg-gray-50 dark:bg-[var(--section-footer-bg,#060010)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-center space-x-6">
           <motion.a aria-label="GitHub profile" whileHover={{ scale: 1.1, y: -2 }} href={content.github} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent transition-colors">

@@ -47,7 +47,7 @@ function HeroSection({ className }: HeroSectionProps) {
             className="space-y-6"
           >
             {!content.title_hidden && (
-              <Typography variant="h1" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold dark:text-white text-black">
+              <Typography variant="h1" className="font-bold dark:text-white text-black hero-title">
                 {content.title}
               </Typography>
             )}

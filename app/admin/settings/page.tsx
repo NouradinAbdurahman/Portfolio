@@ -17,6 +17,16 @@ interface SiteSettings {
   loading_always?: boolean
   loading_smart?: boolean
   show_theme_toggle?: boolean
+  // New: font size controls
+  fs_section_title?: string
+  fs_section_description?: string
+  fs_body?: string
+  // Responsive hero title sizes
+  fs_hero_title_sm?: string
+  fs_hero_title_md?: string
+  fs_hero_title_lg?: string
+  // Mobile menu icon style
+  mobile_menu_icon?: 'image' | 'hamburger'
 }
 
 const FONT_OPTIONS = [
@@ -75,7 +85,14 @@ const DEFAULTS: SiteSettings = {
     },
     loading_always: false,
     loading_smart: true,
-    show_theme_toggle: true
+    show_theme_toggle: true,
+    fs_section_title: "clamp(1.75rem, 1.2rem + 2vw, 2.5rem)",
+    fs_section_description: "1.125rem",
+    fs_body: "1rem",
+    fs_hero_title_sm: "2.25rem", // Tailwind 4xl ~ 2.25rem
+    fs_hero_title_md: "3rem",    // Tailwind 5xl ~ 3rem
+    fs_hero_title_lg: "3.75rem",  // Tailwind 6xl ~ 3.75rem
+    mobile_menu_icon: 'image'
 }
 
 export default function AdminSettingsPage() {
@@ -221,7 +238,7 @@ export default function AdminSettingsPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center site-background">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-white"></div>
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-800 dark:border-white"></div>
       </div>
     )
   }
@@ -230,9 +247,9 @@ export default function AdminSettingsPage() {
     return (
       <div className="min-h-screen flex items-center justify-center site-background px-4">
         <div className="max-w-md w-full">
-          <div className="backdrop-blur-xl bg-white/5 dark:bg-black/20 border border-white/10 rounded-2xl shadow-2xl p-8 text-center">
-            <h1 className="text-2xl font-bold text-white mb-4">Access Denied</h1>
-            <p className="text-gray-300 mb-6">You do not have permission to access this page.</p>
+          <div className="backdrop-blur-xl bg-white/80 dark:bg-black/20 border border-gray-200 dark:border-white/10 rounded-2xl shadow-2xl p-8 text-center">
+            <h1 className="text-2xl font-bold dark:text-white text-gray-900 mb-4">Access Denied</h1>
+            <p className="text-gray-700 dark:text-gray-300 mb-6">You do not have permission to access this page.</p>
             <button
               onClick={() => router.push('/admin/login')}
               className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-2 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200"
@@ -248,11 +265,11 @@ export default function AdminSettingsPage() {
   return (
     <div className="min-h-screen site-background py-8 px-4">
       <div className="max-w-4xl mx-auto">
-        <div className="backdrop-blur-xl bg-white/5 dark:bg-black/20 border border-white/10 rounded-2xl shadow-2xl p-8">
+        <div className="backdrop-blur-xl bg-white/80 dark:bg-black/20 border border-gray-200 dark:border-white/10 rounded-2xl shadow-2xl p-8">
           <div className="flex items-center justify-between mb-8 gap-2 flex-col sm:flex-row">
             <div>
-              <h1 className="text-3xl font-bold text-white">Site Settings</h1>
-              <p className="text-gray-300 mt-2">Manage your portfolio appearance and layout</p>
+              <h1 className="text-3xl font-bold dark:text-white text-gray-900">Site Settings</h1>
+              <p className="mt-2 text-gray-700 dark:text-gray-300">Manage your portfolio appearance and layout</p>
             </div>
             <div className="flex gap-2 w-full sm:w-auto">
               <AdminButton onClick={resetAll}>Reset All to Default</AdminButton>
@@ -262,42 +279,162 @@ export default function AdminSettingsPage() {
           </div>
 
           <div className="space-y-8">
+            {/* Typography Scale */}
+            <div>
+              <h3 className="text-lg font-semibold dark:text-white text-gray-900 mb-2">Typography</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Control global font sizes for section titles, descriptions, and body text. Changes apply instantly.</p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-white/80 dark:bg-gray-900/70 border border-gray-200 dark:border-gray-700 rounded-xl">
+                <div>
+                  <label className="block text-sm font-medium dark:text-gray-300 text-gray-800 mb-1">Section Title Size</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. clamp(1.75rem, 1.2rem + 2vw, 2.5rem)"
+                    value={settings.fs_section_title || ''}
+                    onChange={(e)=> setSettings({ ...settings, fs_section_title: e.target.value })}
+                    className="w-full px-3 py-2 bg-white dark:bg-gray-900/70 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white"
+                  />
+                  <div className="mt-2 flex items-center gap-3 text-xs text-gray-600 dark:text-gray-400">
+                    <AdminButton className="h-7 px-2 text-xs" onClick={()=> setSettings({ ...settings, fs_section_title: DEFAULTS.fs_section_title! })}>Default</AdminButton>
+                    <span>Default: {DEFAULTS.fs_section_title}</span>
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium dark:text-gray-300 text-gray-800 mb-1">Section Description Size</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. 1.125rem"
+                    value={settings.fs_section_description || ''}
+                    onChange={(e)=> setSettings({ ...settings, fs_section_description: e.target.value })}
+                    className="w-full px-3 py-2 bg-white dark:bg-gray-900/70 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white"
+                  />
+                  <div className="mt-2 flex items-center gap-3 text-xs text-gray-600 dark:text-gray-400">
+                    <AdminButton className="h-7 px-2 text-xs" onClick={()=> setSettings({ ...settings, fs_section_description: DEFAULTS.fs_section_description! })}>Default</AdminButton>
+                    <span>Default: {DEFAULTS.fs_section_description}</span>
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium dark:text-gray-300 text-gray-800 mb-1">Body Text Size</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. 1rem"
+                    value={settings.fs_body || ''}
+                    onChange={(e)=> setSettings({ ...settings, fs_body: e.target.value })}
+                    className="w-full px-3 py-2 bg-white dark:bg-gray-900/70 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white"
+                  />
+                  <div className="mt-2 flex items-center gap-3 text-xs text-gray-600 dark:text-gray-400">
+                    <AdminButton className="h-7 px-2 text-xs" onClick={()=> setSettings({ ...settings, fs_body: DEFAULTS.fs_body! })}>Default</AdminButton>
+                    <span>Default: {DEFAULTS.fs_body}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* Hero Title Sizes */}
+            <div>
+              <h3 className="text-lg font-semibold dark:text-white text-gray-900 mb-2">Hero Title ("Software Engineer • …")</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Set font sizes per breakpoint. Small applies to mobile, Medium to tablets (≥768px), Large to desktops (≥1024px).</p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-white/80 dark:bg-gray-900/70 border border-gray-200 dark:border-gray-700 rounded-xl">
+                <div>
+                  <label className="block text-sm font-medium dark:text-gray-300 text-gray-800 mb-1">Small (mobile)</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. 2.25rem"
+                    value={settings.fs_hero_title_sm || ''}
+                    onChange={(e)=> setSettings({ ...settings, fs_hero_title_sm: e.target.value })}
+                    className="w-full px-3 py-2 bg-white dark:bg-gray-900/70 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white"
+                  />
+                  <div className="mt-2 flex items-center gap-3 text-xs text-gray-600 dark:text-gray-400">
+                    <AdminButton className="h-7 px-2 text-xs" onClick={()=> setSettings({ ...settings, fs_hero_title_sm: DEFAULTS.fs_hero_title_sm! })}>Default</AdminButton>
+                    <span>Default: {DEFAULTS.fs_hero_title_sm}</span>
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium dark:text-gray-300 text-gray-800 mb-1">Medium (≥768px)</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. 3rem"
+                    value={settings.fs_hero_title_md || ''}
+                    onChange={(e)=> setSettings({ ...settings, fs_hero_title_md: e.target.value })}
+                    className="w-full px-3 py-2 bg-white dark:bg-gray-900/70 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white"
+                  />
+                  <div className="mt-2 flex items-center gap-3 text-xs text-gray-600 dark:text-gray-400">
+                    <AdminButton className="h-7 px-2 text-xs" onClick={()=> setSettings({ ...settings, fs_hero_title_md: DEFAULTS.fs_hero_title_md! })}>Default</AdminButton>
+                    <span>Default: {DEFAULTS.fs_hero_title_md}</span>
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium dark:text-gray-300 text-gray-800 mb-1">Large (≥1024px)</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. 3.75rem"
+                    value={settings.fs_hero_title_lg || ''}
+                    onChange={(e)=> setSettings({ ...settings, fs_hero_title_lg: e.target.value })}
+                    className="w-full px-3 py-2 bg-white dark:bg-gray-900/70 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white"
+                  />
+                  <div className="mt-2 flex items-center gap-3 text-xs text-gray-600 dark:text-gray-400">
+                    <AdminButton className="h-7 px-2 text-xs" onClick={()=> setSettings({ ...settings, fs_hero_title_lg: DEFAULTS.fs_hero_title_lg! })}>Default</AdminButton>
+                    <span>Default: {DEFAULTS.fs_hero_title_lg}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
             {/* Theme Toggle Visibility */}
             <div>
-              <h3 className="text-lg font-semibold text-white mb-2">Theme Toggle</h3>
-              <p className="text-sm text-gray-400 mb-3">Control visibility of the dark/light mode toggle in the navbar.</p>
-              <div className="p-4 bg-gray-900/70 border border-gray-700 rounded-xl space-y-3">
+              <h3 className="text-lg font-semibold dark:text-white text-gray-900 mb-2">Theme Toggle</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Control visibility of the dark/light mode toggle in the navbar.</p>
+              <div className="p-4 bg-gray-50 dark:bg-gray-900/70 border border-gray-200 dark:border-gray-700 rounded-xl space-y-3">
                 <div className="flex items-center justify-between">
                   <div>
-                    <label className="block text-sm font-medium text-gray-300">Show theme toggle</label>
-                    <p className="text-xs text-gray-400">If disabled, the sun/moon button in the navbar is hidden.</p>
+                    <label className="block text-sm font-medium dark:text-gray-300 text-gray-800">Show theme toggle</label>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">If disabled, the sun/moon button in the navbar is hidden.</p>
                   </div>
-                  <AdminButton className={`px-3 py-1 ${(settings.show_theme_toggle !== false)? 'border-emerald-400/30' : 'border-white/20'} bg-white/10`} onClick={() => setSettings({ ...settings, show_theme_toggle: !(settings.show_theme_toggle !== false) })}>
+                  <AdminButton className={`px-3 py-1 ${(settings.show_theme_toggle !== false)? 'border-emerald-400/30' : 'border-gray-300'} bg-white/70 dark:bg-white/10`} onClick={() => setSettings({ ...settings, show_theme_toggle: !(settings.show_theme_toggle !== false) })}>
                     {(settings.show_theme_toggle !== false)? 'Visible' : 'Hidden'}
                   </AdminButton>
                 </div>
               </div>
             </div>
-            {/* Loading Controls */}
+            {/* Mobile Menu Icon */}
             <div>
-              <h3 className="text-lg font-semibold text-white mb-2">Loading Behavior</h3>
-              <p className="text-sm text-gray-400 mb-3">Control when the full-screen loading animation shows.</p>
-              <div className="p-4 bg-gray-900/70 border border-gray-700 rounded-xl space-y-3">
+              <h3 className="text-lg font-semibold dark:text-white text-gray-900 mb-2">Mobile Menu Icon</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Choose whether to use your favicon image or the standard hamburger icon on small screens.</p>
+              <div className="p-4 bg-gray-50 dark:bg-gray-900/70 border border-gray-200 dark:border-gray-700 rounded-xl space-y-3">
                 <div className="flex items-center justify-between">
                   <div>
-                    <label className="block text-sm font-medium text-gray-300">Always show loading animation</label>
-                    <p className="text-xs text-gray-400">Shows on every initial load and navigation.</p>
+                    <label className="block text-sm font-medium dark:text-gray-300 text-gray-800">Icon style</label>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">Current: {settings.mobile_menu_icon || 'image'}</p>
                   </div>
-                  <AdminButton className={`px-3 py-1 ${settings.loading_always? 'border-emerald-400/30' : 'border-white/20'} bg-white/10`} onClick={() => setSettings({ ...settings, loading_always: !settings.loading_always, loading_smart: settings.loading_always ? settings.loading_smart : false })}>
+                  <div className="flex gap-2">
+                    <AdminButton className={`px-3 py-1 ${((settings.mobile_menu_icon||'image')==='image')? 'border-emerald-400/30 bg-emerald-500/20 dark:bg-emerald-600/30 text-emerald-800 dark:text-emerald-100' : 'border-gray-300 bg-white/70 dark:bg-white/10'}`} onClick={() => setSettings({ ...settings, mobile_menu_icon: 'image' })}>
+                      Image
+                    </AdminButton>
+                    <AdminButton className={`px-3 py-1 ${((settings.mobile_menu_icon||'image')==='hamburger')? 'border-emerald-400/30 bg-emerald-500/20 dark:bg-emerald-600/30 text-emerald-800 dark:text-emerald-100' : 'border-gray-300 bg-white/70 dark:bg-white/10'}`} onClick={() => setSettings({ ...settings, mobile_menu_icon: 'hamburger' })}>
+                      Hamburger
+                    </AdminButton>
+                  </div>
+                </div>
+                <div className="text-xs text-gray-600 dark:text-gray-400">Default: {DEFAULTS.mobile_menu_icon}</div>
+              </div>
+            </div>
+            {/* Loading Controls */}
+            <div>
+              <h3 className="text-lg font-semibold dark:text-white text-gray-900 mb-2">Loading Behavior</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Control when the full-screen loading animation shows.</p>
+              <div className="p-4 bg-gray-50 dark:bg-gray-900/70 border border-gray-200 dark:border-gray-700 rounded-xl space-y-3">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <label className="block text-sm font-medium dark:text-gray-300 text-gray-800">Always show loading animation</label>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">Shows on every initial load and navigation.</p>
+                  </div>
+                  <AdminButton className={`px-3 py-1 ${settings.loading_always? 'border-emerald-400/30 bg-emerald-500/20 dark:bg-emerald-600/30 text-emerald-800 dark:text-emerald-100' : 'border-gray-300 bg-white/70 dark:bg-white/10'}`} onClick={() => setSettings({ ...settings, loading_always: !settings.loading_always, loading_smart: settings.loading_always ? settings.loading_smart : false })}>
                     {settings.loading_always? 'Enabled' : 'Disabled'}
                   </AdminButton>
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
-                    <label className="block text-sm font-medium text-gray-300">Smart loading (slow network only)</label>
-                    <p className="text-xs text-gray-400">Only shows when network is slow (based on Network Information API heuristics).</p>
+                    <label className="block text-sm font-medium dark:text-gray-300 text-gray-800">Smart loading (slow network only)</label>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">Only shows when network is slow (based on Network Information API heuristics).</p>
                   </div>
-                  <AdminButton className={`px-3 py-1 ${settings.loading_smart? 'border-emerald-400/30' : 'border-white/20'} bg-white/10`} onClick={() => setSettings({ ...settings, loading_smart: !settings.loading_smart, loading_always: settings.loading_smart ? settings.loading_always : false })}>
+                  <AdminButton className={`px-3 py-1 ${settings.loading_smart? 'border-emerald-400/30 bg-emerald-500/20 dark:bg-emerald-600/30 text-emerald-800 dark:text-emerald-100' : 'border-gray-300 bg-white/70 dark:bg-white/10'}`} onClick={() => setSettings({ ...settings, loading_smart: !settings.loading_smart, loading_always: settings.loading_smart ? settings.loading_always : false })}>
                     {settings.loading_smart? 'Enabled' : 'Disabled'}
                   </AdminButton>
                 </div>
@@ -307,14 +444,14 @@ export default function AdminSettingsPage() {
             {/* Font Family */}
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="block text-sm font-medium text-gray-300">Font Family (Page)</label>
+                <label className="block text-sm font-medium dark:text-gray-300 text-gray-800">Font Family (Page)</label>
                 <AdminButton className="h-7 px-2 text-xs">Default</AdminButton>
               </div>
               <FontFamilySelect label="" value={settings.font_family} onChange={(val) => setSettings({ ...settings, font_family: val })} />
 
               <div className="mt-6">
                 <div className="flex items-center justify-between mb-2">
-                  <label className="block text-sm font-medium text-gray-300">Font Family (Logo)</label>
+                  <label className="block text-sm font-medium dark:text-gray-300 text-gray-800">Font Family (Logo)</label>
                   <AdminButton className="h-7 px-2 text-xs">Default</AdminButton>
                 </div>
                 <FontFamilySelect label="" value={settings.logo_font_family || DEFAULTS.logo_font_family!} onChange={(val) => setSettings({ ...settings, logo_font_family: val })} />
@@ -325,7 +462,7 @@ export default function AdminSettingsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label className="block text-sm font-medium text-gray-300">
+                  <label className="block text-sm font-medium dark:text-gray-300 text-gray-800">
                     Primary Color
                   </label>
                   <AdminButton className="h-7 px-2 text-xs">Default</AdminButton>
@@ -335,13 +472,13 @@ export default function AdminSettingsPage() {
                     type="color"
                     value={settings.primary_color}
                     onChange={(e) => setSettings({ ...settings, primary_color: e.target.value })}
-                    className="w-12 h-10 rounded-lg border border-gray-700 cursor-pointer shadow"
+                    className="w-12 h-10 rounded-lg border border-gray-300 dark:border-gray-700 cursor-pointer shadow"
                   />
                   <input
                     type="text"
                     value={settings.primary_color}
                     onChange={(e) => setSettings({ ...settings, primary_color: e.target.value })}
-                    className="flex-1 px-3 py-2 bg-gray-900/70 backdrop-blur border border-gray-700 rounded-xl text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-inner"
+                    className="flex-1 px-3 py-2 bg-white dark:bg-gray-900/70 backdrop-blur border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-inner"
                     placeholder="#3b82f6"
                   />
                 </div>
@@ -354,7 +491,7 @@ export default function AdminSettingsPage() {
 
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label className="block text-sm font-medium text-gray-300">
+                  <label className="block text-sm font-medium dark:text-gray-300 text-gray-800">
                     Background Color
                   </label>
                   <AdminButton className="h-7 px-2 text-xs">Default</AdminButton>
@@ -364,13 +501,13 @@ export default function AdminSettingsPage() {
                     type="color"
                     value={settings.background_color}
                     onChange={(e) => setSettings({ ...settings, background_color: e.target.value })}
-                    className="w-12 h-10 rounded-lg border border-gray-700 cursor-pointer shadow"
+                    className="w-12 h-10 rounded-lg border border-gray-300 dark:border-gray-700 cursor-pointer shadow"
                   />
                   <input
                     type="text"
                     value={settings.background_color}
                     onChange={(e) => setSettings({ ...settings, background_color: e.target.value })}
-                    className="flex-1 px-3 py-2 bg-gray-900/70 backdrop-blur border border-gray-700 rounded-xl text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-inner"
+                    className="flex-1 px-3 py-2 bg-white dark:bg-gray-900/70 backdrop-blur border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-inner"
                     placeholder="#0f172a"
                   />
                 </div>
@@ -384,12 +521,12 @@ export default function AdminSettingsPage() {
 
             {/* Section Backgrounds */}
             <div>
-              <h3 className="text-lg font-semibold text-white mb-2">Section Backgrounds</h3>
+              <h3 className="text-lg font-semibold dark:text-white text-gray-900 mb-2">Section Backgrounds</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[...settings.section_order, ...(settings.section_order.includes('footer') ? [] as string[] : ['footer'])].map((id) => (
-                  <div key={id} className="p-4 bg-gray-900/70 border border-gray-700 rounded-xl">
+                  <div key={id} className="p-4 bg-gray-50 dark:bg-gray-900/70 border border-gray-200 dark:border-gray-700 rounded-xl">
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-sm text-gray-300 capitalize">{id} Section</span>
+                      <span className="text-sm dark:text-gray-300 text-gray-800 capitalize">{id} Section</span>
                       <AdminButton className="h-7 px-2 text-xs" onClick={() => setSettings({ ...settings, section_backgrounds: { ...(settings.section_backgrounds || {}), [id]: DEFAULTS.section_backgrounds?.[id] || '#060010' } })}>Default</AdminButton>
                     </div>
                     <div className="flex items-center space-x-3">
@@ -397,13 +534,13 @@ export default function AdminSettingsPage() {
                         type="color"
                         value={(settings.section_backgrounds?.[id]) || '#060010'}
                         onChange={(e) => setSettings({ ...settings, section_backgrounds: { ...(settings.section_backgrounds || {}), [id]: e.target.value } })}
-                        className="w-12 h-10 rounded-lg border border-gray-700 cursor-pointer shadow"
+                        className="w-12 h-10 rounded-lg border border-gray-300 dark:border-gray-700 cursor-pointer shadow"
                       />
                       <input
                         type="text"
                         value={(settings.section_backgrounds?.[id]) || '#060010'}
                         onChange={(e) => setSettings({ ...settings, section_backgrounds: { ...(settings.section_backgrounds || {}), [id]: e.target.value } })}
-                        className="flex-1 px-3 py-2 bg-gray-900/70 backdrop-blur border border-gray-700 rounded-xl text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-inner"
+                        className="flex-1 px-3 py-2 bg-white dark:bg-gray-900/70 backdrop-blur border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-inner"
                       />
                     </div>
                   </div>
@@ -414,7 +551,7 @@ export default function AdminSettingsPage() {
             {/* Section Order */}
             <div>
               <div className="flex items-center justify-between mb-4">
-                <label className="block text-sm font-medium text-gray-300">
+                <label className="block text-sm font-medium dark:text-gray-300 text-gray-800">
                   Section Order (Drag to reorder)
                 </label>
                 <AdminButton className="h-7 px-2 text-xs">Default</AdminButton>
@@ -439,13 +576,13 @@ export default function AdminSettingsPage() {
                         order.splice(to,0,moved)
                         setSettings({ ...settings, section_order: order })
                       }}
-                      className="flex items-center justify-between p-3 bg-gray-900/70 backdrop-blur rounded-xl border border-gray-700 cursor-grab active:cursor-grabbing shadow"
+                      className="flex items-center justify-between p-3 rounded-xl border cursor-grab active:cursor-grabbing bg-white dark:bg-gray-900/70 border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow"
                     >
                       <div className="flex items-center space-x-3">
-                        <div className="w-6 h-6 bg-gray-700 rounded flex items-center justify-center text-xs text-white">
+                        <div className="w-6 h-6 bg-gray-200 dark:bg-gray-700 rounded flex items-center justify-center text-xs text-gray-900 dark:text-white">
                           {index + 1}
                         </div>
-                        <span className="text-white">{section?.label || sectionId}</span>
+                        <span className="dark:text-white text-gray-900">{section?.label || sectionId}</span>
                       </div>
                       <div className="flex space-x-2">
                         <button

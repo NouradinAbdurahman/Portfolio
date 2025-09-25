@@ -29,12 +29,12 @@ function SectionHeader({
       className={cn("text-center mb-16", className)}
     >
       {!titleHidden && (
-        <Typography variant="h2" className="mb-4 dark:text-white text-black">
+        <Typography variant="h2" className="mb-4 dark:text-white text-black section-title">
           {title}
         </Typography>
       )}
       {description && !descriptionHidden && (
-        <Typography variant="lead" className="max-w-2xl mx-auto text-muted-foreground">
+        <Typography variant="lead" className="max-w-2xl mx-auto text-muted-foreground section-description">
           {description}
         </Typography>
       )}

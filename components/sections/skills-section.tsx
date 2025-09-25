@@ -50,7 +50,7 @@ function SkillsSection({ className }: SkillsSectionProps) {
   }
 
   return (
-    <Section id="skills" className={className}>
+    <Section id="skills" variant="light" className={className}>
       <SectionHeader 
         title={content.title}
         description={content.lead}

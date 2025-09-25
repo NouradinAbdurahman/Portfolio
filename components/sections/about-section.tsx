@@ -29,7 +29,7 @@ function AboutSection({ className }: AboutSectionProps) {
   })
   if (content.hidden) return null
   return (
-    <Section id="about" className={className}>
+    <Section id="about" variant="light" className={className}>
       <SectionHeader 
         title={content.title}
         description={content.subtitle}
