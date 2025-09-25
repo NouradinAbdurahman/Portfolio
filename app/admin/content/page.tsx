@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
+import { ArrowLeft } from "lucide-react"
 import { getSupabaseBrowserClient } from "@/lib/supabaseClient"
 import { useToast } from "@/hooks/use-toast"
 import ReactMarkdown from "react-markdown"
@@ -117,7 +119,10 @@ export default function ContentAdminPage() {
 
   return (
     <div className="min-h-screen site-background py-8 px-4">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="max-w-6xl mx-auto">
+        {/* Top Row handled by layout now */}
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <aside className="md:col-span-1 p-4 bg-white/80 dark:bg-black/20 border border-gray-200 dark:border-white/10 rounded-2xl">
           <div className="space-y-3 md:space-y-4">
             {sections.map((s) => (
@@ -143,7 +148,6 @@ export default function ContentAdminPage() {
               <AdminButton onClick={() => setField('hidden', !(data.hidden))} className={`${data.hidden? 'dark:text-white/90 text-gray-900 border-gray-300 dark:border-white/20' : 'dark:text-white text-gray-900 border-emerald-400/30'} bg-white/70 dark:bg-white/10`}>
                 {data.hidden? 'Unhide' : 'Hide'}
               </AdminButton>
-              <AdminButton onClick={() => router.push('/admin/dashboard')} className="flex-1 sm:flex-none">Back to Dashboard</AdminButton>
             </div>
           </div>
           <div className={`space-y-4 ${data.hidden? 'opacity-50 grayscale pointer-events-none' : ''}`}>
@@ -570,6 +574,7 @@ export default function ContentAdminPage() {
             <AdminButton onClick={()=>setContent((prev)=>({ ...prev, [active]: {} }))} className="px-4 py-2">Reset to Default</AdminButton>
           </div>
         </main>
+        </div>
       </div>
     </div>
   )
