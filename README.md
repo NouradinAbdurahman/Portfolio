@@ -18,6 +18,10 @@ Visit the live portfolio: [https://www.nouradin.com](https://www.nouradin.com)
 - **Optimized images**: next/image with responsive sizes and priority for above-the-fold
 - **Performance Optimized**: Code splitting, lazy loading, and bundle optimization
 - **Mobile-First UX**: Responsive project cards with touch-friendly interactions
+ - **Admin CMS**: Full in-app settings and content management powered by Supabase
+ - **Typography Controls**: Live-adjust global section titles/descriptions/body sizes + responsive hero title sizes (per breakpoint)
+ - **Mobile Menu Icon Toggle**: Choose between favicon image or hamburger icon on small screens
+ - **Dynamic Logo Font Loader**: Auto-loads the selected logo font from Google Fonts
 
 ## 🔐 Admin Panel (CMS)
 
@@ -37,12 +41,24 @@ All admin pages require Supabase email/password auth (limited to the configured 
     - Page font family and Logo font family (font pickers)
     - Primary color and Background color (color input + hex)
     - Per-section background map (hero/about/services/skills/projects/contact/resume/footer)
+  - Typography
+    - Global section font sizes via CSS variables:
+      - `Section Title Size` → `--fs-section-title`
+      - `Section Description Size` → `--fs-section-description`
+      - `Body Text Size` → `--fs-body`
+    - Hero title responsive sizes (controls only the text “Software Engineer • Full-Stack Developer • Data Engineer”):
+      - `Small (mobile)` → `--fs-hero-title-sm`
+      - `Medium (≥768px)` → `--fs-hero-title-md`
+      - `Large (≥1024px)` → `--fs-hero-title-lg`
   - Loading Behavior
     - Always show loading animation
     - Smart loading (shows only on slow networks)
     - Mutually exclusive toggles handled in UI logic
   - UI Controls
     - `show_theme_toggle`: hide/show Navbar theme toggle (Sun/Moon)
+  - Mobile Menu Icon
+    - Toggle between `Image` (uses `/public/favicon.png`) and `Hamburger` on small screens
+    - Selected option is highlighted (green) in both light and dark themes
   - Section Order
     - Drag-and-drop reorder + Up/Down buttons; persisted as `section_order`
   - Actions
@@ -232,12 +248,27 @@ cd Portfolio
 npm install
 ```
 
-3. Run the development server:
+3. Configure environment variables in `.env.local`:
+```bash
+# Supabase (required for admin settings/content)
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+SUPABASE_SERVICE_ROLE_KEY=...
+
+# Resend (contact form)
+RESEND_API_KEY=...
+CONTACT_TO_EMAIL=n.aden1208@gmail.com
+
+# Optional: Google Fonts API (for admin font previews)
+NEXT_PUBLIC_GOOGLE_FONTS_API_KEY=...
+```
+
+4. Run the development server:
 ```bash
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## 📝 Available Scripts
 
@@ -284,6 +315,9 @@ The portfolio is fully responsive with breakpoints:
 ## 🌙 Dark/Light Mode
 
 Theme toggle powered by next-themes (class strategy). Colors and backgrounds adapt via CSS variables.
+
+Notes:
+- Section background CSS variables set in settings are only enforced in dark mode; in light mode the app falls back to light defaults for readability.
 
 ## ⚡ Performance Optimizations
 
@@ -384,6 +418,11 @@ This project is open source and available under the [MIT License](LICENSE).
 ## Recent Updates
 
 ### 🎨 Visual Design & Animation Updates (Latest)
+- **Navbar Mobile Icon Toggle**: Choose favicon image or hamburger on small screens; active selections highlighted in green (light & dark)
+- **Hero Title Controls**: Admin can set responsive font sizes (sm/md/lg) for the hero headline via CSS variables
+- **Typography Controls**: Admin can set global section title/description/body sizes with immediate effect
+- **Dynamic Logo Font Loader**: Automatically injects Google Fonts stylesheet for selected logo font
+- **Light Mode Polish (Admin)**: Cards, inputs, and labels tuned for legibility; green active states for toggles/buttons
 - **Aurora Background Animation**: Added stunning WebGL-based Aurora animation to hero section with customizable color stops
 - **Spotlight Animation System**: Implemented dynamic Spotlight background effects for Portfolio and Resume sections
 - **Unified Background Colors**: Applied consistent `#060010` dark background across all sections for cohesive visual experience
