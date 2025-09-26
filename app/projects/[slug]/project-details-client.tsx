@@ -2,12 +2,12 @@
 
 import * as React from "react"
 import { motion } from "framer-motion"
-import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Section } from "@/components/ui/section"
 import { Typography } from "@/components/ui/typography"
 import { TechBadge } from "@/components/ui/tech-badge"
+import { SafeImage } from "@/components/ui/safe-image"
 import { ArrowLeft, Github, ExternalLink } from "lucide-react"
 import { Project } from "@/lib/data"
 
@@ -101,14 +101,13 @@ export function ProjectDetailsClient({ project, slug }: ProjectDetailsClientProp
           className="mb-12"
         >
           <div className="relative w-full aspect-video rounded-lg overflow-hidden">
-            <Image
+            <SafeImage
               src={project.cover || project.image}
               alt={`${project.title} - ${project.description.substring(0, 100)}...`}
               fill
               className="object-cover"
               priority
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-              quality={90}
             />
           </div>
         </motion.div>

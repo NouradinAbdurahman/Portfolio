@@ -1,6 +1,8 @@
 "use client"
 
 import * as React from "react"
+
+export const dynamic = 'force-dynamic'
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -9,10 +11,66 @@ import { SectionHeader } from "@/components/ui/section-header"
 import { ProjectCard } from "@/components/ui/project-card"
 import { Grid } from "@/components/ui/grid"
 import { ArrowLeft } from "lucide-react"
-import { projects } from "@/lib/data"
+import { projects as staticProjects } from "@/lib/data"
+import { useContent } from "@/hooks/use-content"
+import type { Project } from "@/lib/data"
 
 
 export default function ProjectsPage() {
+  const { content, refreshContent } = useContent()
+  const projectsContent = (content?.projects as any) || { items: [] }
+  const cmsItems = (projectsContent?.items || []) as CMSProject[]
+  type CMSProject = Partial<Project> & { id?: string; slug?: string; showDetails?: boolean; showLive?: boolean; showRepo?: boolean }
+  // Merge static projects with CMS overrides; CMS may add new projects too
+  const staticMap = new Map(staticProjects.map(p => [(p.slug || p.id || p.title).toLowerCase(), p]))
+  const merged: (Project & { showDetails?: boolean; showLive?: boolean; showRepo?: boolean })[] = [...staticProjects]
+  cmsItems.forEach((p) => {
+    const key = (p.slug || p.id || p.title || '').toLowerCase()
+    const base = staticMap.get(key)
+    if (base) {
+      const overlay = {
+        ...base,
+        title: p.title ?? base.title,
+        description: p.description ?? base.description,
+        image: (p.image || p.cover) ?? base.image,
+        cover: (p.cover || p.image) ?? base.cover,
+        technologies: p.technologies ?? base.technologies,
+        githubUrl: (p.repo || p.githubUrl) ?? base.githubUrl,
+        liveUrl: (p.liveUrl || p.demo) ?? base.liveUrl,
+        category: p.category ?? base.category,
+        id: p.slug || p.id || base.id,
+        slug: p.slug || base.slug || base.id,
+        hidden: p.hidden ?? false,
+        showDetails: p.showDetails !== false,
+        showLive: p.showLive !== false,
+        showRepo: p.showRepo !== false,
+      }
+      const idx = merged.findIndex(m => (m.slug || m.id || m.title).toLowerCase() === key)
+      if (idx >= 0) merged[idx] = overlay
+    } else {
+      merged.push({
+        id: (p.id || p.slug || p.title || 'project'),
+        slug: p.slug || p.id || ((p.title||'') as string).toLowerCase().replace(/\s+/g,'-'),
+        title: p.title || '',
+        description: p.description || '',
+        image: p.image || p.cover || '/placeholder.jpg',
+        technologies: p.technologies || [],
+        githubUrl: p.repo || p.githubUrl || '',
+        liveUrl: p.liveUrl || p.demo || '',
+        category: p.category || '',
+        cover: p.cover || p.image,
+        hidden: p.hidden || false,
+        showDetails: p.showDetails !== false,
+        showLive: p.showLive !== false,
+        showRepo: p.showRepo !== false,
+      })
+    }
+  })
+  const projects = merged.filter(p => {
+    const title = (p.title || '').toLowerCase()
+    const id = (p.id || '').toString().toLowerCase()
+    return !(title === 'sample project' || id.startsWith('sample')) && !p.hidden
+  })
   return (
     <motion.div 
       className="min-h-screen"

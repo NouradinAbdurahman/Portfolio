@@ -1,17 +1,23 @@
 import * as React from "react"
 import { motion } from "framer-motion"
-import Image from "next/image"
 import Link from "next/link"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { TechBadge } from "@/components/ui/tech-badge"
 import { Typography } from "@/components/ui/typography"
-import { ExternalLink, Eye } from "lucide-react"
+import { SafeImage } from "@/components/ui/safe-image"
+import { ExternalLink, Eye, Github } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { Project } from "@/lib/data"
 
+interface ProjectWithFlags extends Project {
+  showDetails?: boolean
+  showLive?: boolean
+  showRepo?: boolean
+}
+
 interface ProjectCardProps {
-  project: Project
+  project: ProjectWithFlags
   className?: string
   showButtons?: boolean
 }
@@ -37,7 +43,7 @@ function ProjectCard({
     >
       <Card className="overflow-hidden group hover:shadow-lg transition-all duration-300 border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 bg-transparent">
         <div className="relative w-full aspect-video">
-          <Image
+          <SafeImage
             src={project.image}
             alt={project.title}
             fill
@@ -67,26 +73,46 @@ function ProjectCard({
           </div>
           
           {showButtons && (
-            <div className="flex gap-3 pt-2">
-              <Button 
-                asChild
-                variant="outline"
-                className="flex-1 neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/90 cursor-pointer border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/60"
-              >
-                <Link href={`/projects/${project.id}`} className="cursor-pointer">
-                  <Eye className="w-4 h-4 mr-2" />
-                  Details
-                </Link>
-              </Button>
-              
-              {project.liveUrl && (
+            <div className="flex gap-2 sm:gap-3 pt-2">
+              {(project.showDetails !== false) && (
                 <Button 
                   asChild
-                  className="flex-1 neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/90 cursor-pointer border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/60"
+                  variant="outline"
+                  size="sm"
+                  className="flex-1 neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/90 cursor-pointer border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/60 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm"
+                >
+                  <Link href={`/projects/${(project.slug || project.id)}`} className="cursor-pointer">
+                    <Eye className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                    <span className="hidden sm:inline">Details</span>
+                    <span className="sm:hidden">View</span>
+                  </Link>
+                </Button>
+              )}
+              {(project.githubUrl && project.showRepo !== false) && (
+                <Button 
+                  asChild
+                  variant="outline"
+                  size="sm"
+                  className="flex-1 neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/90 cursor-pointer border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/60 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm"
+                >
+                  <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="cursor-pointer">
+                    <Github className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                    <span className="hidden sm:inline">Repository</span>
+                    <span className="sm:hidden">Repo</span>
+                  </Link>
+                </Button>
+              )}
+              
+              {(project.liveUrl && project.showLive !== false) && (
+                <Button 
+                  asChild
+                  size="sm"
+                  className="flex-1 neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/90 cursor-pointer border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/60 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm"
                 >
                   <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="cursor-pointer">
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    Live Demo
+                    <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                    <span className="hidden sm:inline">Live Demo</span>
+                    <span className="sm:hidden">Demo</span>
                   </Link>
                 </Button>
               )}

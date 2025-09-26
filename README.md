@@ -1,6 +1,6 @@
 # Nouraddin's Portfolio
 
-A modern, responsive portfolio website built with Next.js 14, TypeScript, and Tailwind CSS. This portfolio showcases my skills as a Software Engineering student and Full-stack Developer.
+A modern, responsive portfolio website built with Next.js 14, TypeScript, and Tailwind CSS. This portfolio showcases my skills as a Software Engineering student and Full-stack Developer with a comprehensive admin panel for content management.
 
 ## 🚀 Live Demo & Screenshots
 
@@ -18,10 +18,20 @@ Visit the live portfolio: [https://www.nouradin.com](https://www.nouradin.com)
 - **Optimized images**: next/image with responsive sizes and priority for above-the-fold
 - **Performance Optimized**: Code splitting, lazy loading, and bundle optimization
 - **Mobile-First UX**: Responsive project cards with touch-friendly interactions
- - **Admin CMS**: Full in-app settings and content management powered by Supabase
- - **Typography Controls**: Live-adjust global section titles/descriptions/body sizes + responsive hero title sizes (per breakpoint)
- - **Mobile Menu Icon Toggle**: Choose between favicon image or hamburger icon on small screens
- - **Dynamic Logo Font Loader**: Auto-loads the selected logo font from Google Fonts
+- **Admin CMS**: Full in-app settings and content management powered by Supabase
+- **Typography Controls**: Live-adjust global section titles/descriptions/body sizes + responsive hero title sizes (per breakpoint)
+- **Mobile Menu Icon Toggle**: Choose between favicon image or hamburger icon on small screens
+- **Dynamic Logo Font Loader**: Auto-loads the selected logo font from Google Fonts
+- **Comprehensive Project Management**: Full CRUD operations for projects with detailed content editing
+- **Smart Image Handling**: Support for both local and external images with automatic optimization
+- **Advanced State Management**: Default/Undo functionality with change tracking
+- **Granular Visibility Controls**: Hide/unhide sections, projects, and individual content fields
+- **Real-time Synchronization**: Admin changes reflect immediately on the main site
+- **Featured Projects Management**: Drag-and-drop reordering and custom title overrides
+- **Profile Image Management**: Upload local files or use external URLs with live preview
+- **Certification Links**: Clickable certification titles with hover effects and external link icons
+- **Custom 404 Page**: Beautiful error page with gradient background and helpful navigation
+- **Simplified Content Editing**: Clean, streamlined interface for content management
 
 ## 🔐 Admin Panel (CMS)
 
@@ -46,7 +56,7 @@ All admin pages require Supabase email/password auth (limited to the configured 
       - `Section Title Size` → `--fs-section-title`
       - `Section Description Size` → `--fs-section-description`
       - `Body Text Size` → `--fs-body`
-    - Hero title responsive sizes (controls only the text “Software Engineer • Full-Stack Developer • Data Engineer”):
+    - Hero title responsive sizes (controls only the text "Software Engineer • Full-Stack Developer • Data Engineer"):
       - `Small (mobile)` → `--fs-hero-title-sm`
       - `Medium (≥768px)` → `--fs-hero-title-md`
       - `Large (≥1024px)` → `--fs-hero-title-lg`
@@ -59,6 +69,11 @@ All admin pages require Supabase email/password auth (limited to the configured 
   - Mobile Menu Icon
     - Toggle between `Image` (uses `/public/favicon.png`) and `Hamburger` on small screens
     - Selected option is highlighted (green) in both light and dark themes
+  - Featured Projects Management
+    - Drag-and-drop reordering of featured projects
+    - Custom title overrides for each project
+    - Auto-removal of hidden projects from featured list
+    - Hide entire section when no projects are visible
   - Section Order
     - Drag-and-drop reorder + Up/Down buttons; persisted as `section_order`
   - Actions
@@ -76,13 +91,41 @@ All admin pages require Supabase email/password auth (limited to the configured 
     - Global hide/unhide for the section
     - Title / Lead / Subtitle fields with per-field hide toggles
     - Hero: Primary/Secondary CTA label + href fields
-    - About: Markdown body with live preview (react-markdown + GFM) and quick-insert helpers
+    - About: Complete content management including:
+      - Name, Role, Body description
+      - Profile image upload (local files + external URLs) with live preview
+      - Full-Stack Expertise, Data Engineering, Cloud & Automation sections
+      - Individual hide/unhide for each content section
     - Services: add/remove/reorder service items; item hide/unhide; title, description, icon, technologies
     - Skills: three category cards; add/remove/reorder with fields (name, icon, color, category)
     - Contact/Footer: email, phone, location + social links
+    - Resume: Comprehensive resume management with:
+      - Education, Experience, Certifications, Technical Skills sections
+      - Add/remove/reorder items in each section
+      - Individual hide/unhide controls
+      - Technology badge integration with automatic icon resolution
+      - Certification links with live preview functionality
+    - **Projects**: Comprehensive project management with:
+      - Full CRUD operations (Create, Read, Update, Delete)
+      - Individual project hide/unhide controls
+      - Detailed project editor with all content fields
+      - Image upload support (local paths and external URLs)
+      - Technology badges with automatic icon resolution
+      - Button visibility controls (Details, Live Demo, Repository)
+      - Project details sections: Problem, Solution, Outcome, Key Features, Architecture, Technical Challenges, Key Learnings, Impact
+      - Individual hide/unhide for each detail section
+      - Live preview of all changes
+  - **Advanced State Management**
+    - Default/Undo buttons for sections and individual fields
+    - Change tracking and history management
+    - Real-time synchronization with main site
+    - Session storage for preventing infinite loops
+    - Refresh trigger mechanism for reactive UI updates
   - Actions
     - Save Content (per active section) and Reset to Default
+    - Undo Last Change functionality
     - Back to Dashboard
+    - Debug panel for troubleshooting
   - Implementation
     - Reads/writes `site_content` (Supabase)
     - Server route: `app/api/content/route.ts` (GET shape by section/tag; POST single or expanded batch)
@@ -99,14 +142,23 @@ All admin pages require Supabase email/password auth (limited to the configured 
 
 ### Icons & Assets
 - **Lucide React** - Beautiful icons
-- **React Icons** - Popular icon libraries
+- **React Icons** - Popular icon libraries (SiHtml5, SiCss3, SiSass, SiLess, etc.)
 - **Custom CSS** - Neumorphism and glassmorphism effects
+- **TechBadge Component** - Automatic icon resolution for 100+ technologies
+- **SafeImage Component** - Smart image handling with error fallbacks and URL conversion
 
 ### Animation & Visual Effects
 - **Framer Motion** - Declarative animations for UI elements
 - **OGL Library** - WebGL-based rendering for complex background effects
 - **Custom Aurora Component** - WebGL Aurora animation with customizable color stops
 - **Custom Spotlight Component** - Dynamic gradient spotlight effects
+
+### Backend & Database
+- **Supabase** - Backend-as-a-Service for authentication and database
+- **PostgreSQL** - Relational database for content management
+- **Resend** - Email service for contact form
+- **Next.js API Routes** - Serverless API endpoints for content and settings management
+- **Vercel AI SDK** - AI-powered content generation and management
 
 ## 🔍 SEO & Performance Features
 
@@ -151,12 +203,20 @@ All admin pages require Supabase email/password auth (limited to the configured 
 │   ├── layout.tsx                       # Root layout (theme, Analytics, SEO, JSON-LD, Toaster)
 │   ├── page.tsx                         # Home page (Hero, About, Services, Skills, Projects, Contact, Resume)
 │   ├── loading.tsx                      # Loading component for Suspense boundaries
+│   ├── not-found.tsx                    # Custom 404 page with Aurora background and navigation
 │   ├── sitemap.ts                       # Dynamic sitemap generation
 │   ├── projects/
 │   │   ├── page.tsx                     # Projects index
 │   │   └── [slug]/page.tsx              # Project detail (problem → solution → tech → outcome)
+│   ├── admin/
+│   │   ├── dashboard/page.tsx           # Admin dashboard
+│   │   ├── login/page.tsx               # Admin login
+│   │   ├── content/page.tsx             # Content management
+│   │   └── settings/page.tsx            # Site settings management
 │   └── api/
-│       └── contact/route.ts             # Resend email route (sanitized + honeypot)
+│       ├── contact/route.ts             # Resend email route (sanitized + honeypot)
+│       ├── content/route.ts             # Content management API (GET/POST)
+│       └── settings/route.ts            # Settings management API (GET/POST)
 ├── components/
 │   ├── navbar.tsx                       # Shared navbar (theme toggle, internal links)
 │   ├── footer.tsx                       # Unified footer component (social links with aria-labels)
@@ -164,20 +224,28 @@ All admin pages require Supabase email/password auth (limited to the configured 
 │   ├── contact-form.tsx                 # Lazy-loaded contact form
 │   ├── resume-section.tsx               # Lazy-loaded resume section
 │   ├── sections/                        # Section composables (Hero, About, Services, Skills, Projects)
+│   ├── admin/                           # Admin panel components
+│   │   └── font-family-select.tsx       # Font family selector for admin
 │   └── ui/                              # Atomic UI components & utilities
 │       ├── aurora.tsx                   # Aurora background animation
 │       ├── spotlight-new.tsx            # Spotlight background animation
 │       ├── tech-stack-loop.tsx          # Continuous tech logo marquee
-│       ├── tech-badge.tsx               # Auto-icon/color tech badge
+│       ├── tech-badge.tsx               # Auto-icon/color tech badge (100+ technologies)
+│       ├── safe-image.tsx               # Smart image handling with error fallbacks
 │       ├── project-card.tsx, service-card.tsx, skill-card.tsx, typography.tsx, section.tsx, section-header.tsx, grid.tsx
 │       └── … all shadcn/ui primitives (button, card, input, etc.)
 ├── hooks/
 │   ├── use-toast.ts                     # toast store used by Toaster
-│   └── use-mobile.ts                    # isMobile hook (media query)
+│   ├── use-mobile.ts                    # isMobile hook (media query)
+│   └── use-content.ts                   # Content management hook
+├── contexts/
+│   ├── settings-context.tsx             # Global settings context
+│   └── loading-context.tsx              # Loading state context
 ├── lib/
 │   ├── data.ts                          # Centralized content (projects, services, skills)
 │   ├── utils.ts                         # cn() helper (clsx + tailwind-merge)
-│   └── seo.ts                           # SEO utilities (metadata generation, structured data)
+│   ├── seo.ts                           # SEO utilities (metadata generation, structured data)
+│   └── supabaseClient.ts                # Supabase client configuration
 ├── scripts/
 │   ├── performance-check.js             # Performance optimization checker
 │   └── lighthouse-audit.js              # Lighthouse SEO/performance audit script
@@ -187,16 +255,17 @@ All admin pages require Supabase email/password auth (limited to the configured 
 │   ├── robots.txt                       # Search engine crawling instructions
 │   └── favicon.png                      # Site favicon
 ├── next.config.mjs                      # Next.js configuration with optimizations
+├── middleware.ts                        # Next.js middleware for admin protection
 └── README.md
 ```
 
 ## 🎯 Sections
 
 1. **Hero Section** - Introduction with call-to-action buttons
-2. **About Me** - Personal information and skills
+2. **About Me** - Personal information and skills (fully editable from admin)
 3. **Services** - Comprehensive service offerings with 4 service cards
 4. **Portfolio** - Featured projects showcase + detail pages per project
-5. **Resume** - Education, experience, and certifications
+5. **Resume** - Education, experience, and certifications (fully editable from admin)
 6. **Contact** - Contact form (zod validation, toasts, honeypot) and social links
 
 ## 🔍 SEO Implementation Details
@@ -292,7 +361,7 @@ The portfolio uses CSS custom properties for theming in `app/globals.css` (mappe
 ```
 
 ### Content
-Update your personal information in `app/page.tsx`:
+Update your personal information through the admin panel at `/admin/content`:
 - Personal details
 - Skills and technologies
 - Projects
@@ -307,10 +376,11 @@ The portfolio is fully responsive with breakpoints:
 - Desktop: > 1024px
 
 ### Mobile-First UX Features:
-- **Project Cards**: Buttons are always visible on mobile devices for better touch interaction
+- **Project Cards**: Responsive buttons with abbreviated text on mobile
 - **Desktop Hover**: Hover effects preserved for desktop users
 - **Touch-Friendly**: Optimized for touch devices with proper button sizing
 - **Progressive Enhancement**: Core functionality works on all devices
+- **Admin Panel**: Fully responsive admin interface with mobile-optimized controls
 
 ## 🌙 Dark/Light Mode
 
@@ -334,6 +404,7 @@ The portfolio is heavily optimized for speed and user experience:
 - **Priority Loading**: Above-the-fold images load first
 - **Responsive Sizes**: Proper sizing for different screen sizes
 - **Lazy Loading**: Images load only when needed
+- **SafeImage Component**: Smart error handling and URL conversion
 
 ### Loading Performance
 - **Suspense Boundaries**: Smooth loading states for async components
@@ -382,7 +453,6 @@ This project is open source and available under the [MIT License](LICENSE).
 
 **Built with ❤️ by Nouraddin Abdurahman**
 
-
 ## 🚀 Featured Projects
 
 ### 1. **GitHub Profile Analyzer** 
@@ -407,17 +477,47 @@ This project is open source and available under the [MIT License](LICENSE).
 - **Features**: Customer/Vendor/Delivery apps, real-time tracking, multi-language support, payment processing
 - **Impact**: 95% on-time delivery rate, 4.8/5 user satisfaction, 10+ vendors onboarded
 
-
 ### 4. **Viaggi del Qatar Tour Booking System**
 *Enterprise Booking Management Platform*
 - **Tech Stack**: Next.js 14, TypeScript, PostgreSQL, Tailwind CSS, Prisma, PDF-lib, Nodemailer
 - **Features**: Multi-tour reservations, automated PDF generation, real-time dashboards, agent portal
 - **Impact**: 50% operational efficiency improvement, 90% reduction in data entry errors
 
-
 ## Recent Updates
 
-### 🎨 Visual Design & Animation Updates (Latest)
+### 🆕 Latest Features (December 2024)
+- **Certification Links**: Clickable certification titles that open DataCamp certificates in new tabs
+- **Hover Effects**: Glowing accent color effects and external link icons on certification titles
+- **Admin Link Management**: Add, edit, and preview certification links in the admin panel
+- **Custom 404 Page**: Beautiful error page with gradient background, floating animations, and helpful navigation
+- **Responsive 404 Design**: Mobile-optimized 404 page with touch-friendly buttons and proper spacing
+- **Smart Navigation**: 404 page includes quick links to Home, Projects, About, and Contact sections
+
+### 🚀 Latest Admin Panel Enhancements (December 2024)
+- **Simplified Content Editing**: Removed formatting buttons and preview sections for cleaner interface
+- **Profile Image Management**: Enhanced upload system supporting both local files and external URLs with live preview
+- **Mobile-Responsive Admin**: Optimized admin interface for all screen sizes with responsive button layouts
+- **Project Card Mobile Optimization**: Responsive project card buttons with abbreviated text on small screens
+- **About Section Full Editability**: Complete content management for About section including profile image, expertise sections, and all text content
+- **Certification Links System**: Clickable certification titles with hover effects and external link icons
+- **Admin Certification Management**: Link field for certifications with live preview functionality
+- **Custom 404 Page**: Beautiful, modern 404 page with Aurora background and helpful navigation
+- **Advanced Error Handling**: Comprehensive error handling and debugging tools
+- **Performance Optimizations**: Resolved all linting warnings and improved build performance
+- **Real-time Synchronization**: Admin changes reflect immediately on main site without manual refresh
+
+### 🎛️ Admin Panel Button System (21+ Button Types)
+- **Main Toolbar Buttons**: Default, Undo, Hide/Unhide section controls
+- **Field-Level Controls**: Individual Default/Undo buttons for each editable field
+- **Project Management Buttons**: Add, Remove, Move Up/Down, Hide/Unhide projects
+- **Project Details Controls**: Toggle visibility of detailed project editor
+- **Button Visibility Toggles**: Control visibility of Details, Live Demo, Repository buttons
+- **Content Section Controls**: Individual hide/unhide for Problem, Solution, Outcome, Key Features, Architecture, Technical Challenges, Key Learnings, Impact
+- **Profile Image Controls**: Upload, clear, and hide/unhide profile image
+- **Visual Feedback**: Color-coded buttons with hover effects and state indicators
+- **Responsive Design**: All buttons optimized for mobile and desktop interfaces
+
+### 🎨 Visual Design & Animation Updates
 - **Navbar Mobile Icon Toggle**: Choose favicon image or hamburger on small screens; active selections highlighted in green (light & dark)
 - **Hero Title Controls**: Admin can set responsive font sizes (sm/md/lg) for the hero headline via CSS variables
 - **Typography Controls**: Admin can set global section title/description/body sizes with immediate effect
@@ -441,6 +541,8 @@ This project is open source and available under the [MIT License](LICENSE).
 - **Loading States**: Implemented Suspense boundaries with custom loading components
 - **Performance Monitoring**: Added performance checker script for optimization tracking
 - **Linter Fixes**: Resolved all TypeScript and ESLint errors for clean codebase
+- **Infinite Loop Prevention**: Session storage guards and optimized useEffect dependencies
+- **Build Optimization**: Successful compilation with zero errors and warnings
 
 ### 🎨 Design & UI Improvements
 - **Services Section**: Comprehensive services showcase with 4 service cards
@@ -453,11 +555,12 @@ This project is open source and available under the [MIT License](LICENSE).
 - **Theme Consistency**: Ensured proper contrast and readability in both light and dark modes
 
 ### 📱 Responsive Design Improvements
-- **Mobile-First Project Cards**: Buttons now visible by default on mobile devices
+- **Mobile-First Project Cards**: Responsive buttons with abbreviated text on mobile devices
 - **Touch-Friendly UX**: Optimized interactions for touch devices
 - **Desktop Hover Effects**: Preserved hover interactions for desktop users
 - **Progressive Enhancement**: Core functionality works across all device sizes
 - **Button Visibility**: Moved project action buttons below images for better accessibility
+- **Admin Mobile Optimization**: Responsive admin interface with mobile-friendly controls
 
 ### 🛠️ Technical Improvements
 - **Component Architecture**: Separated heavy components into lazy-loaded modules
@@ -466,6 +569,11 @@ This project is open source and available under the [MIT License](LICENSE).
 - **Build Optimization**: Reduced bundle size by 40-60% and improved loading times
 - **Next.js Links**: Replaced all `<a>` tags with proper Next.js `<Link>` components
 - **Error Handling**: Fixed all linter errors and warnings for clean codebase
+- **SafeImage Component**: Smart image handling with error fallbacks and URL conversion
+- **TechBadge Component**: Automatic icon resolution for 100+ technologies
+- **Session Storage**: Prevents infinite loops and improves performance
+- **Real-time Sync**: Admin changes reflect immediately on main site
+- **Cache Busting**: Ensures fresh content with proper cache invalidation
 
 ### 📋 Previous Updates
 - Shared `Navbar` and `Footer` components; consistent nav on all pages
@@ -486,7 +594,56 @@ This project is open source and available under the [MIT License](LICENSE).
 - You can add rate limiting (e.g., Upstash Ratelimit) to `/api/contact` if needed
 - Consider converting large PNGs to `.webp` for even lighter payloads
 
+## 🎛️ Admin Panel Features
+
+### Content Management System
+- **Real-time Editing**: All changes reflect immediately on the main site
+- **Comprehensive Project Management**: Full CRUD operations with detailed content editing
+- **Advanced State Management**: Default/Undo functionality with change tracking
+- **Granular Controls**: Hide/unhide sections, projects, and individual content fields
+- **Smart Image Handling**: Support for both local and external images with automatic optimization
+- **Profile Image Management**: Upload local files or use external URLs with live preview
+- **Simplified Interface**: Clean, streamlined content editing without unnecessary complexity
+
+### Button System Overview
+The admin panel includes 21+ different button types for complete content control:
+
+#### Main Toolbar Buttons
+- **Default Button**: Resets entire section to default values
+- **Undo Button**: Reverts last change made to active section
+- **Hide/Unhide Button**: Controls section visibility
+- **Refresh Button**: Manually refresh content from database
+- **Debug Button**: Toggle debug panel for troubleshooting
+
+#### Field-Level Controls
+- **Field Default/Undo**: Individual controls for each editable field
+- **Field Hide/Unhide**: Toggle visibility of specific content sections
+
+#### Project Management
+- **Add Project**: Create new project cards
+- **Remove Project**: Delete projects from the list
+- **Move Up/Down**: Reorder projects in the list
+- **Project Hide/Unhide**: Control individual project visibility
+- **Project Details Toggle**: Show/hide detailed project editor
+
+#### Project Details Controls
+- **Content Section Hide/Unhide**: Individual controls for Problem, Solution, Outcome, Key Features, Architecture, Technical Challenges, Key Learnings, Impact
+- **Button Visibility Toggles**: Control visibility of Details, Live Demo, Repository buttons
+
+#### Profile Image Controls
+- **File Upload**: Direct file upload with drag-and-drop support
+- **URL Input**: Enter local paths or external URLs
+- **Live Preview**: Real-time image preview in admin
+- **Clear Image**: Remove current image
+- **Hide/Unhide**: Control profile image visibility
+
+### Technology Integration
+- **TechBadge Component**: Automatic icon resolution for 100+ technologies
+- **SafeImage Component**: Smart image handling with error fallbacks
+- **Real-time Synchronization**: Changes sync immediately across all pages
+- **Session Storage**: Prevents infinite loops and improves performance
+
 ### Scripts
 - `npm run dev` — start dev server
 - `npm run build` — production build
-
+- `npm run lint` — run ESLint

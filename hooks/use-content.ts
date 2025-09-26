@@ -1,30 +1,75 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
+import { getSupabaseBrowserClient } from "@/lib/supabaseClient"
 
-type ContentMap = Record<string, any>
-let cached: ContentMap | null = null
+type ContentMap = Record<string, unknown>
 
 export function useContent() {
-  const [content, setContent] = useState<ContentMap | null>(cached)
+  const [content, setContent] = useState<ContentMap | null>(null)
+  const [lastFetch, setLastFetch] = useState<number>(0)
 
-  useEffect(() => {
-    fetch('/api/content', { cache: 'no-store' as any })
-      .then((r) => r.ok ? r.json() : Promise.reject())
-      .then((d) => {
-        cached = d?.content || {}
-        setContent(cached)
+  const loadContent = useCallback(async () => {
+    try {
+      const response = await fetch('/api/content', { 
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0'
+        }
       })
-      .catch(() => {})
+      
+      if (response.ok) {
+        const data = await response.json()
+        setContent(data?.content || {})
+        setLastFetch(Date.now())
+      }
+    } catch (error) {
+      console.error('Failed to fetch content:', error)
+    }
   }, [])
 
-  return content
+  useEffect(() => {
+    let cancelled = false
+
+    const load = async () => {
+      if (cancelled) return
+      try {
+        const response = await fetch('/api/content', { 
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0'
+          }
+        })
+        
+        if (response.ok && !cancelled) {
+          const data = await response.json()
+          setContent(data?.content || {})
+          setLastFetch(Date.now())
+        }
+      } catch (error) {
+        console.error('Failed to fetch content:', error)
+      }
+    }
+
+    // Initial load only - NO automatic refreshes
+    load()
+
+    return () => { 
+      cancelled = true
+    }
+  }, []) // Empty dependency array - only runs once on mount
+
+  return { content, refreshContent: loadContent, lastFetch }
 }
 
-export function useSectionContent<T=any>(section: string, fallback: T): T {
-  const all = useContent()
-  const stored = (all?.[section] as Record<string, any>) || {}
-  return { ...(fallback as any), ...stored } as T
+export function useSectionContent<T=unknown>(section: string, fallback: T): T {
+  const { content } = useContent()
+  const stored = (content?.[section] as Record<string, unknown>) || {}
+  return { ...(fallback as Record<string, unknown>), ...stored } as T
 }
 
 

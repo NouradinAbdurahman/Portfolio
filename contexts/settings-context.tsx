@@ -16,6 +16,10 @@ interface SiteSettings {
   show_theme_toggle?: boolean
   // Mobile menu icon style
   mobile_menu_icon?: 'image' | 'hamburger'
+  // Featured projects slugs (exactly 4 used on homepage)
+  featured_projects?: string[]
+  // Optional title overrides keyed by slug/id
+  featured_titles?: Record<string, string>
 }
 
 interface SettingsContextType {
@@ -46,7 +50,9 @@ const defaultSettings: SiteSettings = {
   loading_always: false,
   loading_smart: true,
   show_theme_toggle: true,
-  mobile_menu_icon: 'image'
+  mobile_menu_icon: 'image',
+  featured_projects: ['github-profile-analyzer','intellistudy','ohay','viaggi-qatar-booking'],
+  featured_titles: {}
 }
 
 export function SettingsProvider({ children }: { children: ReactNode }) {

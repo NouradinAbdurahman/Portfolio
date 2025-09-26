@@ -28,6 +28,8 @@ interface SiteSettings {
   fs_hero_title_lg?: string
   // Mobile menu icon style
   mobile_menu_icon?: 'image' | 'hamburger'
+  featured_projects?: string[]
+  featured_titles?: Record<string, string>
 }
 
 const FONT_OPTIONS = [
@@ -93,7 +95,8 @@ const DEFAULTS: SiteSettings = {
     fs_hero_title_sm: "2.25rem", // Tailwind 4xl ~ 2.25rem
     fs_hero_title_md: "3rem",    // Tailwind 5xl ~ 3rem
     fs_hero_title_lg: "3.75rem",  // Tailwind 6xl ~ 3.75rem
-    mobile_menu_icon: 'image'
+    mobile_menu_icon: 'image',
+    featured_projects: ['github-profile-analyzer','intellistudy','ohay','viaggi-qatar-booking']
 }
 
 export default function AdminSettingsPage() {
@@ -280,6 +283,12 @@ export default function AdminSettingsPage() {
           </div>
 
           <div className="space-y-8">
+            {/* Featured Projects selection */}
+            <div>
+              <h3 className="text-lg font-semibold dark:text-white text-gray-900 mb-2">Featured Projects (Homepage)</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Star up to four projects and drag to order. Titles are editable here as overrides.</p>
+              <FeaturedProjectsPicker settings={settings} setSettings={setSettings} />
+            </div>
             {/* Typography Scale */}
             <div>
               <h3 className="text-lg font-semibold dark:text-white text-gray-900 mb-2">Typography</h3>
@@ -616,6 +625,123 @@ export default function AdminSettingsPage() {
           </div>
         </div>
       </div>
+    </div>
+  )
+}
+
+function FeaturedProjectsPicker({ settings, setSettings }: { settings: SiteSettings, setSettings: (s: SiteSettings) => void }) {
+  // Source projects from CMS if available, otherwise static fallback
+  const ReactRef = require('react') as typeof import('react')
+  const [list, setList] = ReactRef.useState(() => {
+    const { projects } = require('@/lib/data') as typeof import('@/lib/data')
+    return projects.filter((p: any) => !p.hidden) // Filter out hidden projects from static data too
+  })
+  ReactRef.useEffect(() => {
+    ;(async () => {
+      try {
+        const res = await fetch('/api/content')
+        if (!res.ok) return
+        const data = await res.json()
+        const items = (data?.content?.projects?.items || []) as any[]
+        if (items.length) {
+          const normalized = items
+            .filter((p) => !p.hidden) // Filter out hidden projects
+            .map((p) => ({
+              id: p.id || p.slug || p.title,
+              slug: p.slug || p.id || (p.title||'').toLowerCase().replace(/\s+/g,'-'),
+              title: p.title,
+              description: p.description,
+              image: p.image || p.cover,
+              technologies: p.technologies || [],
+            }))
+          setList(normalized as any)
+        }
+      } catch {}
+    })()
+  }, [])
+  
+  // Clean up featured projects when projects become hidden
+  ReactRef.useEffect(() => {
+    const currentFeatured = settings.featured_projects || []
+    if (currentFeatured.length === 0) return
+    
+    const visibleSlugs = list.map((p: any) => (p.slug || p.id || p.title).toLowerCase())
+    const filteredFeatured = currentFeatured.filter((slug: string) => 
+      visibleSlugs.includes((slug || '').toLowerCase())
+    )
+    
+    if (filteredFeatured.length !== currentFeatured.length) {
+      setSettings({ ...settings, featured_projects: filteredFeatured })
+    }
+  }, [list, settings.featured_projects, setSettings])
+  const selected = new Set((settings.featured_projects || []).map(s => (s||'').toLowerCase()))
+  const max = 4
+
+  function toggle(slug: string) {
+    const key = (slug||'').toLowerCase()
+    const arr = [...(settings.featured_projects || [])]
+    const idx = arr.findIndex(s => (s||'').toLowerCase() === key)
+    if (idx >= 0) {
+      arr.splice(idx,1)
+    } else {
+      if (arr.length >= max) return
+      arr.push(slug)
+    }
+    setSettings({ ...settings, featured_projects: arr })
+  }
+
+  function move(from: number, to: number) {
+    const arr = [...(settings.featured_projects || [])]
+    const [m] = arr.splice(from,1)
+    arr.splice(to,0,m)
+    setSettings({ ...settings, featured_projects: arr })
+  }
+
+  const order = (settings.featured_projects || [])
+  const ordered = [
+    ...order.map(key => list.find(p => (p.slug || p.id || p.title).toLowerCase() === (key||'').toLowerCase())).filter(Boolean),
+    ...list.filter(p => !order.includes((p.slug || p.id || p.title).toLowerCase()))
+  ]
+
+  return (
+    <div className="p-4 bg-white/80 dark:bg-gray-900/70 border border-gray-200 dark:border-gray-700 rounded-xl">
+      <div className="space-y-2">
+        {ordered.map((p, idx) => {
+          const key = (p.slug || p.id || p.title).toLowerCase()
+          const isSelected = selected.has(key)
+          const disabled = !isSelected && (settings.featured_projects || []).length >= max
+          return (
+            <div key={key}
+              draggable
+              onDragStart={(e)=>{ e.dataTransfer.setData('text/plain', String(idx)) }}
+              onDragOver={(e)=> e.preventDefault()}
+              onDrop={(e)=>{
+                const from = Number(e.dataTransfer.getData('text/plain'))
+                if (!Number.isNaN(from)) move(from, idx)
+              }}
+              className={`flex items-center gap-3 p-3 rounded-xl border ${disabled? 'opacity-60' : ''} bg-white dark:bg-gray-900/70 border-gray-200 dark:border-gray-700`}
+            >
+              <button onClick={()=> toggle(p.slug || p.id || p.title)}
+                disabled={disabled}
+                className={`h-8 w-8 rounded-full flex items-center justify-center border ${isSelected? 'bg-yellow-400 text-black border-yellow-500' : 'bg-transparent text-yellow-400 border-gray-500'}`}
+                title={isSelected? 'Featured' : 'Mark as Featured'}
+              >★</button>
+              <input
+                value={(settings.featured_titles?.[key]) ?? p.title}
+                onChange={(e)=>{
+                  const next = { ...(settings.featured_titles || {}) }
+                  next[key] = e.target.value
+                  setSettings({ ...settings, featured_titles: next })
+                }}
+                placeholder={p.title}
+                className="flex-1 px-3 py-2 bg-white dark:bg-gray-900/60 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white"
+              />
+              <div className="text-xs text-gray-500 dark:text-gray-400">{p.slug}</div>
+            </div>
+          )
+        })}
+      </div>
+      <div className="mt-2 text-xs text-gray-600 dark:text-gray-400">Drag items to reorder featured list. Max 4 can be starred.</div>
     </div>
   )
 }

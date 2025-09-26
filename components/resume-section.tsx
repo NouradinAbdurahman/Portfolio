@@ -1,24 +1,88 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Spotlight } from "@/components/ui/spotlight-new"
-import { Download, Calendar, Award, Briefcase, GraduationCap, Code, Database } from "lucide-react"
-import { FaReact, FaNodeJs, FaPython, FaAws, FaGitAlt, FaDocker } from "react-icons/fa"
-import { SiTypescript, SiNextdotjs, SiFlutter, SiDart, SiFirebase, SiPostgresql, SiJavascript, SiExpress } from "react-icons/si"
+import { Download, Calendar, Award, Briefcase, GraduationCap, Code, ExternalLink } from "lucide-react"
 import { useSectionContent } from "@/hooks/use-content"
+import { TechBadge } from "@/components/ui/tech-badge"
 
 export default function ResumeSection() {
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => { setMounted(true) }, [])
   const content = useSectionContent('resume', {
     title: 'Resume',
     lead: 'My professional journey and technical expertise',
     hidden: false,
     title_hidden: false,
-    lead_hidden: false
+    lead_hidden: false,
+    education: [
+      {
+        degree: 'Bachelor of Engineering - BE, Software Engineering',
+        school: 'OSTİM Teknik Üniversitesi',
+        date: 'Sep 2022 - Jun 2026',
+        location: 'Ankara Türkiye',
+        description: 'Comprehensive study in Python, C, Web Development, Databases, Data Mining, Software Project Management, C++, Java, SQL, JavaScript, and Machine Learning.',
+        hidden: false
+      },
+      {
+        degree: 'High School Diploma, Information Technology - Engineering',
+        school: 'Omar bin Abdul Aziz Secondary Independent School for Boys',
+        date: 'Sep 2018 - Jun 2021',
+        location: 'Doha/Qatar',
+        description: 'Foundation in CSS, Python, JavaScript, Information Technology, and HTML programming.',
+        hidden: false
+      }
+    ],
+    certifications: [
+      { title: 'Associate Data Engineer in SQL', issuer: 'DataCamp', date: 'Jan 2025', link: 'https://www.datacamp.com/completed/statement-of-accomplishment/track/c0d2e90cbbdc287e61faaf285e45c5af244597b1', hidden: false },
+      { title: 'Data Scientist in Python', issuer: 'DataCamp', date: 'Jun 2024', link: 'https://www.datacamp.com/completed/statement-of-accomplishment/track/5a81b11b3f98bf7664cca160403d04a4bd6d406e', hidden: false },
+      { title: 'Data Analyst in SQL', issuer: 'DataCamp', date: 'Jan 2024', link: 'https://www.datacamp.com/completed/statement-of-accomplishment/track/86f17bd095be0cbde70befab0e01e50bd1e3e766', hidden: false },
+    ],
+    experience: [
+      {
+        role: 'Full-Stack Developer',
+        company: 'DAKAEI AI',
+        employmentType: 'Full-time',
+        date: 'Apr 2025 - Present',
+        location: 'London Area, United Kingdom • Remote',
+        summary: 'Developing full-stack applications using React.js, TypeScript, Node.js, Next.js, JavaScript, SQL, HTML, CSS, Firebase, PostgreSQL, and Databases.',
+        hidden: false
+      }
+    ],
+    skills: {
+      languages: ['JavaScript','TypeScript','Python','Dart','SQL'],
+      frameworks: ['React','Next.js','Flutter','Node.js','Express'],
+      tools: ['AWS','Firebase','Docker','Git','PostgreSQL']
+    }
   })
   if ((content as any).hidden) return null
+  if (!mounted) return null
+  const education = (content as any).education as Array<any> | undefined
+  const certifications = (content as any).certifications as Array<any> | undefined
+  const experience = (content as any).experience as Array<any> | undefined
+  const skills = (content as any).skills as { languages?: string[]; frameworks?: string[]; tools?: string[] } | undefined
+
+  function iconFor(label: string) {
+    const key = label.toLowerCase()
+    if (key.includes('typescript')) return <SiTypescript className="w-3 h-3 text-blue-500" />
+    if (key === 'javascript' || key === 'js') return <SiJavascript className="w-3 h-3 text-yellow-400" />
+    if (key.includes('python')) return <FaPython className="w-3 h-3 text-yellow-400" />
+    if (key.includes('dart')) return <SiDart className="w-3 h-3 text-blue-400" />
+    if (key.includes('sql') || key.includes('postgres')) return <SiPostgresql className="w-3 h-3 text-blue-600" />
+    if (key.includes('react')) return <FaReact className="w-3 h-3 text-cyan-400" />
+    if (key.includes('next')) return <SiNextdotjs className="w-3 h-3 text-black dark:text-white" />
+    if (key.includes('flutter')) return <SiFlutter className="w-3 h-3 text-blue-500" />
+    if (key.includes('node')) return <FaNodeJs className="w-3 h-3 text-green-500" />
+    if (key.includes('express')) return <SiExpress className="w-3 h-3" />
+    if (key.includes('aws')) return <FaAws className="w-3 h-3 text-orange-400" />
+    if (key.includes('firebase')) return <SiFirebase className="w-3 h-3 text-orange-500" />
+    if (key.includes('docker')) return <FaDocker className="w-3 h-3 text-blue-500" />
+    if (key.includes('git')) return <FaGitAlt className="w-3 h-3 text-orange-500" />
+    return null
+  }
   return (
     <section id="resume" className="site-background py-20 relative overflow-hidden">
       <Spotlight />
@@ -62,34 +126,22 @@ export default function ResumeSection() {
               </h3>
               <Card className="p-6 bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 cursor-pointer">
                 <div className="space-y-4">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-3 h-3 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                    <div>
-                      <h4 className="font-semibold dark:text-white text-black">Bachelor of Engineering - BE, Software Engineering</h4>
-                      <p className="text-accent font-medium">OSTİM Teknik Üniversitesi</p>
-                      <p className="text-sm text-muted-foreground flex items-center mt-1">
-                        <Calendar className="w-4 h-4 mr-1" />
-                        Sep 2022 - Jun 2026 • Ankara Türkiye
-                      </p>
-                      <p className="text-sm text-muted-foreground mt-2">
-                        Comprehensive study in Python, C, Web Development, Databases, Data Mining, Software Project Management, C++, Java, SQL, JavaScript, and Machine Learning.
-                      </p>
+                  {(education||[]).filter((e)=>!e?.hidden).map((e, i)=> (
+                    <div key={i} className="flex items-start space-x-4">
+                      <div className={`w-3 h-3 rounded-full mt-2 flex-shrink-0 ${i%2===0? 'bg-primary':'bg-accent'}`}></div>
+                      <div>
+                        <h4 className="font-semibold dark:text-white text-black">{e.degree}</h4>
+                        <p className="text-accent font-medium">{e.school}</p>
+                        <p className="text-sm text-muted-foreground flex items-center mt-1">
+                          <Calendar className="w-4 h-4 mr-1" />
+                          {e.date}{e.location? ` • ${e.location}`:''}
+                        </p>
+                        {e.description && (
+                          <p className="text-sm text-muted-foreground mt-2">{e.description}</p>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-start space-x-4">
-                    <div className="w-3 h-3 bg-accent rounded-full mt-2 flex-shrink-0"></div>
-                    <div>
-                      <h4 className="font-semibold dark:text-white text-black">High School Diploma, Information Technology - Engineering</h4>
-                      <p className="text-accent font-medium">Omar bin Abdul Aziz Secondary Independent School for Boys</p>
-                      <p className="text-sm text-muted-foreground flex items-center mt-1">
-                        <Calendar className="w-4 h-4 mr-1" />
-                        Sep 2018 - Jun 2021 • Doha/Qatar
-                      </p>
-                      <p className="text-sm text-muted-foreground mt-2">
-                        Foundation in CSS, Python, JavaScript, Information Technology, and HTML programming.
-                      </p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </Card>
             </div>
@@ -101,27 +153,29 @@ export default function ResumeSection() {
               </h3>
               <Card className="p-6 bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 cursor-pointer">
                 <div className="space-y-4">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-3 h-3 bg-accent rounded-full mt-2 flex-shrink-0"></div>
-                    <div>
-                      <h4 className="font-semibold dark:text-white text-black">Associate Data Engineer in SQL</h4>
-                      <p className="text-sm text-muted-foreground">DataCamp • Jan 2025</p>
+                  {(certifications||[]).filter((c)=>!c?.hidden).map((c, i)=> (
+                    <div key={i} className="flex items-start space-x-4">
+                      <div className={`w-3 h-3 rounded-full mt-2 flex-shrink-0 ${i%2===0? 'bg-accent':'bg-primary'}`}></div>
+                      <div className="flex-1">
+                        {c.link ? (
+                          <a 
+                            href={c.link} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="group flex items-center space-x-2 hover:text-accent transition-colors duration-300"
+                          >
+                            <h4 className="font-semibold dark:text-white text-black group-hover:text-accent transition-colors duration-300 group-hover:drop-shadow-lg">
+                              {c.title}
+                            </h4>
+                            <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-accent transition-colors duration-300 group-hover:scale-110 transform" />
+                          </a>
+                        ) : (
+                          <h4 className="font-semibold dark:text-white text-black">{c.title}</h4>
+                        )}
+                        <p className="text-sm text-muted-foreground">{c.issuer} • {c.date}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-start space-x-4">
-                    <div className="w-3 h-3 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                    <div>
-                      <h4 className="font-semibold dark:text-white text-black">Data Scientist in Python</h4>
-                      <p className="text-sm text-muted-foreground">DataCamp • Jun 2024</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-4">
-                    <div className="w-3 h-3 bg-accent rounded-full mt-2 flex-shrink-0"></div>
-                    <div>
-                      <h4 className="font-semibold dark:text-white text-black">Data Analyst in SQL</h4>
-                      <p className="text-sm text-muted-foreground">DataCamp • Jan 2024</p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </Card>
             </div>
@@ -142,23 +196,25 @@ export default function ResumeSection() {
               </h3>
               <Card className="p-6 bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 cursor-pointer">
                 <div className="space-y-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-3 h-3 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                    <div>
-                      <h4 className="font-semibold dark:text-white text-black">Full-Stack Developer</h4>
-                      <p className="text-accent font-medium">DAKAEI AI • Full-time</p>
-                      <p className="text-sm text-muted-foreground flex items-center mt-1">
-                        <Calendar className="w-4 h-4 mr-1" />
-                        Apr 2025 - Present
-                      </p>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        London Area, United Kingdom • Remote
-                      </p>
-                      <p className="text-sm text-muted-foreground mt-2">
-                        Developing full-stack applications using React.js, TypeScript, Node.js, Next.js, JavaScript, SQL, HTML, CSS, Firebase, PostgreSQL, and Databases.
-                      </p>
+                  {(experience||[]).filter((x)=>!x?.hidden).map((x, i)=> (
+                    <div key={i} className="flex items-start space-x-4">
+                      <div className="w-3 h-3 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                      <div>
+                        <h4 className="font-semibold dark:text-white text-black">{x.role}</h4>
+                        <p className="text-accent font-medium">{x.company}{x.employmentType? ` • ${x.employmentType}`:''}</p>
+                        <p className="text-sm text-muted-foreground flex items-center mt-1">
+                          <Calendar className="w-4 h-4 mr-1" />
+                          {x.date}
+                        </p>
+                        {x.location && (
+                          <p className="text-sm text-muted-foreground mt-1">{x.location}</p>
+                        )}
+                        {x.summary && (
+                          <p className="text-sm text-muted-foreground mt-2">{x.summary}</p>
+                        )}
+                      </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
               </Card>
             </div>
@@ -173,121 +229,25 @@ export default function ResumeSection() {
                   <div>
                     <h4 className="font-semibold dark:text-white text-black mb-3">Programming Languages</h4>
                     <div className="flex flex-wrap gap-2">
-                      <Badge
-                        variant="secondary"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
-                      >
-                        <SiJavascript className="w-3 h-3" />
-                        JavaScript
-                      </Badge>
-                      <Badge
-                        variant="secondary"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
-                      >
-                        <SiTypescript className="w-3 h-3 text-blue-500" />
-                        TypeScript
-                      </Badge>
-                      <Badge
-                        variant="secondary"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
-                      >
-                        <FaPython className="w-3 h-3 text-yellow-400" />
-                        Python
-                      </Badge>
-                      <Badge
-                        variant="secondary"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
-                      >
-                        <SiDart className="w-3 h-3 text-blue-400" />
-                        Dart
-                      </Badge>
-                      <Badge
-                        variant="secondary"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
-                      >
-                        <Database className="w-3 h-3" />
-                        SQL
-                      </Badge>
+                      {(skills?.languages||[]).map((label, i)=> (
+                        <TechBadge key={i} name={label} size="sm" />
+                      ))}
                     </div>
                   </div>
                   <div>
                     <h4 className="font-semibold dark:text-white text-black mb-3">Frameworks & Libraries</h4>
                     <div className="flex flex-wrap gap-2">
-                      <Badge
-                        variant="outline"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
-                      >
-                        <FaReact className="w-3 h-3 text-cyan-400" />
-                        React
-                      </Badge>
-                      <Badge
-                        variant="outline"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
-                      >
-                        <SiNextdotjs className="w-3 h-3 text-black dark:text-white" />
-                        Next.js
-                      </Badge>
-                      <Badge
-                        variant="outline"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
-                      >
-                        <SiFlutter className="w-3 h-3 text-blue-500" />
-                        Flutter
-                      </Badge>
-                      <Badge
-                        variant="outline"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
-                      >
-                        <FaNodeJs className="w-3 h-3 text-green-500" />
-                        Node.js
-                      </Badge>
-                      <Badge
-                        variant="outline"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
-                      >
-                        <SiExpress className="w-3 h-3" />
-                        Express
-                      </Badge>
+                      {(skills?.frameworks||[]).map((label, i)=> (
+                        <TechBadge key={i} name={label} size="sm" variant="outline" />
+                      ))}
                     </div>
                   </div>
                   <div>
                     <h4 className="font-semibold dark:text-white text-black mb-3">Cloud & Tools</h4>
                     <div className="flex flex-wrap gap-2">
-                      <Badge
-                        variant="secondary"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
-                      >
-                        <FaAws className="w-3 h-3 text-orange-400" />
-                        AWS
-                      </Badge>
-                      <Badge
-                        variant="secondary"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
-                      >
-                        <SiFirebase className="w-3 h-3 text-orange-500" />
-                        Firebase
-                      </Badge>
-                      <Badge
-                        variant="secondary"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
-                      >
-                        <FaDocker className="w-3 h-3 text-blue-500" />
-                        Docker
-                      </Badge>
-                      <Badge
-                        variant="secondary"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
-                      >
-                        <FaGitAlt className="w-3 h-3 text-orange-500" />
-                        Git
-                      </Badge>
-                      <Badge
-                        variant="secondary"
-                        className="flex items-center gap-1 hover:scale-105 transition-transform bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 dark:text-white text-black"
-                      >
-                        <SiPostgresql className="w-3 h-3 text-blue-600" />
-                        PostgreSQL
-                      </Badge>
+                      {(skills?.tools||[]).map((label, i)=> (
+                        <TechBadge key={i} name={label} size="sm" />
+                      ))}
                     </div>
                   </div>
                 </div>

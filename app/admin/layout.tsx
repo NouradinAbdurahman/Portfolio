@@ -12,6 +12,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const { theme, setTheme } = useTheme()
   const pathname = usePathname()
   const showToolbar = pathname !== "/admin/dashboard"
+  const pageTitle = React.useMemo(() => {
+    if (!pathname) return ''
+    if (pathname.startsWith('/admin/settings')) return 'Site Settings'
+    if (pathname.startsWith('/admin/content')) return 'Site Content'
+    if (pathname.startsWith('/admin/login')) return 'Admin Login'
+    return 'Admin'
+  }, [pathname])
 
   function handleToggle() {
     setTheme(theme === "dark" ? "light" : "dark")
@@ -29,6 +36,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               Go Back
             </Link>
           </AdminButton>
+          {/* Page title (center) */}
+          <div className="flex-1 text-center">
+            <span className="text-sm md:text-base font-semibold dark:text-white text-gray-900">
+              {pageTitle}
+            </span>
+          </div>
           <AdminButton
             aria-label="Toggle theme"
             className="h-10 w-10 p-0 rounded-full flex items-center justify-center"

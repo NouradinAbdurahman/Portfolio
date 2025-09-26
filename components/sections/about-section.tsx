@@ -20,12 +20,20 @@ function AboutSection({ className }: AboutSectionProps) {
     body: '',
     name: 'Nouraddin Abdurahman Aden',
     role: 'Software Engineering Student & Developer',
+    fullstack_expertise: 'Proficient in React, Next.js, Flutter, and modern web technologies for creating responsive, performant applications.',
+    data_engineering: 'Experienced in ETL pipeline development, SQL optimization, and cloud-based data processing solutions.',
+    cloud_automation: 'Skilled in AWS, Firebase, and building automated workflows that scale with business needs.',
+    profile_image: '/photo.png',
     hidden: false,
     title_hidden: false,
     subtitle_hidden: false,
     name_hidden: false,
     role_hidden: false,
-    body_hidden: false
+    body_hidden: false,
+    fullstack_expertise_hidden: false,
+    data_engineering_hidden: false,
+    cloud_automation_hidden: false,
+    profile_image_hidden: false
   })
   if (content.hidden) return null
   return (
@@ -37,13 +45,14 @@ function AboutSection({ className }: AboutSectionProps) {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Profile Photo */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="flex justify-center lg:justify-end"
-        >
+        {!content.profile_image_hidden && (
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="flex justify-center lg:justify-end"
+          >
           <div 
             className="relative group cursor-pointer select-none"
             onContextMenu={(e) => e.preventDefault()}
@@ -57,8 +66,8 @@ function AboutSection({ className }: AboutSectionProps) {
           >
             <div className="relative w-80 h-80 rounded-full overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center border-2 border-gray-300 dark:border-white/20">
               <Image 
-                src="/photo.png"
-                alt="Nouraddin - Software Engineering Student & Developer"
+                src={content.profile_image || "/photo.png"}
+                alt={content.name || "Nouraddin - Software Engineering Student & Developer"}
                 fill
                 sizes="(max-width: 640px) 320px, (max-width: 1024px) 480px, 640px"
                 priority
@@ -77,12 +86,13 @@ function AboutSection({ className }: AboutSectionProps) {
               {/* Tooltip */}
               <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
                 <div className="bg-transparent border-2 border-primary rounded-lg px-3 py-2 text-sm font-medium text-primary whitespace-nowrap animate-pulse-glow">
-                  Nouraddin Abdurahman Aden
+                  {content.name || "Nouraddin Abdurahman Aden"}
                 </div>
               </div>
             </div>
           </div>
-        </motion.div>
+          </motion.div>
+        )}
 
         {/* Content */}
         <motion.div
@@ -114,20 +124,23 @@ function AboutSection({ className }: AboutSectionProps) {
 
           <div className="space-y-4">
             <div className="space-y-3">
-              <Typography variant="p" className="font-medium">
-                <strong className="dark:text-white text-black">Full-Stack Expertise:</strong> Proficient in React, Next.js,
-                Flutter, and modern web technologies for creating responsive, performant applications.
-              </Typography>
+              {!content.fullstack_expertise_hidden && content.fullstack_expertise && (
+                <Typography variant="p" className="font-medium">
+                  <strong className="dark:text-white text-black">Full-Stack Expertise:</strong> {content.fullstack_expertise}
+                </Typography>
+              )}
               
-              <Typography variant="p" className="font-medium">
-                <strong className="dark:text-white text-black">Data Engineering:</strong> Experienced in ETL pipeline development, 
-                SQL optimization, and cloud-based data processing solutions.
-              </Typography>
+              {!content.data_engineering_hidden && content.data_engineering && (
+                <Typography variant="p" className="font-medium">
+                  <strong className="dark:text-white text-black">Data Engineering:</strong> {content.data_engineering}
+                </Typography>
+              )}
               
-              <Typography variant="p" className="font-medium">
-                <strong className="dark:text-white text-black">Cloud & Automation:</strong> Skilled in AWS, Firebase, 
-                and building automated workflows that scale with business needs.
-              </Typography>
+              {!content.cloud_automation_hidden && content.cloud_automation && (
+                <Typography variant="p" className="font-medium">
+                  <strong className="dark:text-white text-black">Cloud & Automation:</strong> {content.cloud_automation}
+                </Typography>
+              )}
             </div>
           </div>
 

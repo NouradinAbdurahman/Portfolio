@@ -27,7 +27,7 @@ function HeroSection({ className }: HeroSectionProps) {
   })
   if (content.hidden) return null
   return (
-    <section className={cn("relative pt-25 sm:pt-32 md:pt-40 lg:pt-50 pb-20 overflow-hidden bg-gray-50 dark:bg-[#060010]", className)}>
+    <section className={cn("relative pt-23 sm:pt-32 md:pt-40 lg:pt-50 pb-20 overflow-hidden bg-gray-50 dark:bg-[#060010]", className)}>
       {/* Gradient/Aurora only in dark mode */}
       <div className="absolute inset-0 w-full h-full hidden dark:block">
         <Aurora
