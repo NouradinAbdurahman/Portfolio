@@ -12,6 +12,7 @@ import { JsonLd } from "@/components/json-ld"
 import { GlobalLoading } from "@/components/global-loading"
 import { SettingsProvider } from "@/contexts/settings-context"
 
+
 export const metadata: Metadata = {
   title: "Nouraddin Abdurahman Aden - Software Engineer & Data Engineer",
   description:
@@ -86,11 +87,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" dir="ltr">
       <head>
         <link rel="icon" href="/favicon.png" type="image/png" />
         <link rel="shortcut icon" href="/favicon.png" type="image/png" />

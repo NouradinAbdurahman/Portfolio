@@ -1,6 +1,10 @@
 "use client"
 
 import * as React from "react"
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
+
+export const dynamic = 'force-dynamic'
 import { useTheme } from "next-themes"
 import { Sun, Moon } from "lucide-react"
 import { AdminButton } from "@/components/ui/admin-button"
@@ -9,13 +13,23 @@ import { ArrowLeft } from "lucide-react"
 import { usePathname } from "next/navigation"
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  const { theme, setTheme } = useTheme()
+  const router = useRouter()
   const pathname = usePathname()
+  
+  // Redirect /admin to /admin/dashboard
+  useEffect(() => {
+    if (pathname === '/admin') {
+      router.replace('/admin/dashboard')
+    }
+  }, [pathname, router])
+  
+  const { theme, setTheme } = useTheme()
   const showToolbar = pathname !== "/admin/dashboard"
   const pageTitle = React.useMemo(() => {
     if (!pathname) return ''
     if (pathname.startsWith('/admin/settings')) return 'Site Settings'
     if (pathname.startsWith('/admin/content')) return 'Site Content'
+    if (pathname.startsWith('/admin/translations')) return 'Translation Manager'
     if (pathname.startsWith('/admin/login')) return 'Admin Login'
     return 'Admin'
   }, [pathname])

@@ -6,8 +6,11 @@ import { useTheme } from "next-themes"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Sun, Moon, Menu, X, Download } from "lucide-react"
+import { Sun, Moon, Menu, X } from "lucide-react"
 import { useSettings } from "@/contexts/settings-context"
+import { useTranslations, useLocale } from "next-intl"
+import { LanguageSwitcher } from "@/components/language-switcher"
+import { MixedContent } from "@/lib/rtl-utils"
 
 interface NavbarProps {
   basePath?: string
@@ -17,58 +20,85 @@ export function Navbar({ basePath = "" }: NavbarProps) {
   const { theme, setTheme } = useTheme()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const { settings } = useSettings()
+  const t = useTranslations('navigation')
+  const locale = useLocale()
+  const isRTL = locale === 'ar'
 
   const href = (hash: string) => `${basePath}${hash}`
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-navbar border-b dark:border-white/10 light:border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-2 sm:py-4">
-          <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
+        <div className="flex items-center py-2 sm:py-4 justify-between min-w-0">
+          {/* Logo - always on the left in LTR, right in RTL */}
+          <motion.div 
+            initial={{ opacity: 0, x: isRTL ? 20 : -20 }} 
+            animate={{ opacity: 1, x: 0 }} 
+            transition={{ duration: 0.5 }}
+            className={isRTL ? 'order-2' : 'order-1'}
+          >
             <Link href="/" className="inline-flex items-center select-none cursor-pointer no-select-drag" draggable={false} aria-label="Go to home">
               <span className="text-3xl font-bold dark:text-white text-black no-select-drag" style={{ fontFamily: 'var(--logo-font-family, Lobster), cursive' }}>Nouraddin</span>
             </Link>
           </motion.div>
 
+          {/* Navigation Links - center */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.05 }}
-            className="hidden md:flex items-center space-x-8"
+            className={`hidden md:flex items-center ${isRTL ? 'gap-8' : 'space-x-8'} order-2`}
           >
-            <Link aria-label="Go to About section" href={href("#about")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}>About</Link>
-            <Link aria-label="Go to Portfolio section" href={href("#portfolio")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}>Portfolio</Link>
-            <Link aria-label="Go to Services section" href={href("#services")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}>Services</Link>
-            <Link aria-label="Go to Contact section" href={href("#contact")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}>Contact</Link>
-            <Link aria-label="Go to Resume section" href={href("#resume")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}>Resume</Link>
+            {isRTL ? (
+              // RTL order: Resume, Contact, Services, Projects, About
+              <>
+                <Link aria-label="Go to Resume section" href={href("#resume")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('resume')} isRTL={isRTL} /></Link>
+                <Link aria-label="Go to Contact section" href={href("#contact")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('contact')} isRTL={isRTL} /></Link>
+                <Link aria-label="Go to Services section" href={href("#services")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('services')} isRTL={isRTL} /></Link>
+                <Link aria-label="Go to Portfolio section" href={href("#portfolio")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('projects')} isRTL={isRTL} /></Link>
+                <Link aria-label="Go to About section" href={href("#about")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('about')} isRTL={isRTL} /></Link>
+              </>
+            ) : (
+              // LTR order: About, Projects, Services, Contact, Resume
+              <>
+                <Link aria-label="Go to About section" href={href("#about")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('about')} isRTL={isRTL} /></Link>
+                <Link aria-label="Go to Portfolio section" href={href("#portfolio")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('projects')} isRTL={isRTL} /></Link>
+                <Link aria-label="Go to Services section" href={href("#services")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('services')} isRTL={isRTL} /></Link>
+                <Link aria-label="Go to Contact section" href={href("#contact")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('contact')} isRTL={isRTL} /></Link>
+                <Link aria-label="Go to Resume section" href={href("#resume")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('resume')} isRTL={isRTL} /></Link>
+              </>
+            )}
           </motion.div>
 
+          {/* Right side controls - always on the right */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: isRTL ? -20 : 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex items-center space-x-4"
+            className={`flex items-center ${isRTL ? 'space-x-reverse space-x-4' : 'space-x-4'} order-3 flex-shrink-0 min-w-0`}
           >
+            {/* Language switcher - hidden on small devices, shown in mobile dropdown */}
+            <div className="hidden md:block relative">
+              <LanguageSwitcher />
+            </div>
+            
+            {/* Theme toggle - desktop only */}
             {settings?.show_theme_toggle !== false && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="w-9 h-9 p-0 dark:text-white text-black hover:bg-muted/50 cursor-pointer"
-              >
-                <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                <span className="sr-only">Toggle theme</span>
-              </Button>
+              <div className="hidden md:block">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                  className="w-9 h-9 p-0 dark:text-white text-black hover:bg-muted/50 cursor-pointer"
+                >
+                  <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                  <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                  <span className="sr-only">Toggle theme</span>
+                </Button>
+              </div>
             )}
-            <Button
-              size="sm"
-              className="hidden md:inline-flex neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/80 cursor-pointer"
-              onClick={() => window.open('/resume/nouraddin-resume.pdf', '_blank')}
-            >
-              <Download className="w-4 h-4 mr-2" />
-              Resume
-            </Button>
+            
+            {/* Hamburger menu only - theme toggle removed from main navbar */}
             <Button
               aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
               variant="ghost"
@@ -84,21 +114,34 @@ export function Navbar({ basePath = "" }: NavbarProps) {
                 <Menu className="h-4 w-4" />
               ))}
             </Button>
+            
           </motion.div>
         </div>
 
         {isMobileMenuOpen && (
-          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="md:hidden py-2 sm:py-4 border-t border-border">
-            <div className="flex flex-col space-y-4">
-              <Link href={href("#about")} className="dark:text-muted-foreground text-black hover:text-primary transition-colors" prefetch={false} onClick={() => setIsMobileMenuOpen(false)}>About</Link>
-              <Link href={href("#portfolio")} className="dark:text-muted-foreground text-black hover:text-primary transition-colors" prefetch={false} onClick={() => setIsMobileMenuOpen(false)}>Portfolio</Link>
-              <Link href={href("#services")} className="dark:text-muted-foreground text-black hover:text-primary transition-colors" prefetch={false} onClick={() => setIsMobileMenuOpen(false)}>Services</Link>
-              <Link href={href("#contact")} className="dark:text-muted-foreground text-black hover:text-primary transition-colors" prefetch={false} onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
-              <Link href={href("#resume")} className="dark:text-muted-foreground text-black hover:text-primary transition-colors" prefetch={false} onClick={() => setIsMobileMenuOpen(false)}>Resume</Link>
-              <Button aria-label="Open resume PDF" size="sm" className="w-fit neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/80 cursor-pointer" onClick={() => window.open('/resume/nouraddin-resume.pdf', '_blank')}>
-                <Download className="w-4 h-4 mr-2" />
-                Resume
-              </Button>
+          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className={`md:hidden py-2 sm:py-4 border-t border-border ${isRTL ? 'text-right' : 'text-left'}`}>
+            <div className={`flex flex-col space-y-4`}>
+              {/* Mobile menu always uses the same order regardless of language */}
+              <Link href={href("#about")} className={`dark:text-muted-foreground text-black hover:text-primary transition-colors ${isRTL ? 'text-right' : 'text-left'}`} prefetch={false} onClick={() => setIsMobileMenuOpen(false)}><MixedContent text={t('about')} isRTL={isRTL} /></Link>
+              <Link href={href("#portfolio")} className={`dark:text-muted-foreground text-black hover:text-primary transition-colors ${isRTL ? 'text-right' : 'text-left'}`} prefetch={false} onClick={() => setIsMobileMenuOpen(false)}><MixedContent text={t('projects')} isRTL={isRTL} /></Link>
+              <Link href={href("#services")} className={`dark:text-muted-foreground text-black hover:text-primary transition-colors ${isRTL ? 'text-right' : 'text-left'}`} prefetch={false} onClick={() => setIsMobileMenuOpen(false)}><MixedContent text={t('services')} isRTL={isRTL} /></Link>
+              <Link href={href("#contact")} className={`dark:text-muted-foreground text-black hover:text-primary transition-colors ${isRTL ? 'text-right' : 'text-left'}`} prefetch={false} onClick={() => setIsMobileMenuOpen(false)}><MixedContent text={t('contact')} isRTL={isRTL} /></Link>
+              <Link href={href("#resume")} className={`dark:text-muted-foreground text-black hover:text-primary transition-colors ${isRTL ? 'text-right' : 'text-left'}`} prefetch={false} onClick={() => setIsMobileMenuOpen(false)}><MixedContent text={t('resume')} isRTL={isRTL} /></Link>
+              <div className="flex items-center justify-end gap-2">
+                <LanguageSwitcher />
+                {settings?.show_theme_toggle !== false && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                    className="w-9 h-9 p-0 dark:text-white text-black hover:bg-muted/50 cursor-pointer"
+                  >
+                    <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                    <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                    <span className="sr-only">Toggle theme</span>
+                  </Button>
+                )}
+              </div>
             </div>
           </motion.div>
         )}

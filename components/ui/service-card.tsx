@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import { motion } from "framer-motion"
 import { Card } from "@/components/ui/card"
@@ -6,6 +8,8 @@ import { Typography } from "@/components/ui/typography"
 import { Code, Database, Smartphone, Cloud } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { Service } from "@/lib/data"
+import { MixedContent } from "@/lib/rtl-utils"
+import { useLocale } from "next-intl"
 
 interface ServiceCardProps {
   service: Service
@@ -26,6 +30,8 @@ function ServiceCard({
   delay = 0 
 }: ServiceCardProps) {
   const IconComponent = iconMap[service.icon as keyof typeof iconMap] || Code
+  const locale = useLocale()
+  const isRTL = locale === 'ar'
 
   return (
     <motion.div
@@ -42,11 +48,11 @@ function ServiceCard({
           </div>
           
           <Typography variant="h4" className="text-center">
-            {service.title}
+            <MixedContent text={service.title} isRTL={isRTL} />
           </Typography>
           
           <Typography variant="muted" className="text-sm leading-relaxed">
-            {service.description}
+            <MixedContent text={service.description} isRTL={isRTL} />
           </Typography>
           
           <div className="flex flex-wrap gap-2 justify-center pt-2">

@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
+import { MixedContent } from "@/lib/rtl-utils"
 import { 
   FaReact, FaPython, FaAws, FaDocker, FaGitAlt, FaNodeJs, FaJava, FaPhp, FaSwift, FaRust, FaLinux 
 } from "react-icons/fa"
@@ -27,6 +28,7 @@ interface TechBadgeProps {
   variant?: "default" | "outline" | "secondary"
   size?: "sm" | "md" | "lg"
   className?: string
+  isRTL?: boolean
 }
 
 const iconMap: Record<string, React.ElementType> = {
@@ -308,7 +310,8 @@ function TechBadge({
   color = "text-gray-600", 
   variant = "outline",
   size = "sm",
-  className 
+  className,
+  isRTL = false
 }: TechBadgeProps) {
   let IconComponent = icon ? iconMap[icon as keyof typeof iconMap] : null
   let derivedColor = color
@@ -330,7 +333,7 @@ function TechBadge({
       {IconComponent && (
         <IconComponent className={cn("w-3 h-3", derivedColor)} />
       )}
-      {name}
+      <MixedContent text={name} isRTL={isRTL} />
     </Badge>
   )
 }

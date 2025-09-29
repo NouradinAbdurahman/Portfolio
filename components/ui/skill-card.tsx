@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import { motion } from "framer-motion"
 import { Card } from "@/components/ui/card"
@@ -6,6 +8,8 @@ import { Typography } from "@/components/ui/typography"
 import { Code, Database, Cloud, Smartphone } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { Skill } from "@/lib/data"
+import { MixedContent } from "@/lib/rtl-utils"
+import { useLocale } from "next-intl"
 
 interface SkillCardProps {
   title: string
@@ -24,6 +28,8 @@ function SkillCard({
   className,
   delay = 0 
 }: SkillCardProps) {
+  const locale = useLocale()
+  const isRTL = locale === 'ar'
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -35,10 +41,10 @@ function SkillCard({
         <motion.div className="text-center">
           <Icon className="h-12 w-12 text-primary mx-auto mb-4" />
           <Typography variant="h4" className="mb-2">
-            {title}
+            <MixedContent text={title} isRTL={isRTL} />
           </Typography>
           <Typography variant="muted" className="text-sm mb-4">
-            {description}
+            <MixedContent text={description} isRTL={isRTL} />
           </Typography>
           <div className="flex flex-wrap gap-2 justify-center">
             {skills.map((skill) => (

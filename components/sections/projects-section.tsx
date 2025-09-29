@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import { motion } from "framer-motion"
 import Link from "next/link"
@@ -8,10 +10,38 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import { Grid } from "@/components/ui/grid"
 import { Spotlight } from "@/components/ui/spotlight-new"
-import { projects as staticProjects } from "@/lib/data"
+// import { projects as staticProjects } from "@/lib/data" // No longer needed with translation system
 import { cn } from "@/lib/utils"
-import { useContent } from "@/hooks/use-content"
+import { useSupabaseProjects } from "@/hooks/use-supabase-projects"
 import { useSettings } from "@/contexts/settings-context"
+
+// Define the Project type from the hook
+interface Project {
+  id: string
+  slug: string
+  title: string
+  description: string
+  image?: string
+  cover?: string
+  technologies?: string[]
+  githubUrl?: string
+  liveUrl?: string
+  repo?: string
+  demo?: string
+  category?: string
+  hidden?: boolean
+  showDetails?: boolean
+  showLive?: boolean
+  showRepo?: boolean
+  problem?: string
+  solution?: string
+  outcome?: string
+  features?: string[]
+  architecture?: string
+  challenges?: string[]
+  learnings?: string[]
+  impact?: string
+}
 
 interface ProjectsSectionProps {
   className?: string
@@ -21,57 +51,31 @@ interface ProjectsSectionProps {
 
 function ProjectsSection({ 
   className, 
-  showAll = false, 
-  maxItems = 4 
+  showAll = false
 }: ProjectsSectionProps) {
-  const { content } = useContent()
-  const projectsContent = (content?.projects as any) || {
-    title: 'Featured Projects',
-    subtitle: 'A showcase of my recent work and technical expertise',
-    hidden: false,
-    title_hidden: false,
-    subtitle_hidden: false,
-    items: []
-  }
-  if (projectsContent.hidden) return null
-  const cmsItems = projectsContent.items as Array<any> | undefined
+  const { projects, labels } = useSupabaseProjects()
   const { settings } = useSettings()
-  const mapped = (cmsItems || []).filter((p)=>!p?.hidden).map((p)=>({
-    id: p.id || p.slug || p.title,
-    slug: p.slug || p.id || p.title?.toLowerCase().replace(/\s+/g,'-'),
-    title: p.title || '',
-    description: p.description || '',
-    image: p.image || p.cover || '/placeholder.jpg',
-    technologies: (p.technologies || []) as string[],
-    liveUrl: p.liveUrl || p.demo || '',
-    githubUrl: p.repo || p.githubUrl || '',
-    category: p.category || '',
-    cover: p.cover || p.image,
-    showDetails: p.showDetails !== false,
-    showLive: p.showLive !== false,
-    showRepo: p.showRepo !== false,
-    hidden: p.hidden || false,
-  }))
-  // Only use CMS projects - don't merge with static projects to avoid showing hidden static projects
-  const merged = [...mapped] // Use only CMS projects
+  
   // Filter out hidden projects
-  const filteredMerged = merged.filter(p => !p.hidden)
-  let source = filteredMerged
+  const filteredProjects = projects.filter((p: Project) => !p.hidden)
+  let source = filteredProjects
+  
   // If featured_projects is set in settings, honor that exact order and limit
   const order = (settings?.featured_projects || []) as string[]
   if (!showAll && order.length) {
-    const mapByKey = new Map(source.map(p => [(p.slug || p.id || p.title).toLowerCase(), p]))
+    const mapByKey = new Map(source.map((p: Project) => [(p.slug || p.id || p.title).toLowerCase(), p]))
     const ordered = order
       .map(k => mapByKey.get((k||'').toLowerCase()))
       .filter(Boolean) as typeof source
     // Show exactly the starred items (allow fewer than 4) - but only if they're not hidden
-    source = ordered.filter(p => !p.hidden)
+    source = ordered.filter((p: Project) => !p.hidden)
   }
+  
   // Apply title overrides if provided
   const titles = (settings?.featured_titles || {}) as Record<string,string>
   const withTitles = source
-    .filter(p => (p.title || '').toLowerCase() !== 'sample project' && !(String(p.id||'').toLowerCase().startsWith('sample')))
-    .map(p => {
+    .filter((p: Project) => (p.title || '').toLowerCase() !== 'sample project' && !(String(p.id||'').toLowerCase().startsWith('sample')))
+    .map((p: Project) => {
     const key = (p.slug || p.id || p.title).toLowerCase()
     const title = titles[key]
     return title ? { ...p, title } : p
@@ -88,14 +92,12 @@ function ProjectsSection({
       <Spotlight />
       <div className="relative z-10">
         <SectionHeader 
-          title={projectsContent.title}
-          description={projectsContent.subtitle}
-          titleHidden={projectsContent.title_hidden}
-          descriptionHidden={projectsContent.subtitle_hidden}
+          title={labels.title}
+          description={labels.subtitle}
         />
 
         <Grid cols={2} gap="lg">
-          {displayProjects.map((project) => (
+          {displayProjects.map((project: Project) => (
             <ProjectCard
               key={project.id}
               project={project}
@@ -117,7 +119,7 @@ function ProjectsSection({
                 size="lg"
                 className="group neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/90 cursor-pointer border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/60"
               >
-                View All Projects
+                {labels.allProjects}
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>

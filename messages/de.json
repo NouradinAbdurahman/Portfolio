@@ -1,0 +1,359 @@
+{
+  "hero": {
+    "title": "Software-Ingenieur • Full-Stack-Entwickler • Daten-Ingenieur",
+    "subtitle": "Ich entwickle skalierbare Anwendungen, cloud-basierte Systeme und datengetriebene Lösungen. Leidenschaftlich für die Erstellung effizienter ETL-Pipelines, moderner Web-Erfahrungen und automatisierter Workflows.",
+    "ctaPrimary": "Mein LinkedIn Anzeigen",
+    "ctaSecondary": "Kontakt Aufnehmen",
+    "ctaPrimaryLabel": "Mein LinkedIn Anzeigen",
+    "ctaSecondaryLabel": "Kontakt Aufnehmen"
+  },
+  "about": {
+    "title": "Über Mich",
+    "subtitle": "Nouraddin - Software-Engineering-Student und Entwickler",
+    "name": "Nouraddin Abdurahman Aden",
+    "role": "Software-Engineering-Student und Entwickler",
+    "body": "Hallo, ich bin Nouraddin! Aktuell studiere ich Software-Engineering an der OSTİM Technischen Universität und spezialisiere mich auf die Entwicklung skalierbarer Anwendungen und datengetriebener Lösungen. Meine Leidenschaft liegt darin, effiziente Systeme zu schaffen, die die Lücke zwischen komplexen Daten und benutzerfreundlichen Schnittstellen schließen.",
+    "fullstackExpertise": "Kompetent in React, Next.js, Flutter und modernen Web-Technologien für die Erstellung responsiver und leistungsstarker Anwendungen.",
+    "dataEngineering": "Erfahren in der Entwicklung von ETL-Pipelines, SQL-Optimierung und cloud-basierten Datenverarbeitungslösungen.",
+    "cloudAutomation": "Geschickt in AWS, Firebase und der Erstellung automatisierter Workflows, die mit den Geschäftsanforderungen skalieren.",
+    "fullstackExpertiseHeader": "Full-Stack Entwicklung:",
+    "dataEngineeringHeader": "Datenengineering:",
+    "cloudAutomationHeader": "Cloud und Automatisierung:"
+  },
+  "services": {
+    "title": "Dienstleistungen",
+    "subtitle": "Umfassende Lösungen für Ihre digitalen Bedürfnisse",
+    "webDevelopment": {
+      "title": "Web-Entwicklung",
+      "description": "Maßgeschneiderte Web-Anwendungen mit modernen Technologien wie React, Next.js und TypeScript"
+    },
+    "mobileDevelopment": {
+      "title": "Mobile Entwicklung",
+      "description": "Plattformübergreifende mobile Apps mit Flutter und React Native für iOS und Android"
+    },
+    "dataEngineering": {
+      "title": "Daten-Engineering",
+      "description": "ETL-Pipelines, Datenverarbeitung und Analytics-Lösungen mit Python und Cloud-Technologien"
+    },
+    "cloudSolutions": {
+      "title": "Cloud-Lösungen",
+      "description": "Skalierbare Cloud-Infrastrukturen und Deployment-Lösungen mit AWS und Firebase"
+    }
+  },
+  "skills": {
+    "title": "Technische Fähigkeiten",
+    "lead": "Technologien und Tools, mit denen ich arbeite",
+    "catFullTitle": "Full-Stack-Entwicklung",
+    "catFullDesc": "React, Next.js, Flutter, Node.js",
+    "catDataTitle": "Daten-Engineering",
+    "catDataDesc": "ETL-Pipelines, SQL, Python, Analytics",
+    "catCloudTitle": "Cloud und DevOps",
+    "catCloudDesc": "AWS, Firebase, Automatisierung, CI/CD",
+    "fullStack": {
+      "title": "Full-Stack-Entwicklung",
+      "description": "React, Next.js, Flutter, Node.js"
+    },
+    "dataEngineering": {
+      "title": "Daten-Engineering",
+      "description": "ETL-Pipelines, SQL, Python, Analytics"
+    },
+    "cloudTools": {
+      "title": "Cloud und Tools",
+      "description": "AWS, Firebase, Docker, Git"
+    }
+  },
+  "projects": {
+    "title": "Ausgewählte Projekte",
+    "subtitle": "Eine Showcase meiner neuesten Arbeiten und technischen Expertise",
+    "viewDetails": "Details Anzeigen",
+    "viewRepository": "Repository",
+    "viewLiveDemo": "Live-Demo",
+    "technologies": "Technologien",
+    "problem": "Problem",
+    "solution": "Lösung",
+    "outcome": "Ergebnis",
+    "keyFeatures": "Hauptfunktionen",
+    "architecture": "Architektur",
+    "technicalChallenges": "Technische Herausforderungen",
+    "keyLearnings": "Wichtige Erkenntnisse",
+    "impact": "Auswirkung",
+    "backToProjects": "Zurück zu Projekten",
+    "allProjects": "Alle Projekte",
+    "items": {
+      "github-profile-analyzer": {
+        "title": "GitHub Profil Analysator",
+        "description": "KI-gestützte Einblicke für GitHub-Entwickler. Echtzeit-Analytik, KI-generierte Zusammenfassungen, Profiloptimierung und personalisierte Dashboards. Erstellt mit Next.js, TypeScript, Tailwind CSS und Firebase. Integriert mit DAKAEi AI API und GitHub API.",
+        "category": "KI-Analytik • Entwicklertools",
+        "problem": "Entwickler und Recruiter haben Schwierigkeiten, aussagekräftige Einblicke aus GitHub-Profilen zu extrahieren, was es schwierig macht, Codierungsmuster, Produktivitätstrends und technische Expertise aus rohen Repository-Daten zu bewerten.",
+        "solution": "Erstellt eine KI-gestützte Analyseplattform, die sich mit GitHub APIs verbindet, um Codierungsmuster zu analysieren, natürliche Sprachzusammenfassungen zu generieren und umfassende Visualisierungen der Entwickleraktivität und Wachstumsmuster zu liefern.",
+        "outcome": "Profiloptimierungsgeschwindigkeit um ~60% in Benutzertests erhöht, mit 85% der Benutzer, die eine bessere Verständnis ihrer Codierungsmuster berichten.",
+        "features": [
+          "GitHub API-Integration für Echtzeit-Datenerfassung",
+          "KI-gestützte Analyse von Codierungsmustern und Sprachen",
+          "Natürliche Sprachzusammenfassungen von Entwicklerprofilen",
+          "Interaktive Visualisierungen (Balkendiagramme, Zeitreihen-Grafiken, Heatmaps)",
+          "Nebeneinander-Profilvergleichsfunktionalität",
+          "Beitragshäufigkeits- und Produktivitätsspitzen-Analyse",
+          "Projektfokus-Kategorisierung (Backend, Frontend, Data Science)",
+          "Erkennung am häufigsten verwendeter Sprachen und Frameworks",
+          "Echtzeit-Dashboard mit umfassenden Statistiken"
+        ],
+        "architecture": "Frontend erstellt mit Next.js und TypeScript für Typsicherheit, Tailwind CSS für responsives Design, Firebase für Authentifizierung und Datenspeicherung, OpenAI API für natürliche Sprachverarbeitung und GitHub REST/GraphQL APIs für Datenerfassung. Die Anwendung verwendet Server-Side Rendering für optimale Leistung und SEO.",
+        "challenges": [
+          "Umgang mit GitHub API-Ratenlimits und Paginierung für große Repositories",
+          "Implementierung von Echtzeit-Datensynchronisation mit Firebase",
+          "Erstellung aussagekräftiger KI-Prompts für konsistente Analyseergebnisse",
+          "Leistungsoptimierung für Benutzer mit umfangreichen Repository-Historien",
+          "Entwurf intuitiver Visualisierungen für komplexe Datenmuster"
+        ],
+        "learnings": [
+          "Erweiterte Next.js-Muster einschließlich App Router und Server Components",
+          "GitHub API-Integration mit REST- und GraphQL-Endpunkten",
+          "KI-Prompt-Engineering für konsistente und aussagekräftige Analysen",
+          "Echtzeit-Datensynchronisationstechniken mit Firebase",
+          "Komplexe Datenvisualisierung mit Chart.js und benutzerdefinierten Komponenten"
+        ],
+        "impact": "Entwicklern geholfen, ihre Codierungsmuster zu verstehen und ihre GitHub-Präsenz zu verbessern, mit über 100+ abgeschlossenen Profilanalysen."
+      },
+      "intellistudy": {
+        "title": "IntelliStudy Plattform",
+        "description": "KI-gestützter Lernassistent für Studenten. Funktionen für Textzusammenfassung, Inhaltsumschreibung, akademischen Q&A-Chatbot und Quiz-Generator. Erstellt mit Next.js, React, Tailwind CSS und shadcn/ui. Integriert mit DAKAEi AI API.",
+        "category": "Full-Stack • KI-Integration",
+        "problem": "Studenten kämpfen mit Informationsüberlastung und benötigen effiziente Tools zum Zusammenfassen, Verstehen und Behalten von akademischen Inhalten über verschiedene Fächer und Formate hinweg.",
+        "solution": "Entwickelt eine KI-gestützte Lernplattform, die Textzusammenfassung, Inhaltsumschreibung, akademischen Q&A-Chatbot und Quiz-Generierung bietet, um Studenten zu helfen, Informationen effektiver zu verarbeiten und zu behalten.",
+        "outcome": "Studieneffizienz um 40% in Benutzertests verbessert, mit 90% der Studenten, die besseres Inhaltsverständnis berichten.",
+        "features": [
+          "KI-gestützte Textzusammenfassung für akademische Inhalte",
+          "Inhaltsumschreibungs- und Paraphrasierungstools",
+          "Akademischer Q&A-Chatbot für sofortige Hilfe",
+          "Quiz-Generator mit mehreren Fragetypen",
+          "Benutzerauthentifizierung und Fortschrittsverfolgung",
+          "Responsives Design mit modernen UI-Komponenten",
+          "Export-Funktionalität für Studienmaterialien"
+        ],
+        "architecture": "Erstellt mit Next.js 14 und App Router, React für UI-Komponenten, Tailwind CSS für Styling, shadcn/ui für Komponentenbibliothek und OpenAI API für alle KI-Funktionalitäten. Bereitgestellt auf Vercel mit Edge-Funktionen für optimale Leistung.",
+        "challenges": [
+          "Implementierung komplexer KI-Prompt-Engineering für Bildungsinhalte",
+          "Erstellung intuitiver Benutzeroberflächen für KI-gestützte Funktionen",
+          "Zustandsverwaltung für mehrere gleichzeitige KI-Operationen",
+          "Optimierung von API-Aufrufen und Antwortverarbeitung für bessere UX"
+        ],
+        "learnings": [
+          "Erweiterte KI-Integrationsmuster und Prompt-Engineering",
+          "Komplexe Zustandsverwaltung mit React Hooks und Context",
+          "shadcn/ui-Komponentenbibliothek-Implementierung",
+          "Bildungstechnologie-Designprinzipien und Benutzererfahrung"
+        ],
+        "impact": "Studenten mächtige KI-Tools für akademischen Erfolg bereitgestellt, Studieneffizienz und Inhaltsverständnis verbessert."
+      },
+      "ohay": {
+        "title": "Ohay Mobile App",
+        "description": "Moderne Multi-Vendor-Lieferplattform für iOS und Android. Kunden können von mehreren Restaurants in einem einzigen Checkout bestellen, Kurierfahrer in Echtzeit verfolgen und detaillierte digitale Quittungen erhalten. Erstellt mit Flutter und Firebase mit Payment-Gateway-Integrationen. Unterstützt iOS Background Fetch, Push-Benachrichtigungen und vollständige Internationalisierung für eine lokalisierte Premium-Erfahrung.",
+        "category": "Mobile Entwicklung • Echtzeitsysteme",
+        "problem": "Liefer-Apps beschränken Benutzer typischerweise darauf, von einem Restaurant zur Zeit zu bestellen, was Unannehmlichkeiten schafft, wenn Benutzer Artikel von mehreren Restaurants in einer einzigen Bestellung haben möchten.",
+        "solution": "Erstellt eine Multi-Vendor-Lieferplattform, die es Kunden ermöglicht, von mehreren Restaurants in einem einzigen Checkout zu bestellen, mit Echtzeit-Kurierverfolgung und umfassender Bestellverwaltung.",
+        "outcome": "4.8/5 App Store-Bewertung mit 1000+ Downloads und 95% Benutzerzufriedenheit in Beta-Tests erreicht.",
+        "features": [
+          "Multi-Vendor-Bestellsystem in einem einzigen Checkout",
+          "Echtzeit-Kurierverfolgung mit Google Maps-Integration",
+          "Digitale Quittungsgenerierung und Bestellhistorie",
+          "Payment-Gateway-Integration mit Stripe",
+          "Push-Benachrichtigungen für Bestellupdates",
+          "iOS Background Fetch für nahtlose Erfahrung",
+          "Vollständige Internationalisierungsunterstützung für globale Benutzer",
+          "Premium UI/UX-Design mit flüssigen Animationen"
+        ],
+        "architecture": "Cross-Platform-Mobile-App erstellt mit Flutter, Firebase für Backend-Services einschließlich Authentifizierung, Echtzeitdatenbank und Cloud-Funktionen. Integriert mit Stripe für Zahlungen und Google Maps für Verfolgung.",
+        "challenges": [
+          "Implementierung von Echtzeitverfolgung mit Firebase und Google Maps",
+          "Komplexe Zustandsverwaltung über mehrere Anbieter und Bestellungen",
+          "Integration mehrerer Payment-Gateways und Transaktionsverwaltung",
+          "Erstellung flüssiger Animationen und Übergänge für Premium-Gefühl",
+          "Umgang mit Offline-Funktionalität und Datensynchronisation"
+        ],
+        "learnings": [
+          "Erweiterte Flutter-Zustandsverwaltung mit Provider und Riverpod",
+          "Firebase-Echtzeitdatenbank-Integration und -Optimierung",
+          "Mobile Payment-Gateway-Integration und Sicherheits-Best-Practices",
+          "Cross-Platform-Entwicklungsmuster und Leistungsoptimierung",
+          "Internationalisierung und Lokalisierung für globale Märkte"
+        ],
+        "impact": "Premium-Liefererfahrung mit Multi-Vendor-Unterstützung und Echtzeitverfolgung geliefert, Kundenzufriedenheit und operative Effizienz verbessert."
+      },
+      "viaggi-qatar-booking": {
+        "title": "Viaggi del Qatar Tour Buchungssystem",
+        "description": "Erweiterte Buchungsverwaltungsplattform, die Multi-Tour-Buchungen, Quittungsgenerierung und Echtzeit-Betriebsdashboards unterstützt. Erstellt mit Next.js 14+ und PostgreSQL (Neon) mit Server-Side Rendering für Geschwindigkeit und SEO. Enthält Agentenportal, Mobile-First-UI und PDF-Vorschau mit Export und Filtern für Routen und Rechnungen.",
+        "category": "Full-Stack • Next.js 14 • PostgreSQL (Neon)",
+        "problem": "Reisebüros benötigen ein umfassendes Buchungsverwaltungssystem, das Multi-Tour-Buchungen verwalten, Quittungen generieren und Echtzeit-Betriebsdashboards für effizientes Geschäftsmanagement bereitstellen kann.",
+        "solution": "Entwickelt eine erweiterte Buchungsplattform mit Multi-Tour-Buchungsfähigkeiten, automatisierter Quittungsgenerierung, Echtzeit-Dashboards und umfassenden Verwaltungstools für Reisebüros.",
+        "outcome": "Buchungsoperationen um 70% vereinfacht, manuelle Arbeit um 80% reduziert und Kundenzufriedenheitswerte um 25% verbessert.",
+        "features": [
+          "Multi-Tour-Buchungssystem mit komplexer Buchungslogik",
+          "Echtzeit-Betriebsdashboards mit Analytik",
+          "Agentenportal für Tourverwaltung und Kundenservice",
+          "PDF-Generierung und Export für Routen und Rechnungen",
+          "Mobile-First-Responsive-Design für alle Geräte",
+          "Erweiterte Filter- und Suchfunktionalitäten",
+          "Automatisierte Quittungs- und Rechnungsgenerierung",
+          "Server-Side Rendering für optimale SEO und Leistung"
+        ],
+        "architecture": "Next.js 14 mit App Router, TypeScript für Typsicherheit, PostgreSQL mit Prisma ORM für Datenbankverwaltung, Server-Side Rendering für Leistung und integrierte PDF-Generierungsservices.",
+        "challenges": [
+          "Entwurf komplexer Datenbankschema für Multi-Tour-Buchungen",
+          "Implementierung von Echtzeit-Dashboard-Updates und Analytik",
+          "Erstellung effizienter PDF-Generierungssystem für verschiedene Dokumente",
+          "Optimierung der Server-Side Rendering-Leistung für große Datensätze",
+          "Verwaltung komplexer Buchungsstatusvalidierung und Geschäftslogik"
+        ],
+        "learnings": [
+          "Erweiterte Next.js 14-Muster einschließlich App Router und Server Components",
+          "Komplexe PostgreSQL-Datenbankdesign und -optimierung",
+          "Server-Side Rendering-Optimierung und Leistungstuning",
+          "PDF-Generierungs- und Dokumentenverwaltungssysteme",
+          "Echtzeit-Dashboard-Implementierung mit Datenvisualisierung"
+        ],
+        "impact": "Tour-Buchungsoperationen für Reisebüros vereinfacht, Buchungseffizienz verbessert und umfassende Verwaltungstools für Tourverwaltung bereitgestellt."
+      }
+    }
+  },
+        "contact": {
+          "title": "Kontakt Aufnehmen",
+          "subtitle": "Lassen Sie uns über Ihr nächstes Projekt sprechen oder sagen Sie einfach Hallo",
+          "letsConnect": "Lassen Sie uns verbinden",
+          "introText": "Ich bin immer an neuen Möglichkeiten, herausfordernden Projekten und bedeutungsvollen Zusammenarbeiten interessiert. Ob Sie ein bestimmtes Projekt im Sinn haben oder nur die Möglichkeiten erkunden möchten, ich würde gerne von Ihnen hören.",
+          "name": "Name",
+          "email": "E-Mail",
+          "subject": "Betreff",
+          "message": "Nachricht",
+          "sendMessage": "Nachricht Senden",
+          "sending": "Wird gesendet...",
+          "success": "Nachricht erfolgreich gesendet!",
+          "error": "Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut.",
+          "firstName": "Vorname",
+          "lastName": "Nachname",
+          "emailAddress": "E-Mail-Adresse",
+          "phone": "Telefon",
+          "location": "Standort"
+        },
+  "resume": {
+    "title": "Lebenslauf",
+    "subtitle": "Mein beruflicher Werdegang und meine Erfolge",
+    "education": {
+      "title": "Bildung",
+      "degree": "Bachelor of Science in Software-Engineering",
+      "university": "OSTİM Technische Universität",
+      "period": "2022 - Gegenwart"
+    },
+    "certifications": {
+      "title": "Zertifizierungen",
+      "dataEngineer": "Associate Data Engineer in SQL",
+      "dataScientist": "Data Scientist in Python",
+      "dataAnalyst": "Datenanalyst in SQL"
+    },
+    "experience": {
+      "title": "Erfahrung",
+      "freelance": {
+        "title": "Freelance-Entwickler",
+        "period": "2022 - Gegenwart",
+        "description": "Entwicklung von Web- und mobilen Anwendungen für verschiedene Kunden"
+      }
+    },
+    "technicalSkills": {
+      "title": "Technische Fähigkeiten",
+      "languages": "Programmiersprachen",
+      "frameworks": "Frameworks und Bibliotheken",
+      "tools": "Tools und Technologien"
+    },
+    "downloadResume": "Lebenslauf Herunterladen",
+    "educationDetails": {
+      "bachelor": {
+        "degree": "Bachelor of Engineering - BE, Software Engineering",
+        "school": "OSTİM Teknik Üniversitesi",
+        "date": "Sep 2022 - Jun 2026",
+        "location": "Ankara Türkei",
+        "description": "Umfassendes Studium in Python, C, Webentwicklung, Datenbanken, Data Mining, Software-Projektmanagement, C++, Java, SQL, JavaScript und Machine Learning."
+      },
+      "highSchool": {
+        "degree": "Abitur, Informationstechnologie - Ingenieurwesen",
+        "school": "Omar bin Abdul Aziz Secondary Independent School for Boys",
+        "date": "Sep 2018 - Jun 2021",
+        "location": "Doha/Katar",
+        "description": "Grundlagen in CSS, Python, JavaScript, Informationstechnologie und HTML-Programmierung."
+      }
+    },
+    "certificationDetails": {
+      "dataEngineer": {
+        "title": "Associate Data Engineer in SQL",
+        "issuer": "DataCamp",
+        "date": "Jan 2025"
+      },
+      "dataScientist": {
+        "title": "Data Scientist in Python",
+        "issuer": "DataCamp",
+        "date": "Jun 2024"
+      },
+      "dataAnalyst": {
+        "title": "Data Analyst in SQL",
+        "issuer": "DataCamp",
+        "date": "Jan 2024"
+      }
+    },
+    "experienceDetails": {
+      "fullStack": {
+        "role": "Full-Stack Entwickler",
+        "company": "DAKAEI AI",
+        "employmentType": "Vollzeit",
+        "date": "Apr 2025 - Gegenwart",
+        "location": "London Area, Vereinigtes Königreich • Remote",
+        "summary": "Entwicklung von Full-Stack-Anwendungen mit React.js, TypeScript, Node.js, Next.js, JavaScript, SQL, HTML, CSS, Firebase, PostgreSQL und Datenbanken."
+      }
+    }
+  },
+  "footer": {
+    "rights": "Alle Rechte vorbehalten",
+    "builtWith": "Erstellt mit Next.js und Tailwind CSS"
+  },
+  "navigation": {
+    "home": "Startseite",
+    "about": "Über Mich",
+    "services": "Dienstleistungen",
+    "skills": "Fähigkeiten",
+    "projects": "Projekte",
+    "contact": "Kontakt",
+    "resume": "Lebenslauf"
+  },
+  "common": {
+    "loading": "Wird geladen...",
+    "error": "Fehler",
+    "retry": "Wiederholen",
+    "close": "Schließen",
+    "open": "Öffnen",
+    "readMore": "Mehr Lesen",
+    "showLess": "Weniger Anzeigen"
+  },
+  "admin": {
+    "title": "Admin-Panel",
+    "dashboard": "Dashboard",
+    "content": "Inhalt",
+    "settings": "Einstellungen",
+    "login": "Anmelden",
+    "logout": "Abmelden",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "add": "Hinzufügen",
+    "hide": "Verstecken",
+    "show": "Anzeigen",
+    "default": "Standard",
+    "undo": "Rückgängig"
+  },
+  "languages": {
+    "en": "English",
+    "ar": "العربية",
+    "tr": "Türkçe",
+    "it": "Italiano",
+    "fr": "Français",
+    "de": "Deutsch"
+  }
+}

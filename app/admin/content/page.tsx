@@ -1,6 +1,8 @@
 "use client"
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+export const dynamic = 'force-dynamic'
+
 import { useEffect, useState, useCallback, useMemo } from "react"
 import Image from "next/image"
 // router/back handled by admin layout toolbar
@@ -12,19 +14,30 @@ import { projects as staticProjects } from "@/lib/data"
 // button primitives used via AdminButton
 import { AdminButton } from "@/components/ui/admin-button"
 import { TechBadge } from "@/components/ui/tech-badge"
-import { RotateCcw, Undo2, ExternalLink } from "lucide-react"
+import { RotateCcw, Undo2, ExternalLink, Globe } from "lucide-react"
+import { MultilangSections } from "@/components/admin/multilang-sections"
 
-type SectionId = "hero"|"about"|"services"|"projects"|"skills"|"contact"|"resume"|"footer"
+type SectionId = "hero"|"navbar"|"about"|"services"|"technical_skills"|"projects"|"contact"|"resume"|"footer"
 
 const sections: { id: SectionId; name: string }[] = [
   { id: "hero", name: "Hero" },
+  { id: "navbar", name: "Navbar" },
   { id: "about", name: "About" },
   { id: "services", name: "Services" },
+  { id: "technical_skills", name: "Technical Skills" },
   { id: "projects", name: "Projects" },
-  { id: "skills", name: "Skills" },
   { id: "contact", name: "Contact" },
   { id: "resume", name: "Resume" },
   { id: "footer", name: "Footer" },
+]
+
+const supportedLocales = [
+  { code: "en", label: "English", flag: "🇺🇸" },
+  { code: "ar", label: "العربية", flag: "🇸🇦" },
+  { code: "tr", label: "Türkçe", flag: "🇹🇷" },
+  { code: "it", label: "Italiano", flag: "🇮🇹" },
+  { code: "fr", label: "Français", flag: "🇫🇷" },
+  { code: "de", label: "Deutsch", flag: "🇩🇪" }
 ]
 
 export default function ContentAdminPage() {
@@ -41,31 +54,55 @@ export default function ContentAdminPage() {
   const [changeHistory, setChangeHistory] = useState<Record<string, any>>({})
   const [lastSavedContent, setLastSavedContent] = useState<Record<string, any>>({})
   const [refreshTrigger, setRefreshTrigger] = useState(0)
+  const [selectedLocale, setSelectedLocale] = useState("en")
 
   const DEFAULTS: Record<SectionId, any> = useMemo(() => ({
     hero: { title: 'Software Engineer • Full-Stack Developer • Data Engineer', subtitle: 'Building scalable applications, cloud-driven systems, and data-powered solutions.', ctaPrimaryLabel: 'View Portfolio', ctaPrimaryHref: '#portfolio', ctaSecondaryLabel: 'Contact Me', ctaSecondaryHref: '#contact', hidden: false },
     about: { 
-      title: 'About Me', 
-      subtitle: 'Nouraddin - Software Engineering Student & Developer', 
-      name: 'Nouraddin Abdurahman Aden', 
-      role: 'Software Engineering Student & Developer', 
-      body: `Hi, I'm Nouraddin! Currently pursuing Software Engineering at OSTİM Teknik University, I specialize in building scalable applications and data-driven solutions. My passion lies in creating efficient systems that bridge the gap between complex data and user-friendly interfaces.`,
-      fullstack_expertise: 'Proficient in React, Next.js, Flutter, and modern web technologies for creating responsive, performant applications.',
-      data_engineering: 'Experienced in ETL pipeline development, SQL optimization, and cloud-based data processing solutions.',
-      cloud_automation: 'Skilled in AWS, Firebase, and building automated workflows that scale with business needs.',
-      profile_image: '/photo.png',
-      hidden: false,
-      title_hidden: false,
-      subtitle_hidden: false,
-      name_hidden: false,
-      role_hidden: false,
-      body_hidden: false,
-      fullstack_expertise_hidden: false,
-      data_engineering_hidden: false,
-      cloud_automation_hidden: false,
-      profile_image_hidden: false
+      name: 'Nouraddin Abdurahman Aden',
+      role: 'Software Engineering Student & Developer',
+      short_bio: 'Currently pursuing Software Engineering at OSTİM Teknik University, specializing in scalable applications and data-driven solutions.',
+      detailed_bio: `Hi, I'm Nouraddin! Currently pursuing Software Engineering at OSTİM Teknik University, I specialize in building scalable applications and data-driven solutions. My passion lies in creating efficient systems that bridge the gap between complex data and user-friendly interfaces.`,
+      expertise_highlights: 'Proficient in React, Next.js, Flutter, and modern web technologies for creating responsive, performant applications.',
+      hidden: false
     },
-    services: { title: 'Services', subtitle: 'Comprehensive solutions for your digital needs', items: defaultServices, hidden: false },
+    services: { 
+      title: 'Services', 
+      subtitle: 'Comprehensive solutions for your digital needs',
+      items: defaultServices.map(service => ({
+        id: service.id,
+        title: service.title,
+        description: service.description,
+        icon: service.icon,
+        hidden: false
+      })),
+      hidden: false 
+    },
+    technical_skills: {
+      title: 'Technical Skills',
+      subtitle: 'Technologies and tools I work with',
+      categories: [
+        {
+          id: 'fullstack',
+          name: 'Full-Stack Development',
+          description: 'React, Next.js, Flutter, Node.js',
+          skills: defaultSkills.filter(s => ["React","Next.js","Flutter","Node.js","Express","React Native"].includes(s.name))
+        },
+        {
+          id: 'data',
+          name: 'Data Engineering', 
+          description: 'ETL Pipelines, SQL, Python, Analytics',
+          skills: defaultSkills.filter(s => ["Python","SQL","PostgreSQL"].includes(s.name))
+        },
+        {
+          id: 'cloud',
+          name: 'Cloud & DevOps',
+          description: 'AWS, Firebase, Automation, CI/CD', 
+          skills: defaultSkills.filter(s => ["AWS","Firebase","Docker","Git"].includes(s.name))
+        }
+      ],
+      hidden: false
+    },
     projects: { 
       title: 'Featured Projects', 
       subtitle: 'A showcase of my recent work and technical expertise', 
@@ -148,6 +185,14 @@ export default function ContentAdminPage() {
         frameworks: ['React','Next.js','Flutter','Node.js','Express'],
         tools: ['AWS','Firebase','Docker','Git','PostgreSQL']
       }
+    },
+    navbar: {
+      about: 'About Me',
+      projects: 'Projects', 
+      services: 'Services',
+      contact: 'Contact Me',
+      resume: 'Resume',
+      hidden: false
     },
     footer: {
       github: 'https://github.com/NouradinAbdurahman',
@@ -532,6 +577,21 @@ export default function ContentAdminPage() {
           <div className="flex items-center justify-between mb-4 gap-4 flex-col sm:flex-row">
             <h1 className="text-2xl font-bold dark:text-white text-gray-900">{sections.find(s=>s.id===active)?.name} Content</h1>
             <div className="flex items-center gap-2 w-full sm:w-auto flex-wrap">
+              {/* Language Switcher */}
+              <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
+                <Globe className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                <select
+                  value={selectedLocale}
+                  onChange={(e) => setSelectedLocale(e.target.value)}
+                  className="bg-transparent border-none outline-none text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
+                  {supportedLocales.map((locale) => (
+                    <option key={locale.code} value={locale.code}>
+                      {locale.flag} {locale.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
               <AdminButton onClick={resetToDefault} className="bg-orange-600 hover:bg-orange-500 text-white px-3 py-2 text-sm">
                 <RotateCcw className="w-4 h-4 mr-1 sm:mr-2" />
                 <span>Default</span>
@@ -557,8 +617,66 @@ export default function ContentAdminPage() {
             </div>
           </div>
           <div className={`space-y-4 ${currentData.hidden? 'opacity-50 grayscale pointer-events-none' : ''}`}>
-            {/* Title (most sections) */}
-            {active !== 'footer' && (
+            {/* Multi-language sections for Hero, Navbar, About, Services, Technical Skills, and Skills */}
+            {(active === 'hero' || active === 'navbar' || active === 'about' || active === 'services' || active === 'technical_skills') && (
+              <MultilangSections
+                section={active}
+                onSave={async (content) => {
+                  setSaving(true)
+                  try {
+                    const response = await fetch('/api/content/multilang', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ section: active, content })
+                    })
+                    const data = await response.json()
+                    if (data.error) throw new Error(data.error)
+                    await fetchContent()
+                  } finally {
+                    setSaving(false)
+                  }
+                }}
+                onReset={() => {
+                  if (active === 'hero') {
+                    setField('title', DEFAULTS[active].title || '')
+                    setField('subtitle', DEFAULTS[active].subtitle || '')
+                    setField('ctaPrimaryLabel', DEFAULTS[active].ctaPrimaryLabel || '')
+                    setField('ctaPrimaryHref', DEFAULTS[active].ctaPrimaryHref || '')
+                    setField('ctaSecondaryLabel', DEFAULTS[active].ctaSecondaryLabel || '')
+                    setField('ctaSecondaryHref', DEFAULTS[active].ctaSecondaryHref || '')
+                  } else if (active === 'navbar') {
+                    setField('about', DEFAULTS[active].about || '')
+                    setField('projects', DEFAULTS[active].projects || '')
+                    setField('services', DEFAULTS[active].services || '')
+                    setField('contact', DEFAULTS[active].contact || '')
+                    setField('resume', DEFAULTS[active].resume || '')
+                  } else if (active === 'about') {
+                    setField('name', DEFAULTS[active].name || '')
+                    setField('role', DEFAULTS[active].role || '')
+                    setField('short_bio', DEFAULTS[active].short_bio || '')
+                    setField('detailed_bio', DEFAULTS[active].detailed_bio || '')
+                    setField('expertise_highlights', DEFAULTS[active].expertise_highlights || '')
+                  } else if (active === 'services') {
+                    setField('title', DEFAULTS[active].title || '')
+                    setField('subtitle', DEFAULTS[active].subtitle || '')
+                    setField('items', DEFAULTS[active].items || [])
+                  } else if (active === 'technical_skills') {
+                    setField('title', DEFAULTS[active].title || '')
+                    setField('subtitle', DEFAULTS[active].subtitle || '')
+                    setField('categories', DEFAULTS[active].categories || [])
+                  }
+                }}
+                onRefresh={fetchContent}
+                saving={saving}
+                refreshing={refreshing}
+              />
+            )}
+
+            {/* Legacy single-language sections */}
+            {active !== 'hero' && active !== 'navbar' && active !== 'about' && active !== 'services' && active !== 'technical_skills' && (
+              <>
+                {/* Title (most sections) */}
+                {active !== 'footer' && (
               <div>
                 <div className="flex items-center justify-between mb-1">
                   <label className="block text-sm dark:text-gray-300 text-gray-800">Title</label>
@@ -1468,11 +1586,16 @@ export default function ContentAdminPage() {
                 </div>
               </div>
             )}
+              </>
+            )}
           </div>
-          <div className="mt-6 flex gap-2">
-            <AdminButton onClick={saveActive} disabled={saving} className="px-4 py-2 disabled:opacity-50">{saving? 'Saving...':'Save Content'}</AdminButton>
-            <AdminButton onClick={()=>setContent((prev)=>({ ...prev, [active]: {} }))} className="px-4 py-2">Reset to Default</AdminButton>
-          </div>
+          {/* Save buttons for legacy sections only */}
+          {active !== 'hero' && active !== 'navbar' && active !== 'about' && active !== 'services' && active !== 'technical_skills' && active !== 'skills' && (
+            <div className="mt-6 flex gap-2">
+              <AdminButton onClick={saveActive} disabled={saving} className="px-4 py-2 disabled:opacity-50">{saving? 'Saving...':'Save Content'}</AdminButton>
+              <AdminButton onClick={()=>setContent((prev)=>({ ...prev, [active]: {} }))} className="px-4 py-2">Reset to Default</AdminButton>
+            </div>
+          )}
 
           {/* Debug Panel */}
           {showDebug && (

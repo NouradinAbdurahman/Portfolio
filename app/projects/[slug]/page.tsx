@@ -1,11 +1,10 @@
 import * as React from "react"
 import { notFound } from "next/navigation"
 import { Metadata } from "next"
-import { projects as staticProjects } from "@/lib/data"
 import { createClient } from '@supabase/supabase-js'
-// cleaned unused imports
 import { ProjectDetailsClient } from "./project-details-client"
 import { ProjectJsonLd } from "@/components/project-json-ld"
+import { getTranslations } from 'next-intl/server'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -14,10 +13,121 @@ interface ProjectDetailsPageProps {
   params: Promise<{ slug: string }>
 }
 
+// Server-side function to get localized project data
+async function getLocalizedProject(slug: string) {
+  const t = await getTranslations('projects')
+  
+  // Get project items from translations - access each project individually
+  const projectKeys = ['github-profile-analyzer', 'intellistudy', 'portfolio-website', 'task-manager', 'weather-app']
+  const translatedProjects: Record<string, any> = {}
+  
+  projectKeys.forEach(key => {
+    try {
+      const project = t(`items.${key}`) as any
+      if (project && typeof project === 'object') {
+        translatedProjects[key] = project
+      }
+    } catch (error) {
+      console.warn(`Failed to get translated project ${key}:`, error)
+    }
+  })
+  
+  // Get CMS data
+  let cmsProjects: any[] = []
+  try {
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    )
+    
+    const { data, error } = await supabase
+      .from('site_content')
+      .select('section, tag, value')
+      .eq('section', 'projects')
+      .order('tag')
+
+    if (!error && data) {
+      const projectsData = data.find(row => row.tag === 'items')
+      if (projectsData?.value) {
+        cmsProjects = typeof projectsData.value === 'string' 
+          ? JSON.parse(projectsData.value) 
+          : projectsData.value
+      }
+    }
+  } catch (error) {
+    console.error('Failed to fetch CMS data:', error)
+  }
+  
+  // Find the project by slug
+  let project = null
+  
+  // First, try to find in translated projects
+  if (translatedProjects && typeof translatedProjects === 'object') {
+    const translatedProject = translatedProjects[slug]
+    if (translatedProject) {
+      const cmsProject = cmsProjects.find((p: any) => 
+        (p.slug || p.id || p.title)?.toLowerCase() === slug.toLowerCase()
+      )
+      
+      // Merge translated content with CMS overrides
+      project = {
+        id: slug,
+        slug: slug,
+        ...translatedProject,
+        ...cmsProject, // CMS overrides take precedence
+        // Ensure non-translatable fields are preserved
+        image: cmsProject?.image || translatedProject?.image || '/placeholder.jpg',
+        cover: cmsProject?.cover || translatedProject?.cover || cmsProject?.image || translatedProject?.image || '/placeholder.jpg',
+        technologies: cmsProject?.technologies || translatedProject?.technologies || [],
+        githubUrl: cmsProject?.githubUrl || cmsProject?.repo || translatedProject?.githubUrl || translatedProject?.repo || '',
+        liveUrl: cmsProject?.liveUrl || cmsProject?.demo || translatedProject?.liveUrl || translatedProject?.demo || '',
+        repo: cmsProject?.repo || cmsProject?.githubUrl || translatedProject?.repo || translatedProject?.githubUrl || '',
+        demo: cmsProject?.liveUrl || cmsProject?.demo || translatedProject?.liveUrl || translatedProject?.demo || '',
+        hidden: cmsProject?.hidden || false,
+        showDetails: cmsProject?.showDetails !== false,
+        showLive: cmsProject?.showLive !== false,
+        showRepo: cmsProject?.showRepo !== false,
+      }
+    }
+  }
+  
+  // If not found in translations, try CMS-only projects
+  if (!project) {
+    const cmsProject = cmsProjects.find((p: any) => 
+      (p.slug || p.id || p.title)?.toLowerCase() === slug.toLowerCase()
+    )
+    
+    if (cmsProject && !cmsProject.hidden) {
+      project = {
+        id: cmsProject.id || cmsProject.slug || cmsProject.title,
+        slug: cmsProject.slug || cmsProject.id,
+        title: cmsProject.title || 'Project',
+        description: cmsProject.description || '',
+        image: cmsProject.image || cmsProject.cover || '/placeholder.jpg',
+        cover: cmsProject.cover || cmsProject.image || '/placeholder.jpg',
+        technologies: cmsProject.technologies || [],
+        githubUrl: cmsProject.githubUrl || cmsProject.repo || '',
+        liveUrl: cmsProject.liveUrl || cmsProject.demo || '',
+        repo: cmsProject.repo || cmsProject.githubUrl || '',
+        demo: cmsProject.liveUrl || cmsProject.demo || '',
+        category: cmsProject.category || '',
+        hidden: cmsProject.hidden || false,
+        showDetails: cmsProject.showDetails !== false,
+        showLive: cmsProject.showLive !== false,
+        showRepo: cmsProject.showRepo !== false,
+        // Include all other CMS fields
+        ...cmsProject
+      }
+    }
+  }
+  
+  return project
+}
+
 // Generate metadata for each project page
 export async function generateMetadata({ params }: ProjectDetailsPageProps): Promise<Metadata> {
   const { slug } = await params
-  const project = staticProjects.find(p => p.slug === slug)
+  const project = await getLocalizedProject(slug)
 
   if (!project) {
     return {
@@ -66,70 +176,8 @@ export async function generateMetadata({ params }: ProjectDetailsPageProps): Pro
 export default async function ProjectDetailsPage({ params }: ProjectDetailsPageProps) {
   const { slug } = await params
   
-  // Always fetch fresh data from CMS first
-  let project = null
-  try {
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    )
-    
-    const { data, error } = await supabase
-      .from('site_content')
-      .select('section, tag, value')
-      .eq('section', 'projects')
-      .order('tag')
-
-    if (!error && data) {
-      // Parse the projects data
-      const projectsData = data.find(row => row.tag === 'items')
-      if (projectsData?.value) {
-        const items = typeof projectsData.value === 'string' 
-          ? JSON.parse(projectsData.value) 
-          : projectsData.value
-      const fromCms = items.find((p:any)=> (p.slug||p.id||p.title)?.toLowerCase() === slug.toLowerCase())
-      
-      if (fromCms && !fromCms.hidden) {
-        // Use CMS data as primary source (only if not hidden)
-        project = {
-          id: fromCms.slug || fromCms.id || fromCms.title,
-          slug: fromCms.slug || fromCms.id,
-          title: fromCms.title || 'Project',
-          description: fromCms.description || '',
-          image: fromCms.image || fromCms.cover || '/placeholder.jpg',
-          cover: fromCms.cover || fromCms.image || fromCms.image,
-          technologies: fromCms.technologies || [],
-          tech: fromCms.technologies || [], // For compatibility
-          githubUrl: fromCms.repo || fromCms.githubUrl || '',
-          repo: fromCms.repo || fromCms.githubUrl || '',
-          liveUrl: fromCms.liveUrl || fromCms.demo || '',
-          demo: fromCms.liveUrl || fromCms.demo || '', // For compatibility
-          category: fromCms.category || '',
-          // Detailed content from admin
-          problem: fromCms.problem || '',
-          solution: fromCms.solution || '',
-          outcome: fromCms.outcome || '',
-          features: fromCms.features || [],
-          architecture: fromCms.architecture || '',
-          challenges: fromCms.challenges || [],
-          learnings: fromCms.learnings || [],
-          impact: fromCms.impact || '',
-        } as any
-      }
-    }
-  }
-  } catch (error) {
-    // Only log error in development, don't spam production logs
-    if (process.env.NODE_ENV === 'development') {
-      console.error('Failed to fetch CMS data:', error)
-    }
-    // Silently fall back to static data
-  }
-  
-  // Fallback to static data if CMS data not found
-  if (!project) {
-    project = staticProjects.find(p => p.slug === slug)
-  }
+  // Get localized project data
+  const project = await getLocalizedProject(slug)
 
   if (!project) {
     notFound()

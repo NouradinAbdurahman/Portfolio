@@ -1,0 +1,359 @@
+{
+        "hero": {
+          "title": "Yazılım Mühendisi • Full-Stack Geliştirici • Veri Mühendisi",
+          "subtitle": "Ölçeklenebilir uygulamalar, bulut tabanlı sistemler ve veri odaklı çözümler geliştiriyorum. Verimli ETL pipeline'ları, modern web deneyimleri ve otomatik iş akışları oluşturmaya tutkulu.",
+          "ctaPrimary": "LinkedIn'imi Görüntüle",
+          "ctaSecondary": "İletişime Geç",
+          "ctaPrimaryLabel": "LinkedIn'imi Görüntüle",
+          "ctaSecondaryLabel": "İletişime Geç"
+        },
+  "about": {
+    "title": "Hakkımda",
+    "subtitle": "Nouraddin - Yazılım Mühendisliği Öğrencisi ve Geliştirici",
+    "name": "Nouraddin Abdurahman Aden",
+    "role": "Yazılım Mühendisliği Öğrencisi ve Geliştirici",
+    "body": "Merhaba, ben Nouraddin! Şu anda OSTİM Teknik Üniversitesi'nde Yazılım Mühendisliği okuyorum ve ölçeklenebilir uygulamalar ile veri odaklı çözümler geliştirmede uzmanlaşıyorum. Tutkum, karmaşık veriler ile kullanıcı dostu arayüzler arasındaki boşluğu kapatacak verimli sistemler oluşturmak.",
+    "fullstackExpertise": "React, Next.js, Flutter ve modern web teknolojilerinde yetkin, duyarlı ve performanslı uygulamalar oluşturuyorum.",
+    "dataEngineering": "ETL pipeline geliştirme, SQL optimizasyonu ve bulut tabanlı veri işleme çözümlerinde deneyimli.",
+    "cloudAutomation": "AWS, Firebase konularında yetkin ve iş ihtiyaçlarıyla birlikte ölçeklenen otomatik iş akışları oluşturuyorum.",
+    "fullstackExpertiseHeader": "Tam-Stack Geliştirme:",
+    "dataEngineeringHeader": "Veri Mühendisliği:",
+    "cloudAutomationHeader": "Bulut ve Otomasyon:"
+  },
+  "services": {
+    "title": "Hizmetler",
+    "subtitle": "Dijital ihtiyaçlarınız için kapsamlı çözümler",
+    "webDevelopment": {
+      "title": "Web Geliştirme",
+      "description": "React, Next.js ve TypeScript gibi modern teknolojiler kullanarak özel web uygulamaları"
+    },
+    "mobileDevelopment": {
+      "title": "Mobil Geliştirme",
+      "description": "iOS ve Android için Flutter ve React Native ile çapraz platform mobil uygulamalar"
+    },
+    "dataEngineering": {
+      "title": "Veri Mühendisliği",
+      "description": "Python ve bulut teknolojileri kullanarak ETL pipeline'ları, veri işleme ve analitik çözümler"
+    },
+    "cloudSolutions": {
+      "title": "Bulut Çözümleri",
+      "description": "AWS ve Firebase kullanarak ölçeklenebilir bulut altyapısı ve dağıtım çözümleri"
+    }
+  },
+  "skills": {
+    "title": "Teknik Beceriler",
+    "lead": "Çalıştığım teknolojiler ve araçlar",
+    "catFullTitle": "Full-Stack Geliştirme",
+    "catFullDesc": "React, Next.js, Flutter, Node.js",
+    "catDataTitle": "Veri Mühendisliği",
+    "catDataDesc": "ETL Pipeline'ları, SQL, Python, Analitik",
+    "catCloudTitle": "Bulut ve DevOps",
+    "catCloudDesc": "AWS, Firebase, Otomasyon, CI/CD",
+    "fullStack": {
+      "title": "Full-Stack Geliştirme",
+      "description": "React, Next.js, Flutter, Node.js"
+    },
+    "dataEngineering": {
+      "title": "Veri Mühendisliği",
+      "description": "ETL Pipeline'ları, SQL, Python, Analitik"
+    },
+    "cloudTools": {
+      "title": "Bulut ve Araçlar",
+      "description": "AWS, Firebase, Docker, Git"
+    }
+  },
+  "projects": {
+    "title": "Öne Çıkan Projeler",
+    "subtitle": "Son çalışmalarımın ve teknik uzmanlığımın vitrini",
+    "viewDetails": "Detayları Görüntüle",
+    "viewRepository": "Depo",
+    "viewLiveDemo": "Canlı Demo",
+    "technologies": "Teknolojiler",
+    "problem": "Problem",
+    "solution": "Çözüm",
+    "outcome": "Sonuç",
+    "keyFeatures": "Ana Özellikler",
+    "architecture": "Mimari",
+    "technicalChallenges": "Teknik Zorluklar",
+    "keyLearnings": "Ana Öğrenimler",
+    "impact": "Etki",
+    "backToProjects": "Projelere Geri Dön",
+    "allProjects": "Tüm Projeler",
+    "items": {
+      "github-profile-analyzer": {
+        "title": "GitHub Profil Analizörü",
+        "description": "GitHub geliştiricileri için AI destekli içgörüler. Gerçek zamanlı analitik, AI tarafından oluşturulan özetler, profil optimizasyonu ve kişiselleştirilmiş paneller. Next.js, TypeScript, Tailwind CSS ve Firebase ile geliştirildi. DAKAEi AI API ve GitHub API ile entegre.",
+        "category": "AI Analitik • Geliştirici Araçları",
+        "problem": "Geliştiriciler ve işe alım uzmanları, GitHub profillerinden anlamlı içgörüler çıkarmakta zorlanıyor ve ham depo verilerinden kodlama kalıplarını, verimlilik trendlerini ve teknik uzmanlığı değerlendirmek zor oluyor.",
+        "solution": "Kodlama kalıplarını analiz etmek, doğal dil özetleri oluşturmak ve geliştirici aktivitesi ve büyüme kalıplarının kapsamlı görselleştirmelerini sağlamak için GitHub API'lerine bağlanan AI destekli bir analitik platform oluşturuldu.",
+        "outcome": "Kullanıcı testlerinde profil optimizasyon hızı %60 artırıldı, kullanıcıların %85'i kodlama kalıplarını daha iyi anladıklarını bildirdi.",
+        "features": [
+          "Gerçek zamanlı veri çekme için GitHub API entegrasyonu",
+          "Kodlama kalıpları ve dillerinin AI destekli analizi",
+          "Geliştirici profillerinin doğal dil özetleri",
+          "Etkileşimli görselleştirmeler (çubuk grafikler, zaman serisi grafikleri, ısı haritaları)",
+          "Yan yana profil karşılaştırma işlevselliği",
+          "Katkı sıklığı ve zirve verimlilik analizi",
+          "Proje odak kategorilendirmesi (backend, frontend, veri bilimi)",
+          "En sık kullanılan diller ve framework'lerin tespiti",
+          "Kapsamlı istatistiklerle gerçek zamanlı dashboard"
+        ],
+        "architecture": "Tip güvenliği için Next.js ve TypeScript ile oluşturulan frontend, duyarlı tasarım için Tailwind CSS, kimlik doğrulama ve veri depolama için Firebase, doğal dil işleme için OpenAI API ve veri alımı için GitHub REST/GraphQL API'leri. Uygulama optimal performans ve SEO için sunucu tarafı rendering kullanır.",
+        "challenges": [
+          "Büyük depolar için GitHub API hız sınırları ve sayfalama ile başa çıkma",
+          "Firebase ile gerçek zamanlı veri senkronizasyonu uygulama",
+          "Tutarlı analiz sonuçları için anlamlı AI prompt'ları oluşturma",
+          "Geniş depo geçmişi olan kullanıcılar için performansı optimize etme",
+          "Karmaşık veri kalıpları için sezgisel görselleştirmeler tasarlama"
+        ],
+        "learnings": [
+          "App Router ve Server Components dahil gelişmiş Next.js kalıpları",
+          "REST ve GraphQL endpoint'leri ile GitHub API entegrasyonu",
+          "Tutarlı ve anlamlı analiz için AI prompt mühendisliği",
+          "Firebase ile gerçek zamanlı veri senkronizasyon teknikleri",
+          "Chart.js ve özel bileşenlerle karmaşık veri görselleştirmesi"
+        ],
+        "impact": "Geliştiricilerin kodlama kalıplarını anlamalarına ve GitHub varlıklarını geliştirmelerine yardımcı oldu, 100+ profil analizi tamamlandı."
+      },
+      "intellistudy": {
+        "title": "IntelliStudy Platformu",
+        "description": "Öğrenciler için AI destekli öğrenme asistanı. Metin özetleme, içerik yeniden yazma, akademik soru-cevap chatbot'u ve quiz oluşturucu özellikleri. Next.js, React, Tailwind CSS ve shadcn/ui ile geliştirildi. DAKAEi AI API ile entegre.",
+        "category": "Full-Stack • AI Entegrasyonu",
+        "problem": "Öğrenciler bilgi aşırı yükü ile mücadele ediyor ve çeşitli konular ve formatlar boyunca akademik içeriği özetlemek, anlamak ve hatırlamak için verimli araçlara ihtiyaç duyuyor.",
+        "solution": "Öğrencilerin bilgileri daha etkili bir şekilde işlemesine ve hatırlamasına yardımcı olmak için metin özetleme, içerik yeniden yazma, akademik soru-cevap chatbot'u ve quiz oluşturma sağlayan AI destekli bir öğrenme platformu geliştirildi.",
+        "outcome": "Kullanıcı testlerinde çalışma verimliliği %40 artırıldı, öğrencilerin %90'ı daha iyi içerik anlayışı bildirdi.",
+        "features": [
+          "Akademik içerik için AI destekli metin özetleme",
+          "İçerik yeniden yazma ve yeniden ifade etme araçları",
+          "Anında yardım için akademik soru-cevap chatbot'u",
+          "Çoklu soru türleri ile quiz oluşturucu",
+          "Kullanıcı kimlik doğrulama ve ilerleme takibi",
+          "Modern UI bileşenleri ile duyarlı tasarım",
+          "Çalışma materyalleri için dışa aktarma işlevselliği"
+        ],
+        "architecture": "Next.js 14 ve App Router ile oluşturuldu, UI bileşenleri için React, tasarım için Tailwind CSS, bileşen kütüphanesi için shadcn/ui ve tüm AI işlevleri için OpenAI API. Optimal performans için Vercel'de edge fonksiyonları ile dağıtıldı.",
+        "challenges": [
+          "Eğitim içeriği için karmaşık AI prompt mühendisliği uygulama",
+          "AI destekli özellikler için sezgisel kullanıcı arayüzleri oluşturma",
+          "Çoklu eşzamanlı AI operasyonları için durum yönetimi",
+          "Daha iyi UX için API çağrıları ve yanıt işlemeyi optimize etme"
+        ],
+        "learnings": [
+          "Gelişmiş AI entegrasyon kalıpları ve prompt mühendisliği",
+          "React hooks ve context ile karmaşık durum yönetimi",
+          "shadcn/ui bileşen kütüphanesi uygulaması",
+          "Eğitim teknolojisi tasarım ilkeleri ve kullanıcı deneyimi"
+        ],
+        "impact": "Öğrencilere akademik başarı için güçlü AI araçları sağladı, çalışma verimliliğini ve içerik anlayışını artırdı."
+      },
+      "ohay": {
+        "title": "Ohay Mobil Uygulaması",
+        "description": "iOS ve Android için modern, çok satıcılı yemek teslimat platformu. Müşteriler tek ödeme işleminde birden fazla restorandan sipariş verebilir, kuryeleri gerçek zamanlı takip edebilir ve detaylı dijital makbuzlar alabilir. Flutter ve Firebase ile ödeme ağ geçidi entegrasyonları ile geliştirildi. iOS arka plan getirme, push bildirimleri ve yerelleştirilmiş, premium deneyim için tam uluslararasılaştırma desteği.",
+        "category": "Mobil Geliştirme • Gerçek Zamanlı Sistemler",
+        "problem": "Yemek teslimat uygulamaları genellikle kullanıcıları aynı anda bir restorandan sipariş vermekle sınırlar, kullanıcılar tek siparişte birden fazla restorandan ürün istediğinde rahatsızlık yaratır.",
+        "solution": "Müşterilerin tek ödeme işleminde birden fazla restorandan sipariş verebileceği, gerçek zamanlı kurye takibi ve kapsamlı sipariş yönetimi ile çok satıcılı yemek teslimat platformu oluşturuldu.",
+        "outcome": "Uygulama mağazasında 4.8/5 puan elde edildi, 1000+ indirme ve beta testlerinde %95 kullanıcı memnuniyeti.",
+        "features": [
+          "Tek ödeme işleminde çok satıcılı sipariş sistemi",
+          "Google Maps entegrasyonu ile gerçek zamanlı kurye takibi",
+          "Dijital makbuz oluşturma ve sipariş geçmişi",
+          "Stripe ile ödeme ağ geçidi entegrasyonu",
+          "Sipariş güncellemeleri için push bildirimleri",
+          "Kesintisiz deneyim için iOS arka plan getirme",
+          "Küresel kullanıcılar için tam uluslararasılaştırma desteği",
+          "Yumuşak animasyonlarla premium UI/UX tasarımı"
+        ],
+        "architecture": "Flutter ile oluşturulan çapraz platform mobil uygulama, kimlik doğrulama, gerçek zamanlı veritabanı ve bulut fonksiyonları dahil backend hizmetleri için Firebase. Ödemeler için Stripe ve takip için Google Maps ile entegre.",
+        "challenges": [
+          "Firebase ve Google Maps ile gerçek zamanlı takip uygulama",
+          "Çoklu satıcı ve siparişler arasında karmaşık durum yönetimi",
+          "Çoklu ödeme ağ geçitlerini entegre etme ve işlemleri yönetme",
+          "Premium his için yumuşak animasyonlar ve geçişler oluşturma",
+          "Çevrimdışı işlevsellik ve veri senkronizasyonu ile başa çıkma"
+        ],
+        "learnings": [
+          "Provider ve Riverpod ile gelişmiş Flutter durum yönetimi",
+          "Firebase gerçek zamanlı veritabanı entegrasyonu ve optimizasyonu",
+          "Mobil ödeme ağ geçidi entegrasyonu ve güvenlik en iyi uygulamaları",
+          "Çapraz platform geliştirme kalıpları ve performans optimizasyonu",
+          "Küresel pazarlar için uluslararasılaştırma ve yerelleştirme"
+        ],
+        "impact": "Çok satıcı desteği ve gerçek zamanlı takip ile premium yemek teslimat deneyimi sunuldu, müşteri memnuniyetini ve operasyonel verimliliği artırdı."
+      },
+      "viaggi-qatar-booking": {
+        "title": "Viaggi del Qatar Tur Rezervasyon Sistemi",
+        "description": "Çok tur rezervasyonlarını destekleyen, makbuz oluşturma ve gerçek zamanlı operasyonel panelleri olan gelişmiş rezervasyon yönetim platformu. Hız ve SEO için sunucu tarafı rendering kullanarak Next.js 14+ ve PostgreSQL (Neon) ile geliştirildi. Acenta portalı, mobil öncelikli UI ve güzergahlar ve faturalar için dışa aktarma ve filtreleme ile PDF önizleme içerir.",
+        "category": "Full-Stack • Next.js 14 • PostgreSQL (Neon)",
+        "problem": "Seyahat acenteleri, birden fazla tur rezervasyonunu yönetebilen, makbuz oluşturabilen ve verimli iş yönetimi için gerçek zamanlı operasyonel paneller sağlayabilen kapsamlı bir rezervasyon yönetim sistemine ihtiyaç duyuyor.",
+        "solution": "Çok tur rezervasyon yetenekleri, otomatik makbuz oluşturma, gerçek zamanlı paneller ve seyahat acenteleri için kapsamlı yönetim araçları ile gelişmiş rezervasyon platformu geliştirildi.",
+        "outcome": "Rezervasyon operasyonları %70 basitleştirildi, manuel iş %80 azaltıldı ve müşteri memnuniyet puanları %25 artırıldı.",
+        "features": [
+          "Karmaşık rezervasyon mantığı ile çok tur rezervasyon sistemi",
+          "Analitik ile gerçek zamanlı operasyonel paneller",
+          "Tur yönetimi ve müşteri hizmetleri için acenta portalı",
+          "Güzergahlar ve faturalar için PDF oluşturma ve dışa aktarma",
+          "Tüm cihazlar için mobil öncelikli duyarlı tasarım",
+          "Gelişmiş filtreleme ve arama işlevselliği",
+          "Otomatik makbuz ve fatura oluşturma",
+          "Optimal SEO ve performans için sunucu tarafı rendering"
+        ],
+        "architecture": "Tip güvenliği için TypeScript, veritabanı yönetimi için Prisma ORM ile PostgreSQL, performans için sunucu tarafı rendering ve entegre PDF oluşturma hizmetleri ile Next.js 14 ve App Router.",
+        "challenges": [
+          "Çok tur rezervasyonları için karmaşık veritabanı şeması tasarlama",
+          "Gerçek zamanlı panel güncellemeleri ve analitik uygulama",
+          "Çeşitli belgeler için verimli PDF oluşturma sistemi oluşturma",
+          "Büyük veri setleri için sunucu tarafı rendering performansını optimize etme",
+          "Karmaşık rezervasyon durumu doğrulama ve iş mantığını yönetme"
+        ],
+        "learnings": [
+          "App Router ve Server Components dahil gelişmiş Next.js 14 kalıpları",
+          "Karmaşık PostgreSQL veritabanı tasarımı ve optimizasyonu",
+          "Sunucu tarafı rendering optimizasyonu ve performans ayarlama",
+          "PDF oluşturma ve belge yönetim sistemleri",
+          "Veri görselleştirmesi ile gerçek zamanlı panel uygulaması"
+        ],
+        "impact": "Seyahat acenteleri için tur rezervasyon operasyonlarını basitleştirdi, rezervasyon verimliliğini artırdı ve tur yönetimi için kapsamlı yönetim araçları sağladı."
+      }
+    }
+  },
+        "contact": {
+          "title": "İletişime Geçin",
+          "subtitle": "Bir sonraki projenizi tartışalım veya sadece merhaba deyin",
+          "letsConnect": "Bağlanalım",
+          "introText": "Her zaman yeni fırsatlar, zorlu projeler ve anlamlı işbirlikleri ile ilgileniyorum. Aklınızda belirli bir proje olsun veya sadece olasılıkları keşfetmek isteyin, sizden haber almayı çok isterim.",
+          "name": "Ad",
+          "email": "E-posta",
+          "subject": "Konu",
+          "message": "Mesaj",
+          "sendMessage": "Mesaj Gönder",
+          "sending": "Gönderiliyor...",
+          "success": "Mesaj başarıyla gönderildi!",
+          "error": "Mesaj gönderilemedi. Lütfen tekrar deneyin.",
+          "firstName": "Ad",
+          "lastName": "Soyad",
+          "emailAddress": "E-posta Adresi",
+          "phone": "Telefon",
+          "location": "Konum"
+        },
+  "resume": {
+    "title": "Özgeçmiş",
+    "subtitle": "Profesyonel yolculuğum ve başarılarım",
+    "education": {
+      "title": "Eğitim",
+      "degree": "Yazılım Mühendisliği Lisans Derecesi",
+      "university": "OSTİM Teknik Üniversitesi",
+      "period": "2022 - Günümüz"
+    },
+    "certifications": {
+      "title": "Sertifikalar",
+      "dataEngineer": "SQL'de Yardımcı Veri Mühendisi",
+      "dataScientist": "Python'da Veri Bilimci",
+      "dataAnalyst": "SQL'de Veri Analisti"
+    },
+    "experience": {
+      "title": "Deneyim",
+      "freelance": {
+        "title": "Serbest Geliştirici",
+        "period": "2022 - Günümüz",
+        "description": "Çeşitli müşteriler için web ve mobil uygulamalar geliştirme"
+      }
+    },
+    "technicalSkills": {
+      "title": "Teknik Beceriler",
+      "languages": "Programlama Dilleri",
+      "frameworks": "Framework'ler ve Kütüphaneler",
+      "tools": "Araçlar ve Teknolojiler"
+    },
+    "downloadResume": "Özgeçmişi İndir",
+    "educationDetails": {
+      "bachelor": {
+        "degree": "Bachelor of Engineering - BE, Yazılım Mühendisliği",
+        "school": "OSTİM Teknik Üniversitesi",
+        "date": "Eyl 2022 - Haz 2026",
+        "location": "Ankara Türkiye",
+        "description": "Python, C, Web Geliştirme, Veritabanları, Veri Madenciliği, Yazılım Proje Yönetimi, C++, Java, SQL, JavaScript ve Makine Öğrenmesi konularında kapsamlı eğitim."
+      },
+      "highSchool": {
+        "degree": "Lise Diploması, Bilişim Teknolojileri - Mühendislik",
+        "school": "Omar bin Abdul Aziz Secondary Independent School for Boys",
+        "date": "Eyl 2018 - Haz 2021",
+        "location": "Doha/Katar",
+        "description": "CSS, Python, JavaScript, Bilişim Teknolojileri ve HTML programlama temelleri."
+      }
+    },
+    "certificationDetails": {
+      "dataEngineer": {
+        "title": "SQL'de Veri Mühendisi Yardımcısı",
+        "issuer": "DataCamp",
+        "date": "Oca 2025"
+      },
+      "dataScientist": {
+        "title": "Python'da Veri Bilimci",
+        "issuer": "DataCamp",
+        "date": "Haz 2024"
+      },
+      "dataAnalyst": {
+        "title": "SQL'de Veri Analisti",
+        "issuer": "DataCamp",
+        "date": "Oca 2024"
+      }
+    },
+    "experienceDetails": {
+      "fullStack": {
+        "role": "Full-Stack Geliştirici",
+        "company": "DAKAEI AI",
+        "employmentType": "Tam zamanlı",
+        "date": "Nis 2025 - Günümüz",
+        "location": "Londra Bölgesi, Birleşik Krallık • Uzaktan",
+        "summary": "React.js, TypeScript, Node.js, Next.js, JavaScript, SQL, HTML, CSS, Firebase, PostgreSQL ve Veritabanları kullanarak full-stack uygulamalar geliştirme."
+      }
+    }
+  },
+  "footer": {
+    "rights": "Tüm hakları saklıdır",
+    "builtWith": "Next.js ve Tailwind CSS ile geliştirilmiştir"
+  },
+  "navigation": {
+    "home": "Ana Sayfa",
+    "about": "Hakkımda",
+    "services": "Hizmetler",
+    "skills": "Beceriler",
+    "projects": "Projeler",
+    "contact": "İletişim",
+    "resume": "Özgeçmiş"
+  },
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Hata",
+    "retry": "Tekrar Dene",
+    "close": "Kapat",
+    "open": "Aç",
+    "readMore": "Daha Fazla Oku",
+    "showLess": "Daha Az Göster"
+  },
+  "admin": {
+    "title": "Yönetim Paneli",
+    "dashboard": "Kontrol Paneli",
+    "content": "İçerik",
+    "settings": "Ayarlar",
+    "login": "Giriş Yap",
+    "logout": "Çıkış Yap",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "edit": "Düzenle",
+    "delete": "Sil",
+    "add": "Ekle",
+    "hide": "Gizle",
+    "show": "Göster",
+    "default": "Varsayılan",
+    "undo": "Geri Al"
+  },
+  "languages": {
+    "en": "English",
+    "ar": "العربية",
+    "tr": "Türkçe",
+    "it": "Italiano",
+    "fr": "Français",
+    "de": "Deutsch"
+  }
+}

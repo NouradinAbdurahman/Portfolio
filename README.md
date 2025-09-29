@@ -127,8 +127,32 @@ All admin pages require Supabase email/password auth (limited to the configured 
     - Back to Dashboard
     - Debug panel for troubleshooting
   - Implementation
-    - Reads/writes `site_content` (Supabase)
-    - Server route: `app/api/content/route.ts` (GET shape by section/tag; POST single or expanded batch)
+    - Multilingual content powered by `translations` table (Supabase)
+    - New API: `app/api/content/multilang/route.ts` (GET/POST full section translations in one request)
+    - Backwards compatible: legacy `site_content` still upserts for older pages
+    - Live fallback to English when a locale string is empty
+
+### 🗣️ Multilingual Editing (EN/AR/TR/IT/FR/DE)
+- Side‑by‑side editing per field across all locales
+- Per‑field hide/unhide and per‑locale hide/unhide
+- Sections migrated: `Hero`, `Navbar`, `About`, `Services`, `Technical Skills`
+- Lists with translations:
+  - `Services` → items with `title`, `description`, `icon`, `technologies[]`
+  - `Technical Skills` → categories with `title`, `description`, `skills[{ name, icon, color }]`
+  - `Hero` → skills list (badges) + CTA labels and hrefs
+
+### New Admin Components
+- `components/admin/multilang-sections.tsx` – Orchestrates per‑section editors
+- `components/admin/multilang-field.tsx` – Side‑by‑side multi‑locale input
+- `components/admin/multilang-dynamic-list.tsx` – Generic translated list editor
+- `components/admin/services-manager.tsx` – Service icons + technologies editor
+- `components/admin/technical-skills-manager.tsx` – Category + skills editor
+
+### Data Migration & Scripts
+Located in `scripts/`:
+- `populate-services-technologies.js`, `populate-technical-skills.js`, `populate-hero-skills.js`
+- `fix-services-structure.js`, `fix-skills-structure.js`, `fix-services-hidden-field.js`
+- Run with `node scripts/<script>.js` (requires Supabase keys in `.env.local`)
 
 ## 🛠️ Tech Stack
 

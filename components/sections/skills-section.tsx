@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import { Section } from "@/components/ui/section"
 import { SectionHeader } from "@/components/ui/section-header"
@@ -5,57 +7,53 @@ import { SkillCard } from "@/components/ui/skill-card"
 import { Grid } from "@/components/ui/grid"
 import { Code, Database, Cloud, Smartphone } from "lucide-react"
 import { skills as defaultSkills } from "@/lib/data"
-import { useSectionContent } from "@/hooks/use-content"
+import { useSupabaseTranslations } from "@/hooks/use-supabase-translations"
+import { useLocale } from "next-intl"
+import { MixedContent } from "@/lib/rtl-utils"
 
 interface SkillsSectionProps {
   className?: string
 }
 
 function SkillsSection({ className }: SkillsSectionProps) {
-  const content = useSectionContent('skills', {
-    title: 'Technical Skills',
-    lead: 'Technologies and tools I work with',
-    items: defaultSkills,
-    hidden: false,
-    title_hidden: false,
-    lead_hidden: false,
-    catFullTitle: 'Full-Stack Development',
-    catFullDesc: 'React, Next.js, Flutter, Node.js',
-    catDataTitle: 'Data Engineering',
-    catDataDesc: 'ETL Pipelines, SQL, Python, Analytics',
-    catCloudTitle: 'Cloud & DevOps',
-    catCloudDesc: 'AWS, Firebase, Automation, CI/CD',
-    itemsFull: defaultSkills.filter(s => ["React","Next.js","Flutter","Node.js","Express","React Native"].includes(s.name)),
-    itemsData: defaultSkills.filter(s => ["Python","SQL","PostgreSQL"].includes(s.name)),
-    itemsCloud: defaultSkills.filter(s => ["AWS","Firebase","Docker","Git"].includes(s.name))
-  })
-  if ((content as any).hidden) return null
-  // Group skills by category using per-category arrays when provided
+  const { t } = useSupabaseTranslations()
+  const locale = useLocale()
+  const isRTL = locale === 'ar'
+  
+  // Get translations with fallbacks
+  const title = t('skills.title', 'Technical Skills')
+  const lead = t('skills.lead', 'Technologies and tools I work with')
+  const catFullTitle = t('skills.catFullTitle', 'Full-Stack Development')
+  const catFullDesc = t('skills.catFullDesc', 'React, Next.js, Flutter, Node.js')
+  const catDataTitle = t('skills.catDataTitle', 'Data Engineering')
+  const catDataDesc = t('skills.catDataDesc', 'ETL Pipelines, SQL, Python, Analytics')
+  const catCloudTitle = t('skills.catCloudTitle', 'Cloud & DevOps')
+  const catCloudDesc = t('skills.catCloudDesc', 'AWS, Firebase, Automation, CI/CD')
+  
+  // Group skills by category
   const skillsByCategory = {
-    [content.catFullTitle]: {
-      description: content.catFullDesc,
+    [catFullTitle]: {
+      description: catFullDesc,
       icon: Code,
-      skills: (content.itemsFull || defaultSkills.filter((s)=>["React","Next.js","Flutter","Node.js","Express","React Native"].includes(s.name))).filter((s: any) => !s.hidden)
+      skills: defaultSkills.filter(s => ["React","Next.js","Flutter","Node.js","Express","React Native"].includes(s.name))
     },
-    [content.catDataTitle]: {
-      description: content.catDataDesc,
+    [catDataTitle]: {
+      description: catDataDesc,
       icon: Database,
-      skills: (content.itemsData || defaultSkills.filter((s)=>["Python","SQL","PostgreSQL"].includes(s.name))).filter((s: any) => !s.hidden)
+      skills: defaultSkills.filter(s => ["Python","SQL","PostgreSQL"].includes(s.name))
     },
-    [content.catCloudTitle]: {
-      description: content.catCloudDesc,
+    [catCloudTitle]: {
+      description: catCloudDesc,
       icon: Cloud,
-      skills: (content.itemsCloud || defaultSkills.filter((s)=>["AWS","Firebase","Docker","Git"].includes(s.name))).filter((s: any) => !s.hidden)
+      skills: defaultSkills.filter(s => ["AWS","Firebase","Docker","Git"].includes(s.name))
     }
   }
 
   return (
     <Section id="skills" variant="light" className={className}>
       <SectionHeader 
-        title={content.title}
-        description={content.lead}
-        titleHidden={content.title_hidden}
-        descriptionHidden={content.lead_hidden}
+        title={title}
+        description={lead}
       />
 
       <Grid cols={3} gap="lg">

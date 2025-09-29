@@ -1,0 +1,359 @@
+{
+  "hero": {
+    "title": "Ingénieur Logiciel • Développeur Full-Stack • Ingénieur Données",
+    "subtitle": "Je construis des applications évolutives, des systèmes basés sur le cloud et des solutions basées sur les données. Passionné par la création de pipelines ETL efficaces, d'expériences web modernes et de flux de travail automatisés.",
+    "ctaPrimary": "Voir Mon LinkedIn",
+    "ctaSecondary": "Me Contacter",
+    "ctaPrimaryLabel": "Voir Mon LinkedIn",
+    "ctaSecondaryLabel": "Me Contacter"
+  },
+  "about": {
+    "title": "À Propos de Moi",
+    "subtitle": "Nouraddin - Étudiant en Génie Logiciel et Développeur",
+    "name": "Nouraddin Abdurahman Aden",
+    "role": "Étudiant en Génie Logiciel et Développeur",
+    "body": "Salut, je suis Nouraddin ! Actuellement en Génie Logiciel à l'Université Technique OSTİM, je me spécialise dans la construction d'applications évolutives et de solutions basées sur les données. Ma passion réside dans la création de systèmes efficaces qui comblent le fossé entre les données complexes et les interfaces conviviales.",
+    "fullstackExpertise": "Compétent en React, Next.js, Flutter et technologies web modernes pour créer des applications réactives et performantes.",
+    "dataEngineering": "Expérimenté dans le développement de pipelines ETL, l'optimisation SQL et les solutions de traitement de données basées sur le cloud.",
+    "cloudAutomation": "Compétent en AWS, Firebase et la construction de flux de travail automatisés qui évoluent avec les besoins de l'entreprise.",
+    "fullstackExpertiseHeader": "Développement Full-Stack:",
+    "dataEngineeringHeader": "Ingénierie des Données:",
+    "cloudAutomationHeader": "Cloud et Automatisation:"
+  },
+  "services": {
+    "title": "Services",
+    "subtitle": "Solutions complètes pour vos besoins numériques",
+    "webDevelopment": {
+      "title": "Développement Web",
+      "description": "Applications web personnalisées utilisant des technologies modernes comme React, Next.js et TypeScript"
+    },
+    "mobileDevelopment": {
+      "title": "Développement Mobile",
+      "description": "Applications mobiles cross-platform avec Flutter et React Native pour iOS et Android"
+    },
+    "dataEngineering": {
+      "title": "Ingénierie des Données",
+      "description": "Pipelines ETL, traitement de données et solutions analytiques utilisant Python et technologies cloud"
+    },
+    "cloudSolutions": {
+      "title": "Solutions Cloud",
+      "description": "Infrastructures cloud évolutives et solutions de déploiement utilisant AWS et Firebase"
+    }
+  },
+  "skills": {
+    "title": "Compétences Techniques",
+    "lead": "Technologies et outils avec lesquels je travaille",
+    "catFullTitle": "Développement Full-Stack",
+    "catFullDesc": "React, Next.js, Flutter, Node.js",
+    "catDataTitle": "Ingénierie des Données",
+    "catDataDesc": "Pipelines ETL, SQL, Python, Analytics",
+    "catCloudTitle": "Cloud et DevOps",
+    "catCloudDesc": "AWS, Firebase, Automatisation, CI/CD",
+    "fullStack": {
+      "title": "Développement Full-Stack",
+      "description": "React, Next.js, Flutter, Node.js"
+    },
+    "dataEngineering": {
+      "title": "Ingénierie des Données",
+      "description": "Pipelines ETL, SQL, Python, Analytics"
+    },
+    "cloudTools": {
+      "title": "Cloud et Outils",
+      "description": "AWS, Firebase, Docker, Git"
+    }
+  },
+  "projects": {
+    "title": "Projets en Vedette",
+    "subtitle": "Une vitrine de mon travail récent et de mon expertise technique",
+    "viewDetails": "Voir les Détails",
+    "viewRepository": "Dépôt",
+    "viewLiveDemo": "Démo Live",
+    "technologies": "Technologies",
+    "problem": "Problème",
+    "solution": "Solution",
+    "outcome": "Résultat",
+    "keyFeatures": "Fonctionnalités Clés",
+    "architecture": "Architecture",
+    "technicalChallenges": "Défis Techniques",
+    "keyLearnings": "Apprentissages Clés",
+    "impact": "Impact",
+    "backToProjects": "Retour aux Projets",
+    "allProjects": "Tous les Projets",
+    "items": {
+      "github-profile-analyzer": {
+        "title": "Analyseur de Profil GitHub",
+        "description": "Insights alimentés par IA pour développeurs GitHub. Analytiques en temps réel, résumés générés par IA, optimisation de profils et tableaux de bord personnalisés. Construit avec Next.js, TypeScript, Tailwind CSS et Firebase. Intégré avec DAKAEi AI API et GitHub API.",
+        "category": "Analytiques IA • Outils Développeurs",
+        "problem": "Les développeurs et recruteurs ont du mal à extraire des insights significatifs des profils GitHub, rendant difficile l'évaluation des modèles de codage, tendances de productivité et expertise technique à partir des données brutes des dépôts.",
+        "solution": "Construit une plateforme d'analyse alimentée par IA qui se connecte aux API GitHub pour analyser les modèles de codage, générer des résumés en langage naturel et fournir des visualisations complètes de l'activité et des modèles de croissance des développeurs.",
+        "outcome": "Augmenté la vitesse d'optimisation de profil de ~60% dans les tests utilisateurs, avec 85% des utilisateurs rapportant une meilleure compréhension de leurs modèles de codage.",
+        "features": [
+          "Intégration GitHub API pour récupération de données en temps réel",
+          "Analyse alimentée par IA des modèles de codage et langages",
+          "Résumés en langage naturel des profils développeurs",
+          "Visualisations interactives (graphiques en barres, graphiques temporels, cartes de chaleur)",
+          "Fonctionnalité de comparaison de profils côte à côte",
+          "Analyse de fréquence des contributions et pics de productivité",
+          "Catégorisation du focus projet (backend, frontend, data science)",
+          "Détection des langages et frameworks les plus utilisés",
+          "Tableau de bord temps réel avec statistiques complètes"
+        ],
+        "architecture": "Frontend construit avec Next.js et TypeScript pour la sécurité des types, Tailwind CSS pour le design responsive, Firebase pour l'authentification et le stockage de données, OpenAI API pour le traitement du langage naturel, et GitHub REST/GraphQL APIs pour la récupération de données. L'application utilise le rendu côté serveur pour des performances optimales et le SEO.",
+        "challenges": [
+          "Gestion des limites de taux GitHub API et pagination pour les gros dépôts",
+          "Implémentation de la synchronisation de données temps réel avec Firebase",
+          "Création de prompts IA significatifs pour des résultats d'analyse cohérents",
+          "Optimisation des performances pour les utilisateurs avec des historiques de dépôts étendus",
+          "Conception de visualisations intuitives pour des modèles de données complexes"
+        ],
+        "learnings": [
+          "Modèles Next.js avancés incluant App Router et Server Components",
+          "Intégration GitHub API avec endpoints REST et GraphQL",
+          "Ingénierie de prompts IA pour analyse cohérente et significative",
+          "Techniques de synchronisation de données temps réel avec Firebase",
+          "Visualisation de données complexes avec Chart.js et composants personnalisés"
+        ],
+        "impact": "Aidé les développeurs à comprendre leurs modèles de codage et améliorer leur présence GitHub, avec plus de 100+ analyses de profils complétées."
+      },
+      "intellistudy": {
+        "title": "Plateforme IntelliStudy",
+        "description": "Assistant d'apprentissage alimenté par IA pour étudiants. Fonctionnalités de résumé de texte, réécriture de contenu, chatbot Q&A académique et générateur de quiz. Construit avec Next.js, React, Tailwind CSS et shadcn/ui. Intégré avec DAKAEi AI API.",
+        "category": "Full-Stack • Intégration IA",
+        "problem": "Les étudiants luttent avec la surcharge d'informations et ont besoin d'outils efficaces pour résumer, comprendre et retenir le contenu académique à travers diverses matières et formats.",
+        "solution": "Développé une plateforme d'apprentissage alimentée par IA qui fournit le résumé de texte, la réécriture de contenu, un chatbot Q&A académique et la génération de quiz pour aider les étudiants à traiter et retenir l'information plus efficacement.",
+        "outcome": "Amélioré l'efficacité d'étude de 40% dans les tests utilisateurs, avec 90% des étudiants rapportant une meilleure compréhension du contenu.",
+        "features": [
+          "Résumé de texte alimenté par IA pour contenu académique",
+          "Outils de réécriture de contenu et paraphrase",
+          "Chatbot Q&A académique pour aide instantanée",
+          "Générateur de quiz avec types de questions multiples",
+          "Authentification utilisateur et suivi de progression",
+          "Design responsive avec composants UI modernes",
+          "Fonctionnalité d'export pour matériel d'étude"
+        ],
+        "architecture": "Construit avec Next.js 14 et App Router, React pour composants UI, Tailwind CSS pour le style, shadcn/ui pour bibliothèque de composants, et OpenAI API pour toutes les fonctionnalités IA. Déployé sur Vercel avec edge functions pour des performances optimales.",
+        "challenges": [
+          "Implémentation d'ingénierie de prompts IA complexe pour contenu éducatif",
+          "Création d'interfaces utilisateur intuitives pour fonctionnalités alimentées par IA",
+          "Gestion d'état pour opérations IA concurrentes multiples",
+          "Optimisation des appels API et gestion des réponses pour une meilleure UX"
+        ],
+        "learnings": [
+          "Modèles d'intégration IA avancés et ingénierie de prompts",
+          "Gestion d'état complexe avec React hooks et context",
+          "Implémentation de bibliothèque de composants shadcn/ui",
+          "Principes de design de technologie éducative et expérience utilisateur"
+        ],
+        "impact": "Fourni aux étudiants des outils IA puissants pour le succès académique, améliorant l'efficacité d'étude et la compréhension du contenu."
+      },
+      "ohay": {
+        "title": "App Mobile Ohay",
+        "description": "Plateforme moderne de livraison de nourriture multi-vendeurs pour iOS et Android. Les clients peuvent commander de plusieurs restaurants en un seul checkout, suivre les coursiers en temps réel et recevoir des reçus numériques détaillés. Construit avec Flutter et Firebase avec intégrations de passerelles de paiement. Supporte iOS background fetch, notifications push et internationalisation complète pour une expérience localisée premium.",
+        "category": "Développement Mobile • Systèmes Temps Réel",
+        "problem": "Les apps de livraison de nourriture limitent typiquement les utilisateurs à commander d'un restaurant à la fois, créant de l'inconvénient quand les utilisateurs veulent des articles de plusieurs restaurants dans une seule commande.",
+        "solution": "Créé une plateforme de livraison de nourriture multi-vendeurs qui permet aux clients de commander de plusieurs restaurants en un seul checkout, avec suivi de coursiers temps réel et gestion de commandes complète.",
+        "outcome": "Atteint une note de 4.8/5 sur l'app store avec 1000+ téléchargements et 95% de satisfaction utilisateur dans les tests bêta.",
+        "features": [
+          "Système de commande multi-vendeurs en checkout unique",
+          "Suivi de coursiers temps réel avec intégration Google Maps",
+          "Génération de reçus numériques et historique des commandes",
+          "Intégration de passerelle de paiement avec Stripe",
+          "Notifications push pour mises à jour de commandes",
+          "iOS background fetch pour expérience seamless",
+          "Support d'internationalisation complet pour utilisateurs globaux",
+          "Design UI/UX premium avec animations fluides"
+        ],
+        "architecture": "App mobile cross-platform construite avec Flutter, Firebase pour services backend incluant authentification, base de données temps réel et cloud functions. Intégré avec Stripe pour paiements et Google Maps pour suivi.",
+        "challenges": [
+          "Implémentation de suivi temps réel avec Firebase et Google Maps",
+          "Gestion d'état complexe à travers vendeurs et commandes multiples",
+          "Intégration de passerelles de paiement multiples et gestion des transactions",
+          "Création d'animations et transitions fluides pour un ressenti premium",
+          "Gestion de fonctionnalités hors ligne et synchronisation de données"
+        ],
+        "learnings": [
+          "Gestion d'état Flutter avancée avec Provider et Riverpod",
+          "Intégration de base de données Firebase temps réel et optimisation",
+          "Intégration de passerelle de paiement mobile et meilleures pratiques de sécurité",
+          "Modèles de développement cross-platform et optimisation de performance",
+          "Internationalisation et localisation pour marchés globaux"
+        ],
+        "impact": "Livré une expérience de livraison de nourriture premium avec support multi-vendeurs et suivi temps réel, améliorant la satisfaction client et l'efficacité opérationnelle."
+      },
+      "viaggi-qatar-booking": {
+        "title": "Système de Réservation Tour Viaggi del Qatar",
+        "description": "Plateforme avancée de gestion de réservations supportant les réservations multi-tours, génération de reçus et tableaux de bord opérationnels temps réel. Construit avec Next.js 14+ et PostgreSQL (Neon) utilisant le rendu côté serveur pour vitesse et SEO. Inclut portail agent, UI mobile-first et aperçu PDF avec export et filtres pour itinéraires et factures.",
+        "category": "Full-Stack • Next.js 14 • PostgreSQL (Neon)",
+        "problem": "Les agences de voyage ont besoin d'un système de gestion de réservations complet qui peut gérer les réservations de tours multiples, générer des reçus et fournir des tableaux de bord opérationnels temps réel pour une gestion d'entreprise efficace.",
+        "solution": "Développé une plateforme de réservation avancée avec capacités de réservation multi-tours, génération de reçus automatisée, tableaux de bord temps réel et outils administratifs complets pour agences de voyage.",
+        "outcome": "Simplifié les opérations de réservation de 70%, réduit le travail manuel de 80% et amélioré les scores de satisfaction client de 25%.",
+        "features": [
+          "Système de réservation multi-tours avec logique de réservation complexe",
+          "Tableaux de bord opérationnels temps réel avec analytiques",
+          "Portail agent pour gestion de tours et service client",
+          "Génération PDF et export pour itinéraires et factures",
+          "Design responsive mobile-first pour tous les appareils",
+          "Fonctionnalités de filtrage et recherche avancées",
+          "Génération de reçus et factures automatisée",
+          "Rendu côté serveur pour SEO et performances optimales"
+        ],
+        "architecture": "Next.js 14 avec App Router, TypeScript pour sécurité des types, PostgreSQL avec Prisma ORM pour gestion de base de données, rendu côté serveur pour performance et services de génération PDF intégrés.",
+        "challenges": [
+          "Conception de schéma de base de données complexe pour réservations multi-tours",
+          "Implémentation de mises à jour de tableau de bord temps réel et analytiques",
+          "Création de système de génération PDF efficace pour divers documents",
+          "Optimisation des performances de rendu côté serveur pour gros datasets",
+          "Gestion de validation d'état de réservation complexe et logique métier"
+        ],
+        "learnings": [
+          "Modèles Next.js 14 avancés incluant App Router et Server Components",
+          "Conception de base de données PostgreSQL complexe et optimisation",
+          "Optimisation de rendu côté serveur et tuning de performance",
+          "Systèmes de génération PDF et gestion de documents",
+          "Implémentation de tableau de bord temps réel avec visualisation de données"
+        ],
+        "impact": "Simplifié les opérations de réservation de tours pour agences de voyage, améliorant l'efficacité de réservation et fournissant des outils administratifs complets pour gestion de tours."
+      }
+    }
+  },
+        "contact": {
+          "title": "Entrer en Contact",
+          "subtitle": "Discutons de votre prochain projet ou dites simplement bonjour",
+          "letsConnect": "Connectons-nous",
+          "introText": "Je suis toujours intéressé par de nouvelles opportunités, des projets stimulants et des collaborations significatives. Que vous ayez un projet spécifique en tête ou que vous souhaitiez simplement explorer les possibilités, j'aimerais avoir de vos nouvelles.",
+          "name": "Nom",
+          "email": "Email",
+          "subject": "Sujet",
+          "message": "Message",
+          "sendMessage": "Envoyer le Message",
+          "sending": "Envoi en cours...",
+          "success": "Message envoyé avec succès !",
+          "error": "Échec de l'envoi du message. Veuillez réessayer.",
+          "firstName": "Prénom",
+          "lastName": "Nom de famille",
+          "emailAddress": "Adresse Email",
+          "phone": "Téléphone",
+          "location": "Localisation"
+        },
+  "resume": {
+    "title": "CV",
+    "subtitle": "Mon parcours professionnel et mes réalisations",
+    "education": {
+      "title": "Formation",
+      "degree": "Licence en Génie Logiciel",
+      "university": "Université Technique OSTİM",
+      "period": "2022 - Présent"
+    },
+    "certifications": {
+      "title": "Certifications",
+      "dataEngineer": "Ingénieur Données Associé en SQL",
+      "dataScientist": "Data Scientist en Python",
+      "dataAnalyst": "Analyste de Données en SQL"
+    },
+    "experience": {
+      "title": "Expérience",
+      "freelance": {
+        "title": "Développeur Freelance",
+        "period": "2022 - Présent",
+        "description": "Développement d'applications web et mobiles pour divers clients"
+      }
+    },
+    "technicalSkills": {
+      "title": "Compétences Techniques",
+      "languages": "Langages de Programmation",
+      "frameworks": "Frameworks et Bibliothèques",
+      "tools": "Outils et Technologies"
+    },
+    "downloadResume": "Télécharger le CV",
+    "educationDetails": {
+      "bachelor": {
+        "degree": "Bachelor of Engineering - BE, Génie Logiciel",
+        "school": "OSTİM Teknik Üniversitesi",
+        "date": "Sep 2022 - Jun 2026",
+        "location": "Ankara Turquie",
+        "description": "Étude complète en Python, C, Développement Web, Bases de données, Data Mining, Gestion de projets logiciels, C++, Java, SQL, JavaScript et Machine Learning."
+      },
+      "highSchool": {
+        "degree": "Baccalauréat, Technologies de l'Information - Ingénierie",
+        "school": "Omar bin Abdul Aziz Secondary Independent School for Boys",
+        "date": "Sep 2018 - Jun 2021",
+        "location": "Doha/Qatar",
+        "description": "Fondamentaux en CSS, Python, JavaScript, Technologies de l'Information et programmation HTML."
+      }
+    },
+    "certificationDetails": {
+      "dataEngineer": {
+        "title": "Ingénieur de Données Associé en SQL",
+        "issuer": "DataCamp",
+        "date": "Jan 2025"
+      },
+      "dataScientist": {
+        "title": "Scientifique des Données en Python",
+        "issuer": "DataCamp",
+        "date": "Jun 2024"
+      },
+      "dataAnalyst": {
+        "title": "Analyste de Données en SQL",
+        "issuer": "DataCamp",
+        "date": "Jan 2024"
+      }
+    },
+    "experienceDetails": {
+      "fullStack": {
+        "role": "Développeur Full-Stack",
+        "company": "DAKAEI AI",
+        "employmentType": "Temps plein",
+        "date": "Avr 2025 - Présent",
+        "location": "Région de Londres, Royaume-Uni • Remote",
+        "summary": "Développement d'applications full-stack utilisant React.js, TypeScript, Node.js, Next.js, JavaScript, SQL, HTML, CSS, Firebase, PostgreSQL et Bases de données."
+      }
+    }
+  },
+  "footer": {
+    "rights": "Tous droits réservés",
+    "builtWith": "Construit avec Next.js et Tailwind CSS"
+  },
+  "navigation": {
+    "home": "Accueil",
+    "about": "À Propos",
+    "services": "Services",
+    "skills": "Compétences",
+    "projects": "Projets",
+    "contact": "Contact",
+    "resume": "CV"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "retry": "Réessayer",
+    "close": "Fermer",
+    "open": "Ouvrir",
+    "readMore": "Lire Plus",
+    "showLess": "Afficher Moins"
+  },
+  "admin": {
+    "title": "Panneau d'Administration",
+    "dashboard": "Tableau de Bord",
+    "content": "Contenu",
+    "settings": "Paramètres",
+    "login": "Se Connecter",
+    "logout": "Se Déconnecter",
+    "save": "Sauvegarder",
+    "cancel": "Annuler",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "add": "Ajouter",
+    "hide": "Masquer",
+    "show": "Afficher",
+    "default": "Par Défaut",
+    "undo": "Annuler"
+  },
+  "languages": {
+    "en": "English",
+    "ar": "العربية",
+    "tr": "Türkçe",
+    "it": "Italiano",
+    "fr": "Français",
+    "de": "Deutsch"
+  }
+}

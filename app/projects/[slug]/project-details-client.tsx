@@ -10,13 +10,15 @@ import { TechBadge } from "@/components/ui/tech-badge"
 import { SafeImage } from "@/components/ui/safe-image"
 import { ArrowLeft, Github, ExternalLink } from "lucide-react"
 import { Project } from "@/lib/data"
+import { useTranslations } from "next-intl"
 
 interface ProjectDetailsClientProps {
   project: Project
-  slug: string
+  slug?: string
 }
 
-export function ProjectDetailsClient({ project, slug }: ProjectDetailsClientProps) {
+export function ProjectDetailsClient({ project }: ProjectDetailsClientProps) {
+  const t = useTranslations('projects')
   return (
     <Section className="pt-32 pb-20">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -34,7 +36,7 @@ export function ProjectDetailsClient({ project, slug }: ProjectDetailsClientProp
           >
             <Link href="/projects">
               <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-              Back to Projects
+              {t('backToProjects')}
             </Link>
           </Button>
         </motion.div>
@@ -74,7 +76,7 @@ export function ProjectDetailsClient({ project, slug }: ProjectDetailsClientProp
               >
                 <Link href={project.repo || project.githubUrl || "#"} target="_blank" rel="noopener noreferrer">
                   <Github className="w-4 h-4 mr-2" />
-                  Repository
+                  {t('viewRepository')}
                 </Link>
               </Button>
             )}
@@ -86,7 +88,7 @@ export function ProjectDetailsClient({ project, slug }: ProjectDetailsClientProp
               >
                 <Link href={project.demo || project.liveUrl || "#"} target="_blank" rel="noopener noreferrer">
                   <ExternalLink className="w-4 h-4 mr-2" />
-                  Live Demo
+                  {t('viewLiveDemo')}
                 </Link>
               </Button>
             )}
@@ -121,7 +123,7 @@ export function ProjectDetailsClient({ project, slug }: ProjectDetailsClientProp
         >
           <div>
             <Typography variant="h3" className="mb-4">
-              Problem
+              {t('problem')}
             </Typography>
             <Typography variant="p" className="text-muted-foreground">
               {project.problem}
@@ -130,7 +132,7 @@ export function ProjectDetailsClient({ project, slug }: ProjectDetailsClientProp
 
           <div>
             <Typography variant="h3" className="mb-4">
-              Solution
+              {t('solution')}
             </Typography>
             <Typography variant="p" className="text-muted-foreground">
               {project.solution}
@@ -140,7 +142,7 @@ export function ProjectDetailsClient({ project, slug }: ProjectDetailsClientProp
           {project.outcome && (
             <div>
               <Typography variant="h3" className="mb-4">
-                Outcome
+                {t('outcome')}
               </Typography>
               <Typography variant="p" className="text-muted-foreground">
                 {project.outcome}
@@ -151,7 +153,7 @@ export function ProjectDetailsClient({ project, slug }: ProjectDetailsClientProp
           {project.features && project.features.length > 0 && (
             <div>
               <Typography variant="h3" className="mb-4">
-                Key Features
+                {t('keyFeatures')}
               </Typography>
               <ul className="space-y-2">
                 {project.features.map((feature, index) => (
@@ -169,7 +171,7 @@ export function ProjectDetailsClient({ project, slug }: ProjectDetailsClientProp
           {project.architecture && (
             <div>
               <Typography variant="h3" className="mb-4">
-                Architecture
+                {t('architecture')}
               </Typography>
               <Typography variant="p" className="text-muted-foreground">
                 {project.architecture}
@@ -180,7 +182,7 @@ export function ProjectDetailsClient({ project, slug }: ProjectDetailsClientProp
           {project.challenges && project.challenges.length > 0 && (
             <div>
               <Typography variant="h3" className="mb-4">
-                Technical Challenges
+                {t('technicalChallenges')}
               </Typography>
               <ul className="space-y-2">
                 {project.challenges.map((challenge, index) => (
@@ -198,7 +200,7 @@ export function ProjectDetailsClient({ project, slug }: ProjectDetailsClientProp
           {project.learnings && project.learnings.length > 0 && (
             <div>
               <Typography variant="h3" className="mb-4">
-                Key Learnings
+                {t('keyLearnings')}
               </Typography>
               <ul className="space-y-2">
                 {project.learnings.map((learning, index) => (
@@ -216,7 +218,7 @@ export function ProjectDetailsClient({ project, slug }: ProjectDetailsClientProp
           {project.impact && (
             <div>
               <Typography variant="h3" className="mb-4">
-                Impact
+                {t('impact')}
               </Typography>
               <Typography variant="p" className="text-muted-foreground">
                 {project.impact}

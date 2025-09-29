@@ -1,37 +1,69 @@
+"use client"
+
 import * as React from "react"
 import { Section } from "@/components/ui/section"
 import { SectionHeader } from "@/components/ui/section-header"
 import { ServiceCard } from "@/components/ui/service-card"
 import { Grid } from "@/components/ui/grid"
 import { services as defaultServices } from "@/lib/data"
-import { useSectionContent } from "@/hooks/use-content"
+import { useSupabaseTranslations } from "@/hooks/use-supabase-translations"
+import { useLocale } from "next-intl"
+import { MixedContent } from "@/lib/rtl-utils"
 
 interface ServicesSectionProps {
   className?: string
 }
 
 function ServicesSection({ className }: ServicesSectionProps) {
-  const content = useSectionContent('services', {
-    title: 'Services',
-    subtitle: 'Comprehensive solutions for your digital needs',
-    hidden: false,
-    title_hidden: false,
-    subtitle_hidden: false,
-    items: defaultServices
+  const { t, refresh } = useSupabaseTranslations({ autoRefresh: true })
+  const locale = useLocale()
+  const isRTL = locale === 'ar'
+  
+  // Force refresh translations on mount
+  React.useEffect(() => {
+    refresh()
+  }, [refresh])
+  
+  // Get translations with fallbacks
+  const title = t('services.title', 'Services')
+  const subtitle = t('services.subtitle', 'Comprehensive solutions for your digital needs')
+  
+  // Get services from the new items structure
+  const servicesItemsString = t('services.items', '[]')
+  let servicesItems = []
+  
+  try {
+    servicesItems = JSON.parse(servicesItemsString)
+  } catch (error) {
+    console.error('Error parsing services items:', error)
+    servicesItems = defaultServices
+  }
+  
+  // If no services from API, fallback to default services
+  if (!Array.isArray(servicesItems) || servicesItems.length === 0) {
+    servicesItems = defaultServices
+  }
+  
+  // Translate service items
+  const translatedServices = servicesItems.map((service: any) => {
+    return {
+      ...service,
+      title: service.title?.[locale] || service.title?.en || service.title || 'Untitled Service',
+      description: service.description?.[locale] || service.description?.en || service.description || 'No description available',
+      icon: service.icon || 'Code',
+      technologies: service.technologies || []
+    }
   })
-  if ((content as any).hidden) return null
-  const items = Array.isArray(content.items) && content.items.length > 0 ? content.items : defaultServices
+  
   return (
     <Section id="services" className={className}>
       <SectionHeader 
-        title={content.title}
-        description={content.subtitle}
-        titleHidden={content.title_hidden}
-        descriptionHidden={content.subtitle_hidden}
+        title={title}
+        description={subtitle}
       />
 
       <Grid cols={4} gap="lg">
-        {items.filter((service: any) => !service.hidden).map((service: any, index: number) => (
+        {translatedServices.map((service: any, index: number) => (
           <ServiceCard
             key={service.title}
             service={service}

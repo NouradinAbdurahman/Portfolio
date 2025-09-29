@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import { motion } from "framer-motion"
 import Link from "next/link"
@@ -9,8 +11,14 @@ import { SafeImage } from "@/components/ui/safe-image"
 import { ExternalLink, Eye, Github } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { Project } from "@/lib/data"
+import { useSupabaseTranslations } from "@/hooks/use-supabase-translations"
+import { MixedContent } from "@/lib/rtl-utils"
+import { useLocale } from "next-intl"
 
-interface ProjectWithFlags extends Project {
+interface ProjectWithFlags extends Omit<Project, 'image' | 'technologies' | 'category'> {
+  image?: string
+  technologies?: string[]
+  category?: string
   showDetails?: boolean
   showLive?: boolean
   showRepo?: boolean
@@ -27,6 +35,17 @@ function ProjectCard({
   className,
   showButtons = true 
 }: ProjectCardProps) {
+  const { t } = useSupabaseTranslations()
+  const locale = useLocale()
+  const isRTL = locale === 'ar'
+  
+  // Get project key for translations
+  const projectKey = project.slug || project.id || project.title?.toLowerCase().replace(/\s+/g, '-')
+  
+  // Get translated content with fallbacks
+  const translatedTitle = t(`projects.items.${projectKey}.title`, project.title)
+  const translatedDescription = t(`projects.items.${projectKey}.description`, project.description)
+  
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -44,26 +63,26 @@ function ProjectCard({
       <Card className="overflow-hidden group hover:shadow-lg transition-all duration-300 border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 bg-transparent">
         <div className="relative w-full aspect-video">
           <SafeImage
-            src={project.image}
-            alt={project.title}
+            src={project.image || '/placeholder.jpg'}
+            alt={translatedTitle}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover transition-transform duration-300 group-hover:scale-105"
           />
         </div>
         
-        <div className="p-6 space-y-4">
+        <div className={`p-6 space-y-4 ${isRTL ? 'text-right' : 'text-left'}`} dir={isRTL ? 'rtl' : 'ltr'}>
           <div>
             <Typography variant="h4" className="mb-2">
-              {project.title}
+              <MixedContent text={translatedTitle} isRTL={isRTL} />
             </Typography>
             <Typography variant="muted" className="leading-relaxed">
-              {project.description}
+              <MixedContent text={translatedDescription} isRTL={isRTL} />
             </Typography>
           </div>
           
           <div className="flex flex-wrap gap-2">
-            {project.technologies.map((tech) => (
+            {(project.technologies || []).map((tech) => (
               <TechBadge 
                 key={tech} 
                 name={tech} 
@@ -73,7 +92,7 @@ function ProjectCard({
           </div>
           
           {showButtons && (
-            <div className="flex gap-2 sm:gap-3 pt-2">
+            <div className={`flex gap-2 sm:gap-3 pt-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
               {(project.showDetails !== false) && (
                 <Button 
                   asChild
@@ -82,9 +101,9 @@ function ProjectCard({
                   className="flex-1 neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/90 cursor-pointer border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/60 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm"
                 >
                   <Link href={`/projects/${(project.slug || project.id)}`} className="cursor-pointer">
-                    <Eye className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                    <span className="hidden sm:inline">Details</span>
-                    <span className="sm:hidden">View</span>
+                    <Eye className={`w-3 h-3 sm:w-4 sm:h-4 ${isRTL ? 'ml-1 sm:ml-2' : 'mr-1 sm:mr-2'}`} />
+                    <span className="hidden sm:inline">{t('projects.viewDetails', 'Details')}</span>
+                    <span className="sm:hidden">{t('projects.viewDetails', 'View')}</span>
                   </Link>
                 </Button>
               )}
@@ -96,9 +115,9 @@ function ProjectCard({
                   className="flex-1 neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/90 cursor-pointer border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/60 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm"
                 >
                   <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="cursor-pointer">
-                    <Github className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                    <span className="hidden sm:inline">Repository</span>
-                    <span className="sm:hidden">Repo</span>
+                    <Github className={`w-3 h-3 sm:w-4 sm:h-4 ${isRTL ? 'ml-1 sm:ml-2' : 'mr-1 sm:mr-2'}`} />
+                    <span className="hidden sm:inline">{t('projects.viewRepository', 'Repository')}</span>
+                    <span className="sm:hidden">{t('projects.viewRepository', 'Repo')}</span>
                   </Link>
                 </Button>
               )}
@@ -110,9 +129,9 @@ function ProjectCard({
                   className="flex-1 neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/90 cursor-pointer border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/60 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm"
                 >
                   <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="cursor-pointer">
-                    <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                    <span className="hidden sm:inline">Live Demo</span>
-                    <span className="sm:hidden">Demo</span>
+                    <ExternalLink className={`w-3 h-3 sm:w-4 sm:h-4 ${isRTL ? 'ml-1 sm:ml-2' : 'mr-1 sm:mr-2'}`} />
+                    <span className="hidden sm:inline">{t('projects.viewLiveDemo', 'Live Demo')}</span>
+                    <span className="sm:hidden">{t('projects.viewLiveDemo', 'Demo')}</span>
                   </Link>
                 </Button>
               )}

@@ -1,11 +1,13 @@
 "use client"
 
+export const dynamic = 'force-dynamic'
+
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { getSupabaseBrowserClient } from "@/lib/supabaseClient"
 import { AdminButton } from "@/components/ui/admin-button"
-import { Settings, Files, LogOut } from "lucide-react"
+import { Settings, Files, LogOut, Globe } from "lucide-react"
 
 export default function AdminDashboardPage() {
   const router = useRouter()
@@ -93,6 +95,13 @@ export default function AdminDashboardPage() {
                 <Link href="/admin/content" className="flex items-center justify-center gap-2">
                   <Files className="size-4" />
                   <span>Manage Site Content</span>
+                </Link>
+              </AdminButton>
+
+              <AdminButton asChild className="w-full">
+                <Link href="/admin/translations" className="flex items-center justify-center gap-2">
+                  <Globe className="size-4" />
+                  <span>Manage Translations</span>
                 </Link>
               </AdminButton>
 

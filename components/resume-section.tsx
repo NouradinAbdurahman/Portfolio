@@ -6,49 +6,53 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Spotlight } from "@/components/ui/spotlight-new"
 import { Download, Calendar, Award, Briefcase, GraduationCap, Code, ExternalLink } from "lucide-react"
-import { useSectionContent } from "@/hooks/use-content"
+import { useLocale } from "next-intl"
 import { TechBadge } from "@/components/ui/tech-badge"
+import { MixedContent } from "@/lib/rtl-utils"
+import { useSupabaseTranslations } from "@/hooks/use-supabase-translations"
 
 export default function ResumeSection() {
   const [mounted, setMounted] = useState(false)
   useEffect(() => { setMounted(true) }, [])
-  const content = useSectionContent('resume', {
-    title: 'Resume',
-    lead: 'My professional journey and technical expertise',
-    hidden: false,
-    title_hidden: false,
-    lead_hidden: false,
+  const { t } = useSupabaseTranslations()
+  const locale = useLocale()
+  const isRTL = locale === 'ar'
+  
+  // Set default values for non-translatable fields
+  const finalContent = {
+    title: t('resume.title'),
+    subtitle: t('resume.subtitle'),
     education: [
       {
-        degree: 'Bachelor of Engineering - BE, Software Engineering',
-        school: 'OSTİM Teknik Üniversitesi',
-        date: 'Sep 2022 - Jun 2026',
-        location: 'Ankara Türkiye',
-        description: 'Comprehensive study in Python, C, Web Development, Databases, Data Mining, Software Project Management, C++, Java, SQL, JavaScript, and Machine Learning.',
+        degree: t('resume.educationDetails.bachelor.degree'),
+        school: t('resume.educationDetails.bachelor.school'),
+        date: t('resume.educationDetails.bachelor.date'),
+        location: t('resume.educationDetails.bachelor.location'),
+        description: t('resume.educationDetails.bachelor.description'),
         hidden: false
       },
       {
-        degree: 'High School Diploma, Information Technology - Engineering',
-        school: 'Omar bin Abdul Aziz Secondary Independent School for Boys',
-        date: 'Sep 2018 - Jun 2021',
-        location: 'Doha/Qatar',
-        description: 'Foundation in CSS, Python, JavaScript, Information Technology, and HTML programming.',
+        degree: t('resume.educationDetails.highSchool.degree'),
+        school: t('resume.educationDetails.highSchool.school'),
+        date: t('resume.educationDetails.highSchool.date'),
+        location: t('resume.educationDetails.highSchool.location'),
+        description: t('resume.educationDetails.highSchool.description'),
         hidden: false
       }
     ],
     certifications: [
-      { title: 'Associate Data Engineer in SQL', issuer: 'DataCamp', date: 'Jan 2025', link: 'https://www.datacamp.com/completed/statement-of-accomplishment/track/c0d2e90cbbdc287e61faaf285e45c5af244597b1', hidden: false },
-      { title: 'Data Scientist in Python', issuer: 'DataCamp', date: 'Jun 2024', link: 'https://www.datacamp.com/completed/statement-of-accomplishment/track/5a81b11b3f98bf7664cca160403d04a4bd6d406e', hidden: false },
-      { title: 'Data Analyst in SQL', issuer: 'DataCamp', date: 'Jan 2024', link: 'https://www.datacamp.com/completed/statement-of-accomplishment/track/86f17bd095be0cbde70befab0e01e50bd1e3e766', hidden: false },
+      { title: t('resume.certificationDetails.dataEngineer.title'), issuer: t('resume.certificationDetails.dataEngineer.issuer'), date: t('resume.certificationDetails.dataEngineer.date'), link: 'https://www.datacamp.com/completed/statement-of-accomplishment/track/c0d2e90cbbdc287e61faaf285e45c5af244597b1', hidden: false },
+      { title: t('resume.certificationDetails.dataScientist.title'), issuer: t('resume.certificationDetails.dataScientist.issuer'), date: t('resume.certificationDetails.dataScientist.date'), link: 'https://www.datacamp.com/completed/statement-of-accomplishment/track/5a81b11b3f98bf7664cca160403d04a4bd6d406e', hidden: false },
+      { title: t('resume.certificationDetails.dataAnalyst.title'), issuer: t('resume.certificationDetails.dataAnalyst.issuer'), date: t('resume.certificationDetails.dataAnalyst.date'), link: 'https://www.datacamp.com/completed/statement-of-accomplishment/track/86f17bd095be0cbde70befab0e01e50bd1e3e766', hidden: false },
     ],
     experience: [
       {
-        role: 'Full-Stack Developer',
-        company: 'DAKAEI AI',
-        employmentType: 'Full-time',
-        date: 'Apr 2025 - Present',
-        location: 'London Area, United Kingdom • Remote',
-        summary: 'Developing full-stack applications using React.js, TypeScript, Node.js, Next.js, JavaScript, SQL, HTML, CSS, Firebase, PostgreSQL, and Databases.',
+        role: t('resume.experienceDetails.fullStack.role'),
+        company: t('resume.experienceDetails.fullStack.company'),
+        employmentType: t('resume.experienceDetails.fullStack.employmentType'),
+        date: t('resume.experienceDetails.fullStack.date'),
+        location: t('resume.experienceDetails.fullStack.location'),
+        summary: t('resume.experienceDetails.fullStack.summary'),
         hidden: false
       }
     ],
@@ -56,33 +60,46 @@ export default function ResumeSection() {
       languages: ['JavaScript','TypeScript','Python','Dart','SQL'],
       frameworks: ['React','Next.js','Flutter','Node.js','Express'],
       tools: ['AWS','Firebase','Docker','Git','PostgreSQL']
-    }
-  })
-  if ((content as any).hidden) return null
-  if (!mounted) return null
-  const education = (content as any).education as Array<any> | undefined
-  const certifications = (content as any).certifications as Array<any> | undefined
-  const experience = (content as any).experience as Array<any> | undefined
-  const skills = (content as any).skills as { languages?: string[]; frameworks?: string[]; tools?: string[] } | undefined
-
-  function iconFor(label: string) {
-    const key = label.toLowerCase()
-    if (key.includes('typescript')) return <SiTypescript className="w-3 h-3 text-blue-500" />
-    if (key === 'javascript' || key === 'js') return <SiJavascript className="w-3 h-3 text-yellow-400" />
-    if (key.includes('python')) return <FaPython className="w-3 h-3 text-yellow-400" />
-    if (key.includes('dart')) return <SiDart className="w-3 h-3 text-blue-400" />
-    if (key.includes('sql') || key.includes('postgres')) return <SiPostgresql className="w-3 h-3 text-blue-600" />
-    if (key.includes('react')) return <FaReact className="w-3 h-3 text-cyan-400" />
-    if (key.includes('next')) return <SiNextdotjs className="w-3 h-3 text-black dark:text-white" />
-    if (key.includes('flutter')) return <SiFlutter className="w-3 h-3 text-blue-500" />
-    if (key.includes('node')) return <FaNodeJs className="w-3 h-3 text-green-500" />
-    if (key.includes('express')) return <SiExpress className="w-3 h-3" />
-    if (key.includes('aws')) return <FaAws className="w-3 h-3 text-orange-400" />
-    if (key.includes('firebase')) return <SiFirebase className="w-3 h-3 text-orange-500" />
-    if (key.includes('docker')) return <FaDocker className="w-3 h-3 text-blue-500" />
-    if (key.includes('git')) return <FaGitAlt className="w-3 h-3 text-orange-500" />
-    return null
+    },
+    hidden: false,
+    title_hidden: false,
+    subtitle_hidden: false
   }
+  if (finalContent.hidden) return null
+  if (!mounted) return null
+  
+  // Define proper types for the arrays
+  type EducationItem = {
+    degree: string
+    school: string
+    date: string
+    location: string
+    description: string
+    hidden: boolean
+  }
+  
+  type CertificationItem = {
+    title: string
+    issuer: string
+    date: string
+    link: string
+    hidden: boolean
+  }
+  
+  type ExperienceItem = {
+    role: string
+    company: string
+    employmentType: string
+    date: string
+    location: string
+    summary: string
+    hidden: boolean
+  }
+  
+  const education = finalContent.education as EducationItem[] | undefined
+  const certifications = finalContent.certifications as CertificationItem[] | undefined
+  const experience = finalContent.experience as ExperienceItem[] | undefined
+  const skills = finalContent.skills as { languages?: string[]; frameworks?: string[]; tools?: string[] } | undefined
   return (
     <section id="resume" className="site-background py-20 relative overflow-hidden">
       <Spotlight />
@@ -94,11 +111,11 @@ export default function ResumeSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          {!content.title_hidden && (
-            <h2 className="text-4xl font-bold mb-4 dark:text-white text-black">{content.title}</h2>
+          {!finalContent.title_hidden && (
+            <h2 className="text-4xl font-bold mb-4 dark:text-white text-black"><MixedContent text={finalContent.title} isRTL={isRTL} /></h2>
           )}
-          {!content.lead_hidden && (
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">{content.lead}</p>
+          {!finalContent.subtitle_hidden && (
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8"><MixedContent text={finalContent.subtitle} isRTL={isRTL} /></p>
           )}
           <Button 
             size="lg" 
@@ -106,38 +123,41 @@ export default function ResumeSection() {
             onClick={() => window.open('/resume/nouraddin-resume.pdf', '_blank')}
           >
             <Download className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
-            Download Resume
+            <MixedContent text={t('resume.downloadResume') || 'Download Resume'} isRTL={isRTL} />
           </Button>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 ${isRTL ? 'lg:grid-flow-col-dense' : ''}`}>
           {/* Education & Certifications */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: isRTL ? 30 : -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="space-y-8"
+            className={`space-y-8 ${isRTL ? 'lg:order-2' : 'lg:order-1'}`}
           >
             <div>
-              <h3 className="text-2xl font-bold dark:text-white text-black mb-6 flex items-center">
-                <GraduationCap className="w-6 h-6 mr-3 text-primary" />
-                Education
+              <h3 className={`text-2xl font-bold dark:text-white text-black mb-6 flex items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
+                <GraduationCap className={`w-6 h-6 text-primary ${isRTL ? 'ml-3' : 'mr-3'}`} />
+                <MixedContent text={t('resume.education.title')} isRTL={isRTL} />
               </h3>
               <Card className="p-6 bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 cursor-pointer">
                 <div className="space-y-4">
                   {(education||[]).filter((e)=>!e?.hidden).map((e, i)=> (
-                    <div key={i} className="flex items-start space-x-4">
+                    <div key={i} className={`flex items-start ${isRTL ? 'flex-row-reverse space-x-reverse space-x-4' : 'space-x-4'}`}>
                       <div className={`w-3 h-3 rounded-full mt-2 flex-shrink-0 ${i%2===0? 'bg-primary':'bg-accent'}`}></div>
-                      <div>
-                        <h4 className="font-semibold dark:text-white text-black">{e.degree}</h4>
-                        <p className="text-accent font-medium">{e.school}</p>
-                        <p className="text-sm text-muted-foreground flex items-center mt-1">
-                          <Calendar className="w-4 h-4 mr-1" />
-                          {e.date}{e.location? ` • ${e.location}`:''}
+                      <div className={isRTL ? 'text-right' : 'text-left'}>
+                        <h4 className="font-semibold dark:text-white text-black"><MixedContent text={e.degree} isRTL={isRTL} /></h4>
+                        <p className="text-accent font-medium"><MixedContent text={e.school} isRTL={isRTL} /></p>
+                        <p className={`text-sm text-muted-foreground flex items-center mt-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                          <Calendar className={`w-4 h-4 ${isRTL ? 'ml-1' : 'mr-1'}`} />
+                          <MixedContent text={e.date} isRTL={isRTL} />
+                          {e.location && (
+                            <> • <MixedContent text={e.location} isRTL={isRTL} /></>
+                          )}
                         </p>
                         {e.description && (
-                          <p className="text-sm text-muted-foreground mt-2">{e.description}</p>
+                          <p className="text-sm text-muted-foreground mt-2"><MixedContent text={e.description} isRTL={isRTL} /></p>
                         )}
                       </div>
                     </div>
@@ -147,32 +167,34 @@ export default function ResumeSection() {
             </div>
 
             <div>
-              <h3 className="text-2xl font-bold dark:text-white text-black mb-6 flex items-center">
-                <Award className="w-6 h-6 mr-3 text-accent" />
-                Certifications
+              <h3 className={`text-2xl font-bold dark:text-white text-black mb-6 flex items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
+                <Award className={`w-6 h-6 text-accent ${isRTL ? 'ml-3' : 'mr-3'}`} />
+                <MixedContent text={t('resume.certifications.title')} isRTL={isRTL} />
               </h3>
               <Card className="p-6 bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 cursor-pointer">
                 <div className="space-y-4">
                   {(certifications||[]).filter((c)=>!c?.hidden).map((c, i)=> (
-                    <div key={i} className="flex items-start space-x-4">
+                    <div key={i} className={`flex items-start ${isRTL ? 'flex-row-reverse space-x-reverse space-x-4' : 'space-x-4'}`}>
                       <div className={`w-3 h-3 rounded-full mt-2 flex-shrink-0 ${i%2===0? 'bg-accent':'bg-primary'}`}></div>
-                      <div className="flex-1">
+                      <div className={`flex-1 ${isRTL ? 'text-right' : 'text-left'}`}>
                         {c.link ? (
                           <a 
                             href={c.link} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="group flex items-center space-x-2 hover:text-accent transition-colors duration-300"
+                            className={`group flex items-center hover:text-accent transition-colors duration-300 ${isRTL ? 'flex-row-reverse space-x-reverse space-x-2' : 'space-x-2'}`}
                           >
                             <h4 className="font-semibold dark:text-white text-black group-hover:text-accent transition-colors duration-300 group-hover:drop-shadow-lg">
-                              {c.title}
+                              <MixedContent text={c.title} isRTL={isRTL} />
                             </h4>
                             <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-accent transition-colors duration-300 group-hover:scale-110 transform" />
                           </a>
                         ) : (
-                          <h4 className="font-semibold dark:text-white text-black">{c.title}</h4>
+                          <h4 className="font-semibold dark:text-white text-black"><MixedContent text={c.title} isRTL={isRTL} /></h4>
                         )}
-                        <p className="text-sm text-muted-foreground">{c.issuer} • {c.date}</p>
+                        <p className="text-sm text-muted-foreground">
+                          <MixedContent text={c.issuer} isRTL={isRTL} /> • {c.date}
+                        </p>
                       </div>
                     </div>
                   ))}
@@ -183,34 +205,39 @@ export default function ResumeSection() {
 
           {/* Experience & Skills */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: isRTL ? -30 : 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="space-y-8"
+            className={`space-y-8 ${isRTL ? 'lg:order-1' : 'lg:order-2'}`}
           >
             <div>
-              <h3 className="text-2xl font-bold dark:text-white text-black mb-6 flex items-center">
-                <Briefcase className="w-6 h-6 mr-3 text-primary" />
-                Experience
+              <h3 className={`text-2xl font-bold dark:text-white text-black mb-6 flex items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
+                <Briefcase className={`w-6 h-6 text-primary ${isRTL ? 'ml-3' : 'mr-3'}`} />
+                <MixedContent text={t('resume.experience.title')} isRTL={isRTL} />
               </h3>
               <Card className="p-6 bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 cursor-pointer">
                 <div className="space-y-6">
                   {(experience||[]).filter((x)=>!x?.hidden).map((x, i)=> (
-                    <div key={i} className="flex items-start space-x-4">
+                    <div key={i} className={`flex items-start ${isRTL ? 'flex-row-reverse space-x-reverse space-x-4' : 'space-x-4'}`}>
                       <div className="w-3 h-3 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <h4 className="font-semibold dark:text-white text-black">{x.role}</h4>
-                        <p className="text-accent font-medium">{x.company}{x.employmentType? ` • ${x.employmentType}`:''}</p>
-                        <p className="text-sm text-muted-foreground flex items-center mt-1">
-                          <Calendar className="w-4 h-4 mr-1" />
-                          {x.date}
+                      <div className={isRTL ? 'text-right' : 'text-left'}>
+                        <h4 className="font-semibold dark:text-white text-black"><MixedContent text={x.role} isRTL={isRTL} /></h4>
+                        <p className="text-accent font-medium">
+                          <MixedContent text={x.company} isRTL={isRTL} />
+                          {x.employmentType && (
+                            <> • <MixedContent text={x.employmentType} isRTL={isRTL} /></>
+                          )}
+                        </p>
+                        <p className={`text-sm text-muted-foreground flex items-center mt-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                          <Calendar className={`w-4 h-4 ${isRTL ? 'ml-1' : 'mr-1'}`} />
+                          <MixedContent text={x.date} isRTL={isRTL} />
                         </p>
                         {x.location && (
-                          <p className="text-sm text-muted-foreground mt-1">{x.location}</p>
+                          <p className="text-sm text-muted-foreground mt-1"><MixedContent text={x.location} isRTL={isRTL} /></p>
                         )}
                         {x.summary && (
-                          <p className="text-sm text-muted-foreground mt-2">{x.summary}</p>
+                          <p className="text-sm text-muted-foreground mt-2"><MixedContent text={x.summary} isRTL={isRTL} /></p>
                         )}
                       </div>
                     </div>
@@ -220,33 +247,33 @@ export default function ResumeSection() {
             </div>
 
             <div>
-              <h3 className="text-2xl font-bold dark:text-white text-black mb-6 flex items-center">
-                <Code className="w-6 h-6 mr-3 text-accent" />
-                Technical Skills
+              <h3 className={`text-2xl font-bold dark:text-white text-black mb-6 flex items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
+                <Code className={`w-6 h-6 text-accent ${isRTL ? 'ml-3' : 'mr-3'}`} />
+                <MixedContent text={t('resume.technicalSkills.title')} isRTL={isRTL} />
               </h3>
               <Card className="p-6 bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 cursor-pointer">
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-semibold dark:text-white text-black mb-3">Programming Languages</h4>
+                    <h4 className={`font-semibold dark:text-white text-black mb-3 ${isRTL ? 'text-right' : 'text-left'}`}><MixedContent text={t('resume.technicalSkills.languages')} isRTL={isRTL} /></h4>
                     <div className="flex flex-wrap gap-2">
                       {(skills?.languages||[]).map((label, i)=> (
-                        <TechBadge key={i} name={label} size="sm" />
+                        <TechBadge key={i} name={label} size="sm" isRTL={isRTL} />
                       ))}
                     </div>
                   </div>
                   <div>
-                    <h4 className="font-semibold dark:text-white text-black mb-3">Frameworks & Libraries</h4>
+                    <h4 className={`font-semibold dark:text-white text-black mb-3 ${isRTL ? 'text-right' : 'text-left'}`}><MixedContent text={t('resume.technicalSkills.frameworks')} isRTL={isRTL} /></h4>
                     <div className="flex flex-wrap gap-2">
                       {(skills?.frameworks||[]).map((label, i)=> (
-                        <TechBadge key={i} name={label} size="sm" variant="outline" />
+                        <TechBadge key={i} name={label} size="sm" variant="outline" isRTL={isRTL} />
                       ))}
                     </div>
                   </div>
                   <div>
-                    <h4 className="font-semibold dark:text-white text-black mb-3">Cloud & Tools</h4>
+                    <h4 className={`font-semibold dark:text-white text-black mb-3 ${isRTL ? 'text-right' : 'text-left'}`}><MixedContent text={t('resume.technicalSkills.tools')} isRTL={isRTL} /></h4>
                     <div className="flex flex-wrap gap-2">
                       {(skills?.tools||[]).map((label, i)=> (
-                        <TechBadge key={i} name={label} size="sm" />
+                        <TechBadge key={i} name={label} size="sm" isRTL={isRTL} />
                       ))}
                     </div>
                   </div>
