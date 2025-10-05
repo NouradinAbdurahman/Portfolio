@@ -129,6 +129,14 @@ export function LanguageSwitcher() {
     // Persist selection in localStorage
     if (typeof window !== 'undefined') {
       localStorage.setItem('preferred-locale', newLocale)
+      try {
+        if ('BroadcastChannel' in window) {
+          const bc = new BroadcastChannel('translations-sync')
+          // Notify all tabs/components to clear cached translations so the next page shows correct locale
+          bc.postMessage({ type: 'translations-cleared' })
+          bc.close()
+        }
+      } catch {}
     }
   }
 

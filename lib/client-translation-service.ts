@@ -43,7 +43,8 @@ export class ClientTranslationService {
 
       // Return the translation for the requested locale, fallback to English
       const translation = data[locale as SupportedLanguage] || data.en || ''
-      return translation
+      // Remove extra quotes that might be stored in the database
+      return typeof translation === 'string' ? translation.replace(/^"(.*)"$/, '$1') : translation
     } catch (error) {
       console.error('Error fetching translation:', error)
       return ''
@@ -65,11 +66,16 @@ export class ClientTranslationService {
       }
 
       const translations: Record<string, string> = {}
+      const isPlaceholder = (val: unknown) => typeof val === 'string' && /\[?translate_needed\]?/i.test(val)
       
       data.forEach(row => {
-        const translation = row[locale as SupportedLanguage] || row.en || ''
-        if (translation) {
-          translations[row.key] = translation
+        const localized = row[locale as SupportedLanguage]
+        const fallbackEn = row.en || ''
+        const chosen = (!localized || isPlaceholder(localized)) ? fallbackEn : localized
+        if (chosen) {
+          // Remove extra quotes that might be stored in the database
+          const cleanTranslation = typeof chosen === 'string' ? chosen.replace(/^"(.*)"$/, '$1') : chosen
+          translations[row.key] = cleanTranslation as string
         }
       })
 

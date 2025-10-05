@@ -42,7 +42,7 @@ function ProjectCard({
   // Get project key for translations
   const projectKey = project.slug || project.id || project.title?.toLowerCase().replace(/\s+/g, '-')
   
-  // Get translated content with fallbacks
+  // Get translated content with fallbacks (messages and DB use projects.items.<slug>.*)
   const translatedTitle = t(`projects.items.${projectKey}.title`, project.title)
   const translatedDescription = t(`projects.items.${projectKey}.description`, project.description)
   
@@ -102,8 +102,8 @@ function ProjectCard({
                 >
                   <Link href={`/projects/${(project.slug || project.id)}`} className="cursor-pointer">
                     <Eye className={`w-3 h-3 sm:w-4 sm:h-4 ${isRTL ? 'ml-1 sm:ml-2' : 'mr-1 sm:mr-2'}`} />
-                    <span className="hidden sm:inline">{t('projects.viewDetails', 'Details')}</span>
-                    <span className="sm:hidden">{t('projects.viewDetails', 'View')}</span>
+                    <span className="hidden sm:inline"><MixedContent text={t('projects.viewDetails', 'Details')} isRTL={isRTL} /></span>
+                    <span className="sm:hidden"><MixedContent text={t('projects.viewDetails', 'View')} isRTL={isRTL} /></span>
                   </Link>
                 </Button>
               )}
@@ -116,8 +116,8 @@ function ProjectCard({
                 >
                   <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="cursor-pointer">
                     <Github className={`w-3 h-3 sm:w-4 sm:h-4 ${isRTL ? 'ml-1 sm:ml-2' : 'mr-1 sm:mr-2'}`} />
-                    <span className="hidden sm:inline">{t('projects.viewRepository', 'Repository')}</span>
-                    <span className="sm:hidden">{t('projects.viewRepository', 'Repo')}</span>
+                    <span className="hidden sm:inline"><MixedContent text={t('projects.viewRepository', 'Repository')} isRTL={isRTL} /></span>
+                    <span className="sm:hidden"><MixedContent text={t('projects.viewRepository', 'Repo')} isRTL={isRTL} /></span>
                   </Link>
                 </Button>
               )}
@@ -130,8 +130,8 @@ function ProjectCard({
                 >
                   <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="cursor-pointer">
                     <ExternalLink className={`w-3 h-3 sm:w-4 sm:h-4 ${isRTL ? 'ml-1 sm:ml-2' : 'mr-1 sm:mr-2'}`} />
-                    <span className="hidden sm:inline">{t('projects.viewLiveDemo', 'Live Demo')}</span>
-                    <span className="sm:hidden">{t('projects.viewLiveDemo', 'Demo')}</span>
+                    <span className="hidden sm:inline"><MixedContent text={t('projects.viewLiveDemo', 'Live Demo')} isRTL={isRTL} /></span>
+                    <span className="sm:hidden"><MixedContent text={t('projects.viewLiveDemo', 'Demo')} isRTL={isRTL} /></span>
                   </Link>
                 </Button>
               )}

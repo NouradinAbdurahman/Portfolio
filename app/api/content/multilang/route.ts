@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { services as defaultServices } from '@/lib/data'
+import { skills as defaultSkills } from '@/lib/data'
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const service = process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -8,9 +10,17 @@ const supabase = createClient(url, service)
 
 const SUPPORTED_LOCALES = ['en', 'ar', 'tr', 'it', 'fr', 'de']
 
+// Helper to normalize section names to translation namespaces
+function normalizeSection(section: string): string {
+  // Align admin 'navbar' UI section with frontend 'navigation' namespace
+  if (section === 'navbar') return 'navigation'
+  return section
+}
+
 // Helper function to get translation key for a field
 function getTranslationKey(section: string, field: string): string {
-  return `${section}.${field}`
+  const normalized = normalizeSection(section)
+  return `${normalized}.${field}`
 }
 
 // Helper function to extract field name from translation key
@@ -27,12 +37,13 @@ export async function GET(req: NextRequest) {
     if (!section) {
       return NextResponse.json({ error: 'Section parameter is required' }, { status: 400 })
     }
+    const normalizedSection = normalizeSection(section)
 
     // Fetch all translations for the section
     const { data: translations, error: translationError } = await supabase
       .from('translations')
       .select('key, en, ar, tr, it, fr, de')
-      .like('key', `${section}.%`)
+      .like('key', `${normalizedSection}.%`)
 
     if (translationError) {
       return NextResponse.json({ error: translationError.message }, { status: 500 })
@@ -42,7 +53,7 @@ export async function GET(req: NextRequest) {
     const { data: legacyContent, error: legacyError } = await supabase
       .from('site_content')
       .select('tag, value')
-      .eq('section', section)
+      .eq('section', normalizedSection)
 
     if (legacyError) {
       return NextResponse.json({ error: legacyError.message }, { status: 500 })
@@ -66,6 +77,109 @@ export async function GET(req: NextRequest) {
       })
     })
 
+    // Synthesize services.items when missing by reading well-known keys
+    if (normalizedSection === 'services' && !multilangContent['items']) {
+      const SERVICE_KEYS = ['webDevelopment','dataEngineering','mobileDevelopment','cloudSolutions']
+      const byLocale: Record<string, string> = {}
+      SUPPORTED_LOCALES.forEach(locale => {
+        const items = SERVICE_KEYS.map((k, idx) => {
+          const titleKey = `${k}.title`
+          const descKey = `${k}.description`
+          const titleVal = multilangContent[titleKey]?.[locale] || ''
+          const descVal = multilangContent[descKey]?.[locale] || ''
+          const fallbackService = defaultServices[idx]
+          const enTitle = multilangContent[titleKey]?.en || fallbackService?.title || ''
+          const enDesc = multilangContent[descKey]?.en || fallbackService?.description || ''
+          return {
+            id: `service_${k}`,
+            // For non-English locales, keep empty if not translated (no auto-fill with EN)
+            title: { [locale]: locale === 'en' ? (enTitle || '') : (titleVal || ''), en: enTitle },
+            description: { [locale]: locale === 'en' ? (enDesc || '') : (descVal || ''), en: enDesc },
+            icon: fallbackService?.icon || 'Code',
+            technologies: fallbackService?.technologies || [],
+            hidden: false,
+            hiddenTranslations: {}
+          }
+        })
+        byLocale[locale] = JSON.stringify(items)
+      })
+      multilangContent['items'] = byLocale
+    }
+
+    // Synthesize technical skills to the original three cards if missing
+    if (normalizedSection === 'technical_skills' && !multilangContent['categories']) {
+      const byLocale: Record<string, string> = {}
+      // Desired three cards
+      const fullStack = {
+        id: 'cat_fullstack',
+        name: 'Full-Stack Development',
+        description: 'React, Next.js, Flutter, Node.js',
+        skills: [
+          { name: 'React', icon: 'SiReact', color: 'text-cyan-400', category: 'framework' },
+          { name: 'Next.js', icon: 'SiNextdotjs', color: 'text-black dark:text-white', category: 'framework' },
+          { name: 'Flutter', icon: 'SiFlutter', color: 'text-blue-500', category: 'framework' },
+          { name: 'Node.js', icon: 'FaNodeJs', color: 'text-green-500', category: 'framework' },
+          { name: 'Express', icon: 'SiExpress', color: 'text-gray-600 dark:text-gray-300', category: 'framework' },
+          { name: 'React Native', icon: 'FaReact', color: 'text-cyan-400', category: 'framework' },
+        ]
+      }
+      const dataEng = {
+        id: 'cat_data',
+        name: 'Data Engineering',
+        description: 'ETL Pipelines, SQL, Python, Analytics',
+        skills: [
+          { name: 'Python', icon: 'FaPython', color: 'text-yellow-500', category: 'language' },
+          { name: 'SQL', icon: 'Database', color: 'text-blue-500', category: 'language' },
+          { name: 'PostgreSQL', icon: 'SiPostgresql', color: 'text-blue-600', category: 'tool' },
+        ]
+      }
+      const cloudDevOps = {
+        id: 'cat_cloud',
+        name: 'Cloud & DevOps',
+        description: 'AWS, Firebase, Automation, CI/CD',
+        skills: [
+          { name: 'AWS', icon: 'FaAws', color: 'text-orange-400', category: 'cloud' },
+          { name: 'Firebase', icon: 'SiFirebase', color: 'text-orange-500', category: 'cloud' },
+          { name: 'Docker', icon: 'FaDocker', color: 'text-blue-500', category: 'tool' },
+          { name: 'Git', icon: 'FaGitAlt', color: 'text-orange-500', category: 'tool' },
+        ]
+      }
+
+      SUPPORTED_LOCALES.forEach(locale => {
+        const cats = [fullStack, dataEng, cloudDevOps].map(c => ({
+          id: c.id,
+          name: locale === 'en' ? c.name : '',
+          description: locale === 'en' ? c.description : '',
+          skills: c.skills,
+          hidden: false,
+          hiddenTranslations: {}
+        }))
+        byLocale[locale] = JSON.stringify(cats)
+      })
+      multilangContent['categories'] = byLocale
+      // Also ensure section title/subtitle
+      if (!multilangContent['title']) multilangContent['title'] = {}
+      if (!multilangContent['subtitle']) multilangContent['subtitle'] = {}
+      SUPPORTED_LOCALES.forEach(locale => {
+        if (!multilangContent['title'][locale]) multilangContent['title'][locale] = locale === 'en' ? 'Technical Skills' : ''
+        if (!multilangContent['subtitle'][locale]) multilangContent['subtitle'][locale] = locale === 'en' ? 'Technologies and tools I work with' : ''
+      })
+    }
+
+    // Ensure technical_skills title/subtitle exist with sensible defaults
+    if (normalizedSection === 'technical_skills') {
+      const ensureMulti = (key: string, enDefault: string) => {
+        if (!multilangContent[key]) multilangContent[key] = {}
+        SUPPORTED_LOCALES.forEach(locale => {
+          if (!multilangContent[key][locale]) {
+            multilangContent[key][locale] = locale === 'en' ? enDefault : ''
+          }
+        })
+      }
+      ensureMulti('title', 'Technical Skills')
+      ensureMulti('subtitle', 'Technologies and tools I work with')
+    }
+
     // Process legacy content (fallback to English)
     legacyContent?.forEach(row => {
       if (!multilangContent[row.tag]) {
@@ -84,13 +198,13 @@ export async function GET(req: NextRequest) {
       
       // Set as English default if no translation exists
       if (!multilangContent[row.tag].en && parsedValue) {
-        multilangContent[row.tag].en = String(parsedValue)
+        multilangContent[row.tag].en = typeof parsedValue === 'string' ? parsedValue : JSON.stringify(parsedValue)
       }
     })
 
     return NextResponse.json({ 
       content: multilangContent,
-      section,
+      section: normalizedSection,
       locales: SUPPORTED_LOCALES
     })
   } catch (e: any) {
@@ -107,12 +221,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Invalid payload' }, { status: 400 })
     }
 
+    const normalizedSection = normalizeSection(section)
+
     // Prepare translations to upsert
     const translationsToUpsert: any[] = []
     
     Object.entries(content).forEach(([field, translations]) => {
       if (typeof translations === 'object' && translations !== null) {
-        const translationKey = getTranslationKey(section, field)
+        const translationKey = getTranslationKey(normalizedSection, field)
         
         // Create translation row
         const translationRow: any = {
@@ -124,9 +240,16 @@ export async function POST(req: NextRequest) {
         }
         
         // Add translations for each locale
+        const isGlobalHiddenFlag = field.endsWith('_hidden')
         SUPPORTED_LOCALES.forEach(locale => {
-          const value = (translations as any)[locale]
-          if (value && value.trim()) {
+          const localeValue = (translations as any)[locale]
+          let value = localeValue
+          // For global hidden flags, apply the same value to all locales
+          if (isGlobalHiddenFlag) {
+            const fallback = (translations as any).en
+            value = typeof fallback === 'string' ? fallback : (localeValue || '')
+          }
+          if (value && typeof value === 'string' && value.trim()) {
             translationRow[locale] = value
           }
         })
@@ -140,20 +263,35 @@ export async function POST(req: NextRequest) {
       }
     })
 
-    // Upsert translations using the upsert_translation function
+    // Derive global hidden flags from per-locale hidden maps
+    Object.entries(content).forEach(([field, translations]) => {
+      if (field.endsWith('_translations_hidden') && typeof translations === 'object' && translations !== null) {
+        const baseField = field.replace('_translations_hidden', '')
+        const anyHidden = SUPPORTED_LOCALES.some((loc) => {
+          const v = (translations as Record<string, string>)[loc]
+          return String(v).toLowerCase() === 'true'
+        })
+        const globalKey = getTranslationKey(normalizedSection, `${baseField}_hidden`)
+        const row: any = { key: globalKey }
+        SUPPORTED_LOCALES.forEach((loc) => { row[loc] = anyHidden ? 'true' : 'false' })
+        translationsToUpsert.push(row)
+      }
+    })
+
+    // Upsert translations: skip empty strings to avoid hiding content unintentionally
     for (const translation of translationsToUpsert) {
-      const { error } = await supabase.rpc('upsert_translation', {
+      const payload = {
         p_key: translation.key,
-        p_en: translation.en || '',
-        p_ar: translation.ar || '',
-        p_tr: translation.tr || '',
-        p_it: translation.it || '',
-        p_fr: translation.fr || '',
-        p_de: translation.de || '',
+        p_en: typeof translation.en === 'string' && translation.en.trim() ? translation.en : null,
+        p_ar: typeof translation.ar === 'string' && translation.ar.trim() ? translation.ar : null,
+        p_tr: typeof translation.tr === 'string' && translation.tr.trim() ? translation.tr : null,
+        p_it: typeof translation.it === 'string' && translation.it.trim() ? translation.it : null,
+        p_fr: typeof translation.fr === 'string' && translation.fr.trim() ? translation.fr : null,
+        p_de: typeof translation.de === 'string' && translation.de.trim() ? translation.de : null,
         p_auto_translated: translation.auto_translated || false,
         p_needs_review: translation.needs_review || false
-      })
-      
+      }
+      const { error } = await supabase.rpc('upsert_translation', payload as any)
       if (error) {
         console.error('Error upserting translation:', error)
         return NextResponse.json({ error: error.message }, { status: 500 })
@@ -162,7 +300,7 @@ export async function POST(req: NextRequest) {
 
     // Also update legacy site_content table for backward compatibility
     const legacyRows = Object.entries(content).map(([field, translations]) => ({
-      section,
+      section: normalizedSection,
       tag: field,
       value: JSON.stringify(translations),
       updated_at: new Date().toISOString()

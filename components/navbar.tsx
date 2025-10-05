@@ -8,7 +8,8 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Sun, Moon, Menu, X } from "lucide-react"
 import { useSettings } from "@/contexts/settings-context"
-import { useTranslations, useLocale } from "next-intl"
+import { useLocale } from "next-intl"
+import { useSupabaseTranslations } from "@/hooks/use-supabase-translations"
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { MixedContent } from "@/lib/rtl-utils"
 
@@ -20,12 +21,21 @@ export function Navbar({ basePath = "" }: NavbarProps) {
   const { theme, setTheme } = useTheme()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const { settings } = useSettings()
-  const t = useTranslations('navigation')
+  const { t } = useSupabaseTranslations()
   const locale = useLocale()
   const isRTL = locale === 'ar'
 
+  // Admin hide flags
+  const navHidden = (t('navigation.hidden', 'false') || 'false').toString().toLowerCase() === 'true'
+  const hideAbout = (t('navigation.about_hidden', 'false') || 'false').toString().toLowerCase() === 'true'
+  const hideProjects = (t('navigation.projects_hidden', 'false') || 'false').toString().toLowerCase() === 'true'
+  const hideServices = (t('navigation.services_hidden', 'false') || 'false').toString().toLowerCase() === 'true'
+  const hideContact = (t('navigation.contact_hidden', 'false') || 'false').toString().toLowerCase() === 'true'
+  const hideResume = (t('navigation.resume_hidden', 'false') || 'false').toString().toLowerCase() === 'true'
+
   const href = (hash: string) => `${basePath}${hash}`
 
+  if (navHidden) return null
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-navbar border-b dark:border-white/10 light:border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -52,20 +62,20 @@ export function Navbar({ basePath = "" }: NavbarProps) {
             {isRTL ? (
               // RTL order: Resume, Contact, Services, Projects, About
               <>
-                <Link aria-label="Go to Resume section" href={href("#resume")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('resume')} isRTL={isRTL} /></Link>
-                <Link aria-label="Go to Contact section" href={href("#contact")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('contact')} isRTL={isRTL} /></Link>
-                <Link aria-label="Go to Services section" href={href("#services")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('services')} isRTL={isRTL} /></Link>
-                <Link aria-label="Go to Portfolio section" href={href("#portfolio")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('projects')} isRTL={isRTL} /></Link>
-                <Link aria-label="Go to About section" href={href("#about")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('about')} isRTL={isRTL} /></Link>
+                {!hideResume && <Link aria-label="Go to Resume section" href={href("#resume")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('navigation.resume', 'Resume')} isRTL={isRTL} /></Link>}
+                {!hideContact && <Link aria-label="Go to Contact section" href={href("#contact")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('navigation.contact', 'Contact')} isRTL={isRTL} /></Link>}
+                {!hideServices && <Link aria-label="Go to Services section" href={href("#services")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('navigation.services', 'Services')} isRTL={isRTL} /></Link>}
+                {!hideProjects && <Link aria-label="Go to Portfolio section" href={href("#portfolio")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('navigation.projects', 'Projects')} isRTL={isRTL} /></Link>}
+                {!hideAbout && <Link aria-label="Go to About section" href={href("#about")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('navigation.about', 'About')} isRTL={isRTL} /></Link>}
               </>
             ) : (
               // LTR order: About, Projects, Services, Contact, Resume
               <>
-                <Link aria-label="Go to About section" href={href("#about")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('about')} isRTL={isRTL} /></Link>
-                <Link aria-label="Go to Portfolio section" href={href("#portfolio")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('projects')} isRTL={isRTL} /></Link>
-                <Link aria-label="Go to Services section" href={href("#services")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('services')} isRTL={isRTL} /></Link>
-                <Link aria-label="Go to Contact section" href={href("#contact")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('contact')} isRTL={isRTL} /></Link>
-                <Link aria-label="Go to Resume section" href={href("#resume")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('resume')} isRTL={isRTL} /></Link>
+                {!hideAbout && <Link aria-label="Go to About section" href={href("#about")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('navigation.about', 'About')} isRTL={isRTL} /></Link>}
+                {!hideProjects && <Link aria-label="Go to Portfolio section" href={href("#portfolio")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('navigation.projects', 'Projects')} isRTL={isRTL} /></Link>}
+                {!hideServices && <Link aria-label="Go to Services section" href={href("#services")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('navigation.services', 'Services')} isRTL={isRTL} /></Link>}
+                {!hideContact && <Link aria-label="Go to Contact section" href={href("#contact")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('navigation.contact', 'Contact')} isRTL={isRTL} /></Link>}
+                {!hideResume && <Link aria-label="Go to Resume section" href={href("#resume")} className="dark:text-white/70 text-black hover:text-primary transition-colors" prefetch={false}><MixedContent text={t('navigation.resume', 'Resume')} isRTL={isRTL} /></Link>}
               </>
             )}
           </motion.div>
@@ -122,11 +132,11 @@ export function Navbar({ basePath = "" }: NavbarProps) {
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className={`md:hidden py-2 sm:py-4 border-t border-border ${isRTL ? 'text-right' : 'text-left'}`}>
             <div className={`flex flex-col space-y-4`}>
               {/* Mobile menu always uses the same order regardless of language */}
-              <Link href={href("#about")} className={`dark:text-muted-foreground text-black hover:text-primary transition-colors ${isRTL ? 'text-right' : 'text-left'}`} prefetch={false} onClick={() => setIsMobileMenuOpen(false)}><MixedContent text={t('about')} isRTL={isRTL} /></Link>
-              <Link href={href("#portfolio")} className={`dark:text-muted-foreground text-black hover:text-primary transition-colors ${isRTL ? 'text-right' : 'text-left'}`} prefetch={false} onClick={() => setIsMobileMenuOpen(false)}><MixedContent text={t('projects')} isRTL={isRTL} /></Link>
-              <Link href={href("#services")} className={`dark:text-muted-foreground text-black hover:text-primary transition-colors ${isRTL ? 'text-right' : 'text-left'}`} prefetch={false} onClick={() => setIsMobileMenuOpen(false)}><MixedContent text={t('services')} isRTL={isRTL} /></Link>
-              <Link href={href("#contact")} className={`dark:text-muted-foreground text-black hover:text-primary transition-colors ${isRTL ? 'text-right' : 'text-left'}`} prefetch={false} onClick={() => setIsMobileMenuOpen(false)}><MixedContent text={t('contact')} isRTL={isRTL} /></Link>
-              <Link href={href("#resume")} className={`dark:text-muted-foreground text-black hover:text-primary transition-colors ${isRTL ? 'text-right' : 'text-left'}`} prefetch={false} onClick={() => setIsMobileMenuOpen(false)}><MixedContent text={t('resume')} isRTL={isRTL} /></Link>
+              {!hideAbout && <Link href={href("#about")} className={`dark:text-muted-foreground text-black hover:text-primary transition-colors ${isRTL ? 'text-right' : 'text-left'}`} prefetch={false} onClick={() => setIsMobileMenuOpen(false)}><MixedContent text={t('navigation.about', 'About')} isRTL={isRTL} /></Link>}
+              {!hideProjects && <Link href={href("#portfolio")} className={`dark:text-muted-foreground text-black hover:text-primary transition-colors ${isRTL ? 'text-right' : 'text-left'}`} prefetch={false} onClick={() => setIsMobileMenuOpen(false)}><MixedContent text={t('navigation.projects', 'Projects')} isRTL={isRTL} /></Link>}
+              {!hideServices && <Link href={href("#services")} className={`dark:text-muted-foreground text-black hover:text-primary transition-colors ${isRTL ? 'text-right' : 'text-left'}`} prefetch={false} onClick={() => setIsMobileMenuOpen(false)}><MixedContent text={t('navigation.services', 'Services')} isRTL={isRTL} /></Link>}
+              {!hideContact && <Link href={href("#contact")} className={`dark:text-muted-foreground text-black hover:text-primary transition-colors ${isRTL ? 'text-right' : 'text-left'}`} prefetch={false} onClick={() => setIsMobileMenuOpen(false)}><MixedContent text={t('navigation.contact', 'Contact')} isRTL={isRTL} /></Link>}
+              {!hideResume && <Link href={href("#resume")} className={`dark:text-muted-foreground text-black hover:text-primary transition-colors ${isRTL ? 'text-right' : 'text-left'}`} prefetch={false} onClick={() => setIsMobileMenuOpen(false)}><MixedContent text={t('navigation.resume', 'Resume')} isRTL={isRTL} /></Link>}
               <div className="flex items-center justify-end gap-2">
                 <LanguageSwitcher />
                 {settings?.show_theme_toggle !== false && (

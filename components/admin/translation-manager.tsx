@@ -70,7 +70,14 @@ export function TranslationManager() {
       // Fetch all languages in parallel
       const languagePromises = SUPPORTED_LANGUAGES.map(async (lang) => {
         try {
-          const response = await fetch(`/api/translations?locale=${lang.code}`)
+          const response = await fetch(`/api/translations?locale=${lang.code}` , {
+            cache: 'no-store',
+            headers: {
+              'Cache-Control': 'no-cache, no-store, must-revalidate',
+              'Pragma': 'no-cache',
+              'Expires': '0'
+            }
+          })
           const data = await response.json()
           return { lang: lang.code, data: data.success ? data.translations : {} }
         } catch (error) {
@@ -194,6 +201,14 @@ export function TranslationManager() {
           title: "Success",
           description: "Translation updated successfully"
         })
+        // Broadcast to all tabs to refresh translations immediately
+        try {
+          if (typeof window !== 'undefined' && 'BroadcastChannel' in window) {
+            const bc = new BroadcastChannel('translations-sync')
+            bc.postMessage({ type: 'translations-updated', key, locale })
+            bc.close()
+          }
+        } catch {}
         fetchTranslations()
       } else {
         throw new Error(data.error)

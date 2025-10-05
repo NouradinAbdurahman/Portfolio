@@ -5,11 +5,10 @@ import { Section } from "@/components/ui/section"
 import { SectionHeader } from "@/components/ui/section-header"
 import { SkillCard } from "@/components/ui/skill-card"
 import { Grid } from "@/components/ui/grid"
-import { Code, Database, Cloud, Smartphone } from "lucide-react"
+import { Code, Database, Cloud } from "lucide-react"
 import { skills as defaultSkills } from "@/lib/data"
 import { useSupabaseTranslations } from "@/hooks/use-supabase-translations"
 import { useLocale } from "next-intl"
-import { MixedContent } from "@/lib/rtl-utils"
 
 interface SkillsSectionProps {
   className?: string
@@ -17,38 +16,51 @@ interface SkillsSectionProps {
 
 function SkillsSection({ className }: SkillsSectionProps) {
   const { t } = useSupabaseTranslations()
-  const locale = useLocale()
-  const isRTL = locale === 'ar'
-  
-  // Get translations with fallbacks
+  const _locale = useLocale()
+
+  // Get translations with fallbacks (align with Hero: read section keys directly)
   const title = t('skills.title', 'Technical Skills')
   const lead = t('skills.lead', 'Technologies and tools I work with')
+  const sectionHidden = (t('technical_skills.hidden', 'false') || 'false').toString().toLowerCase() === 'true'
+  
+  // Use the same translation-driven approach as Services/Hero, no API fetch
+  const catFullHidden = (t('skills.catFullHidden', 'false') || 'false').toString().toLowerCase() === 'true'
+  const catDataHidden = (t('skills.catDataHidden', 'false') || 'false').toString().toLowerCase() === 'true'
+  const catCloudHidden = (t('skills.catCloudHidden', 'false') || 'false').toString().toLowerCase() === 'true'
+
   const catFullTitle = t('skills.catFullTitle', 'Full-Stack Development')
   const catFullDesc = t('skills.catFullDesc', 'React, Next.js, Flutter, Node.js')
   const catDataTitle = t('skills.catDataTitle', 'Data Engineering')
   const catDataDesc = t('skills.catDataDesc', 'ETL Pipelines, SQL, Python, Analytics')
   const catCloudTitle = t('skills.catCloudTitle', 'Cloud & DevOps')
   const catCloudDesc = t('skills.catCloudDesc', 'AWS, Firebase, Automation, CI/CD')
-  
-  // Group skills by category
-  const skillsByCategory = {
-    [catFullTitle]: {
+
+  // Build categories combining translations for names/descriptions with CMS items
+  const skillsByCategory = [
+    !catFullHidden && {
+      id: 'cat_full',
+      name: catFullTitle,
       description: catFullDesc,
       icon: Code,
       skills: defaultSkills.filter(s => ["React","Next.js","Flutter","Node.js","Express","React Native"].includes(s.name))
     },
-    [catDataTitle]: {
+    !catDataHidden && {
+      id: 'cat_data',
+      name: catDataTitle,
       description: catDataDesc,
       icon: Database,
       skills: defaultSkills.filter(s => ["Python","SQL","PostgreSQL"].includes(s.name))
     },
-    [catCloudTitle]: {
+    !catCloudHidden && {
+      id: 'cat_cloud',
+      name: catCloudTitle,
       description: catCloudDesc,
       icon: Cloud,
       skills: defaultSkills.filter(s => ["AWS","Firebase","Docker","Git"].includes(s.name))
     }
-  }
+  ].filter(Boolean) as Array<{ id: string; name: string; description: string; icon: React.ComponentType<{ className?: string }>; skills: typeof defaultSkills }>
 
+  if (sectionHidden) return null
   return (
     <Section id="skills" variant="light" className={className}>
       <SectionHeader 
@@ -57,10 +69,10 @@ function SkillsSection({ className }: SkillsSectionProps) {
       />
 
       <Grid cols={3} gap="lg">
-        {Object.entries(skillsByCategory).map(([title, category], index) => (
+        {skillsByCategory.map((category, index) => (
           <SkillCard
-            key={title}
-            title={title}
+            key={category.id}
+            title={category.name}
             description={category.description}
             icon={category.icon}
             skills={category.skills}

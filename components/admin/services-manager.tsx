@@ -2,7 +2,10 @@
 
 import { useState, useEffect } from 'react'
 import { Plus, Trash2, Eye, EyeOff, GripVertical, Briefcase } from 'lucide-react'
+import * as Icons from 'lucide-react'
 import { AdminButton } from '@/components/ui/admin-button'
+import { TechBadge } from '@/components/ui/tech-badge'
+import { services as defaultServices } from '@/lib/data'
 import { MultilangField } from './multilang-field'
 
 const SUPPORTED_LOCALES = [
@@ -43,25 +46,83 @@ export function ServicesManager({
 }: ServicesManagerProps) {
   const [services, setServices] = useState<Service[]>([])
   const [localHiddenTranslations, setLocalHiddenTranslations] = useState<Record<string, any>>(hiddenTranslations)
+  const ICON_SUGGESTIONS = ['Code','Database','Cloud','Smartphone','Globe','Server','Monitor','LineChart','Settings','Shield','Lock','Sparkles']
 
-  // Parse services from content
+  const resolveIcon = (name?: string) => {
+    const set = Icons as unknown as Record<string, React.ComponentType<{ className?: string }>>
+    const Fallback = set['Code']
+    if (!name) return Fallback
+    return set[name] || Fallback
+  }
+
+  const copyEnglishToAllLocales = (serviceId: string, field: 'title' | 'description') => {
+    const updated = services.map((s) => {
+      if (s.id !== serviceId) return s
+      const enVal = s[field]?.en || ''
+      const nextTranslations = { ...s[field] }
+      SUPPORTED_LOCALES.forEach(l => { nextTranslations[l.code] = enVal })
+      return { ...s, [field]: nextTranslations }
+    })
+    setServices(updated)
+    const servicesTranslations = Object.fromEntries(
+      SUPPORTED_LOCALES.map(locale => [
+        locale.code,
+        JSON.stringify(updated)
+      ])
+    )
+    onUpdate('items', servicesTranslations)
+  }
+
+  // Parse services from content across ALL locales and merge per-locale fields
   useEffect(() => {
     try {
-      const servicesString = content.items?.en || content.items || '[]'
-      const parsedServices = typeof servicesString === 'string' ? JSON.parse(servicesString) : servicesString
-      if (Array.isArray(parsedServices)) {
-        // Ensure each service has all required properties with defaults
-        const normalizedServices = parsedServices.map(service => ({
-          id: service.id || `service_${Date.now()}`,
-          title: service.title || Object.fromEntries(SUPPORTED_LOCALES.map(l => [l.code, ''])),
-          description: service.description || Object.fromEntries(SUPPORTED_LOCALES.map(l => [l.code, ''])),
-          icon: service.icon || '',
-          technologies: service.technologies || [],
-          hidden: service.hidden || false,
-          hiddenTranslations: service.hiddenTranslations || {}
-        }))
-        setServices(normalizedServices)
+      const byId: Record<string, Service> = {}
+      const ensureService = (id: string, idx: number) => {
+        if (!byId[id]) {
+          byId[id] = {
+            id,
+            title: Object.fromEntries(SUPPORTED_LOCALES.map(l => [l.code, ''])) as Record<string,string>,
+            description: Object.fromEntries(SUPPORTED_LOCALES.map(l => [l.code, ''])) as Record<string,string>,
+            icon: defaultServices[idx]?.icon || '',
+            technologies: defaultServices[idx]?.technologies || [],
+            hidden: false,
+            hiddenTranslations: {}
+          }
+        }
+        return byId[id]
       }
+
+      SUPPORTED_LOCALES.forEach((loc) => {
+        const localeItemsString = content.items?.[loc.code] || content.items || '[]'
+        const localeItems = typeof localeItemsString === 'string' ? JSON.parse(localeItemsString) : localeItemsString
+        if (Array.isArray(localeItems)) {
+          localeItems.forEach((s: any, idx: number) => {
+            const id = s.id || `service_${idx}`
+            const svc = ensureService(id, idx)
+            // Merge per-locale fields
+            if (s.title && typeof s.title === 'object') {
+              const v = s.title[loc.code] || ''
+              svc.title[loc.code] = v
+            } else if (typeof s.title === 'string') {
+              // Only assign to English when string shorthand provided
+              if (loc.code === 'en') svc.title[loc.code] = s.title
+            }
+            if (s.description && typeof s.description === 'object') {
+              const v = s.description[loc.code] || ''
+              svc.description[loc.code] = v
+            } else if (typeof s.description === 'string') {
+              if (loc.code === 'en') svc.description[loc.code] = s.description
+            }
+            if (s.icon) svc.icon = s.icon
+            if (Array.isArray(s.technologies) && s.technologies.length) svc.technologies = s.technologies
+            if (typeof s.hidden === 'boolean') svc.hidden = s.hidden
+            if (s.hiddenTranslations) svc.hiddenTranslations = s.hiddenTranslations
+          })
+        }
+      })
+
+      const mergedServices = Object.values(byId)
+      setServices(mergedServices)
     } catch (error) {
       console.error('Error parsing services:', error)
       setServices([])
@@ -91,10 +152,10 @@ export function ServicesManager({
     onUpdate('items', servicesTranslations)
   }
 
-  const handleServiceTranslationUpdate = (serviceId: string, field: string, locale: string, value: string) => {
+  const handleServiceTranslationUpdate = (serviceId: string, field: 'title' | 'description', locale: string, value: string) => {
     const updatedServices = services.map(service => {
       if (service.id === serviceId) {
-        const updatedTranslations = { ...service[field] }
+        const updatedTranslations: Record<string, string> = { ...(service as any)[field] }
         updatedTranslations[locale] = value
         return { ...service, [field]: updatedTranslations }
       }
@@ -240,25 +301,63 @@ export function ServicesManager({
             </div>
           </div>
 
-          {/* Service Icon */}
+          {/* Service Icon with live preview & suggestions */}
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Service Icon
+              Service Icon (Lucide name)
             </label>
-            <input
-              type="text"
-              value={service.icon}
-              onChange={(e) => handleServiceUpdate(service.id, 'icon', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-              placeholder="e.g., Code, Monitor, Cloud, Database"
-            />
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center border border-gray-300 dark:border-gray-600">
+                {(() => {
+                  const Icon = resolveIcon(service.icon)
+                  return <Icon className="w-7 h-7" />
+                })()}
+              </div>
+              <input
+                type="text"
+                value={service.icon}
+                onChange={(e) => handleServiceUpdate(service.id, 'icon', e.target.value)}
+                className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                placeholder="e.g., Code, Monitor, Cloud, Database"
+              />
+            </div>
+            <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+              Tip: Use any Lucide icon name. Try one of these:
+            </div>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {ICON_SUGGESTIONS.map((name) => {
+                const Icon = resolveIcon(name)
+                return (
+                  <button
+                    key={name}
+                    type="button"
+                    onClick={() => handleServiceUpdate(service.id, 'icon', name)}
+                    className={`px-2 py-1 text-xs rounded border ${service.icon === name ? 'bg-gray-800 text-gray-100 border-gray-700' : 'bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-700'}`}
+                    title={name}
+                  >
+                    <div className="flex items-center gap-1">
+                      <Icon className="w-3.5 h-3.5" />
+                      {name}
+                    </div>
+                  </button>
+                )
+              })}
+            </div>
           </div>
 
           {/* Service Title - Multi-language */}
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Service Title
-            </label>
+            <div className="flex items-center justify-between mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                Service Title
+              </label>
+              <AdminButton 
+                onClick={() => copyEnglishToAllLocales(service.id, 'title')}
+                className="text-xs px-2 py-1 bg-gray-600 hover:bg-gray-500 text-white"
+              >
+                Copy EN → all
+              </AdminButton>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
               {SUPPORTED_LOCALES.map(locale => (
                 <div key={locale.code} className={`${localHiddenTranslations[service.id]?.title?.[locale.code] ? 'opacity-50 grayscale' : ''}`}>
@@ -303,9 +402,17 @@ export function ServicesManager({
 
           {/* Service Description - Multi-language */}
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Service Description
-            </label>
+            <div className="flex items-center justify-between mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                Service Description
+              </label>
+              <AdminButton 
+                onClick={() => copyEnglishToAllLocales(service.id, 'description')}
+                className="text-xs px-2 py-1 bg-gray-600 hover:bg-gray-500 text-white"
+              >
+                Copy EN → all
+              </AdminButton>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
               {SUPPORTED_LOCALES.map(locale => (
                 <div key={locale.code} className={`${localHiddenTranslations[service.id]?.description?.[locale.code] ? 'opacity-50 grayscale' : ''}`}>
@@ -366,6 +473,7 @@ export function ServicesManager({
             <div className="space-y-2">
               {(service.technologies || []).map((tech, techIndex) => (
                 <div key={techIndex} className="flex items-center gap-2">
+                  <TechBadge name={tech || 'Tech'} size="sm" />
                   <input
                     type="text"
                     value={tech}

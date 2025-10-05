@@ -29,6 +29,11 @@ function HeroSection({ className }: HeroSectionProps) {
   const ctaSecondaryLabel = t('hero.ctaSecondaryLabel', 'Contact Me')
   const ctaPrimaryHref = t('hero.ctaPrimaryHref', 'https://linkedin.com/in/nouraddin')
   const ctaSecondaryHref = t('hero.ctaSecondaryHref', '#contact')
+  const heroHidden = (t('hero.hidden', 'false') || 'false').toString().toLowerCase() === 'true'
+  const hideTitle = (t('hero.title_hidden', 'false') || 'false').toString().toLowerCase() === 'true'
+  const hideSubtitle = (t('hero.subtitle_hidden', 'false') || 'false').toString().toLowerCase() === 'true'
+  const hideCtaPrimary = (t('hero.ctaPrimary_hidden', 'false') || 'false').toString().toLowerCase() === 'true'
+  const hideCtaSecondary = (t('hero.ctaSecondary_hidden', 'false') || 'false').toString().toLowerCase() === 'true'
   
   // Get hero skills from admin
   const heroSkillsString = t('hero.skills', '[]')
@@ -45,6 +50,7 @@ function HeroSection({ className }: HeroSectionProps) {
   if (!Array.isArray(heroSkills) || heroSkills.length === 0) {
     heroSkills = ["React", "Next.js", "Python", "Flutter", "AWS", "Docker"]
   }
+  if (heroHidden) return null
   return (
     <section className={cn("relative pt-23 sm:pt-32 md:pt-40 lg:pt-50 pb-20 overflow-hidden bg-gray-50 dark:bg-[#060010]", className)}>
       {/* Gradient/Aurora only in dark mode */}
@@ -65,12 +71,16 @@ function HeroSection({ className }: HeroSectionProps) {
             transition={{ duration: 0.8 }}
             className="space-y-6"
           >
-            <Typography variant="h1" className="font-bold dark:text-white text-black hero-title">
-              <MixedContent text={title} isRTL={isRTL} />
-            </Typography>
-            <Typography variant="lead" className="text-xl max-w-4xl mx-auto dark:text-white text-black">
-              <MixedContent text={subtitle} isRTL={isRTL} />
-            </Typography>
+            {!hideTitle && (
+              <Typography variant="h1" className="font-bold dark:text-white text-black hero-title">
+                <MixedContent text={title} isRTL={isRTL} />
+              </Typography>
+            )}
+            {!hideSubtitle && (
+              <Typography variant="lead" className="text-xl max-w-4xl mx-auto dark:text-white text-black">
+                <MixedContent text={subtitle} isRTL={isRTL} />
+              </Typography>
+            )}
           </motion.div>
 
           {/* Tech Stack Preview */}
@@ -81,8 +91,9 @@ function HeroSection({ className }: HeroSectionProps) {
             className="space-y-4"
           >
             <div className="flex flex-wrap justify-center gap-3">
-              {heroSkills.map((skill: any) => {
-                const skillName = typeof skill === 'string' ? skill : skill.name || skill.title?.en || 'Unknown'
+              {heroSkills.map((skill: unknown) => {
+                const s = skill as { name?: string; title?: { en?: string } } | string
+                const skillName = typeof s === 'string' ? s : s.name || s.title?.en || 'Unknown'
                 return (
                   <TechBadge
                     key={skillName}
@@ -103,39 +114,43 @@ function HeroSection({ className }: HeroSectionProps) {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Button 
-              asChild
-              size="lg" 
-              className="group neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/90 cursor-pointer border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/60"
-            >
-              <a href={ctaPrimaryHref} target="_blank" rel="noopener noreferrer">
-                {isRTL ? (
-                  <>
-                    <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-                    <MixedContent text={ctaPrimaryLabel} isRTL={isRTL} />
-                  </>
-                ) : (
-                  <>
-                    <MixedContent text={ctaPrimaryLabel} isRTL={isRTL} />
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </>
-                )}
-              </a>
-            </Button>
+            {!hideCtaPrimary && (
+              <Button 
+                asChild
+                size="lg" 
+                className="group neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/90 cursor-pointer border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/60"
+              >
+                <a href={ctaPrimaryHref} target="_blank" rel="noopener noreferrer">
+                  {isRTL ? (
+                    <>
+                      <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+                      <MixedContent text={ctaPrimaryLabel} isRTL={isRTL} />
+                    </>
+                  ) : (
+                    <>
+                      <MixedContent text={ctaPrimaryLabel} isRTL={isRTL} />
+                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </>
+                  )}
+                </a>
+              </Button>
+            )}
             
             {/* Download Resume button hidden as requested */}
             
-            <Button 
-              asChild
-              size="lg" 
-              variant="outline"
-              className="group neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/90 cursor-pointer border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/60"
-            >
-              <a href={ctaSecondaryHref}>
-                <Mail className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
-                <MixedContent text={ctaSecondaryLabel} isRTL={isRTL} />
-              </a>
-            </Button>
+            {!hideCtaSecondary && (
+              <Button 
+                asChild
+                size="lg" 
+                variant="outline"
+                className="group neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/90 cursor-pointer border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/60"
+              >
+                <a href={ctaSecondaryHref}>
+                  <Mail className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
+                  <MixedContent text={ctaSecondaryLabel} isRTL={isRTL} />
+                </a>
+              </Button>
+            )}
           </motion.div>
 
           {/* Tech Stack Animation - Positioned at bottom */}

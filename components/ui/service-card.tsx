@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import { Card } from "@/components/ui/card"
 import { TechBadge } from "@/components/ui/tech-badge"
 import { Typography } from "@/components/ui/typography"
-import { Code, Database, Smartphone, Cloud } from "lucide-react"
+import * as Icons from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { Service } from "@/lib/data"
 import { MixedContent } from "@/lib/rtl-utils"
@@ -17,11 +17,13 @@ interface ServiceCardProps {
   delay?: number
 }
 
-const iconMap = {
-  Code,
-  Database,
-  Smartphone,
-  Cloud
+// Resolve icon component by name from lucide-react; fallback to Code
+function resolveIconComponent(iconName?: string) {
+  const iconSet = Icons as unknown as Record<string, React.ComponentType<unknown>>
+  const fallback = (iconSet["Code"]) as React.ComponentType<unknown>
+  if (!iconName) return fallback
+  const comp = iconSet[iconName]
+  return comp || fallback
 }
 
 function ServiceCard({ 
@@ -29,7 +31,7 @@ function ServiceCard({
   className,
   delay = 0 
 }: ServiceCardProps) {
-  const IconComponent = iconMap[service.icon as keyof typeof iconMap] || Code
+  const IconComponent = resolveIconComponent(service.icon) as React.ComponentType<{ className?: string }>
   const locale = useLocale()
   const isRTL = locale === 'ar'
 

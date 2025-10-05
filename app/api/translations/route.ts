@@ -102,16 +102,35 @@ export async function PUT(request: NextRequest) {
       )
     }
 
-    // Use upsert_translation function to handle duplicates gracefully
-    const { error } = await supabase.rpc('upsert_translation', {
-      p_key: key,
-      p_en: translations.en || null,
-      p_ar: translations.ar || null,
-      p_tr: translations.tr || null,
-      p_it: translations.it || null,
-      p_fr: translations.fr || null,
-      p_de: translations.de || null
-    })
+    // Fetch current row to avoid setting NOT NULL columns to null
+    const { data: existing, error: fetchError } = await supabase
+      .from('translations')
+      .select('key, en, ar, tr, it, fr, de')
+      .eq('key', key)
+      .single()
+
+    if (fetchError) {
+      throw new Error(`Database error: ${fetchError.message}`)
+    }
+
+    // Build update payload without overwriting unspecified fields
+    const updateData: Record<string, string | boolean> = {}
+    if (typeof translations.en === 'string') updateData.en = translations.en
+    if (typeof translations.ar === 'string') updateData.ar = translations.ar
+    if (typeof translations.tr === 'string') updateData.tr = translations.tr
+    if (typeof translations.it === 'string') updateData.it = translations.it
+    if (typeof translations.fr === 'string') updateData.fr = translations.fr
+    if (typeof translations.de === 'string') updateData.de = translations.de
+    if (options && typeof options.needsReview === 'boolean') updateData.needs_review = options.needsReview
+
+    if (Object.keys(updateData).length === 0) {
+      return NextResponse.json({ success: true })
+    }
+
+    const { error } = await supabase
+      .from('translations')
+      .update(updateData)
+      .eq('key', key)
 
     if (error) {
       throw new Error(`Database error: ${error.message}`)

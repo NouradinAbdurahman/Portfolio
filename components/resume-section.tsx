@@ -20,39 +20,39 @@ export default function ResumeSection() {
   
   // Set default values for non-translatable fields
   const finalContent = {
-    title: t('resume.title'),
-    subtitle: t('resume.subtitle'),
+    title: t('resume.title', 'Resume'),
+    subtitle: t('resume.subtitle', 'My professional journey and achievements'),
     education: [
       {
-        degree: t('resume.educationDetails.bachelor.degree'),
-        school: t('resume.educationDetails.bachelor.school'),
-        date: t('resume.educationDetails.bachelor.date'),
-        location: t('resume.educationDetails.bachelor.location'),
-        description: t('resume.educationDetails.bachelor.description'),
+        degree: t('resume.educationDetails.bachelor.degree', 'Bachelor of Science in Software Engineering'),
+        school: t('resume.educationDetails.bachelor.school', 'OSTIM Technical University'),
+        date: t('resume.educationDetails.bachelor.date', '2021 - 2025'),
+        location: t('resume.educationDetails.bachelor.location', 'Ankara, Turkey'),
+        description: t('resume.educationDetails.bachelor.description', 'Focused on full-stack development, data structures, algorithms, and software engineering principles'),
         hidden: false
       },
       {
-        degree: t('resume.educationDetails.highSchool.degree'),
-        school: t('resume.educationDetails.highSchool.school'),
-        date: t('resume.educationDetails.highSchool.date'),
-        location: t('resume.educationDetails.highSchool.location'),
-        description: t('resume.educationDetails.highSchool.description'),
+        degree: t('resume.educationDetails.highSchool.degree', 'High School Diploma'),
+        school: t('resume.educationDetails.highSchool.school', 'Al-Noor International School'),
+        date: t('resume.educationDetails.highSchool.date', '2017 - 2021'),
+        location: t('resume.educationDetails.highSchool.location', 'Doha, Qatar'),
+        description: t('resume.educationDetails.highSchool.description', 'Graduated with honors, focusing on mathematics and science'),
         hidden: false
       }
     ],
     certifications: [
-      { title: t('resume.certificationDetails.dataEngineer.title'), issuer: t('resume.certificationDetails.dataEngineer.issuer'), date: t('resume.certificationDetails.dataEngineer.date'), link: 'https://www.datacamp.com/completed/statement-of-accomplishment/track/c0d2e90cbbdc287e61faaf285e45c5af244597b1', hidden: false },
-      { title: t('resume.certificationDetails.dataScientist.title'), issuer: t('resume.certificationDetails.dataScientist.issuer'), date: t('resume.certificationDetails.dataScientist.date'), link: 'https://www.datacamp.com/completed/statement-of-accomplishment/track/5a81b11b3f98bf7664cca160403d04a4bd6d406e', hidden: false },
-      { title: t('resume.certificationDetails.dataAnalyst.title'), issuer: t('resume.certificationDetails.dataAnalyst.issuer'), date: t('resume.certificationDetails.dataAnalyst.date'), link: 'https://www.datacamp.com/completed/statement-of-accomplishment/track/86f17bd095be0cbde70befab0e01e50bd1e3e766', hidden: false },
+      { title: t('resume.certificationDetails.dataEngineer.title', 'Data Engineer Professional Certificate'), issuer: t('resume.certificationDetails.dataEngineer.issuer', 'DataCamp'), date: t('resume.certificationDetails.dataEngineer.date', '2024'), link: 'https://www.datacamp.com/completed/statement-of-accomplishment/track/c0d2e90cbbdc287e61faaf285e45c5af244597b1', hidden: false },
+      { title: t('resume.certificationDetails.dataScientist.title', 'Data Scientist Professional Certificate'), issuer: t('resume.certificationDetails.dataScientist.issuer', 'DataCamp'), date: t('resume.certificationDetails.dataScientist.date', '2024'), link: 'https://www.datacamp.com/completed/statement-of-accomplishment/track/5a81b11b3f98bf7664cca160403d04a4bd6d406e', hidden: false },
+      { title: t('resume.certificationDetails.dataAnalyst.title', 'Data Analyst Professional Certificate'), issuer: t('resume.certificationDetails.dataAnalyst.issuer', 'DataCamp'), date: t('resume.certificationDetails.dataAnalyst.date', '2024'), link: 'https://www.datacamp.com/completed/statement-of-accomplishment/track/86f17bd095be0cbde70befab0e01e50bd1e3e766', hidden: false },
     ],
     experience: [
       {
-        role: t('resume.experienceDetails.fullStack.role'),
-        company: t('resume.experienceDetails.fullStack.company'),
-        employmentType: t('resume.experienceDetails.fullStack.employmentType'),
-        date: t('resume.experienceDetails.fullStack.date'),
-        location: t('resume.experienceDetails.fullStack.location'),
-        summary: t('resume.experienceDetails.fullStack.summary'),
+        role: t('resume.experienceDetails.fullStack.role', 'Full-Stack Developer'),
+        company: t('resume.experienceDetails.fullStack.company', 'Freelance'),
+        employmentType: t('resume.experienceDetails.fullStack.employmentType', 'Part-time'),
+        date: t('resume.experienceDetails.fullStack.date', '2022 - Present'),
+        location: t('resume.experienceDetails.fullStack.location', 'Remote'),
+        summary: t('resume.experienceDetails.fullStack.summary', 'Developing full-stack applications using modern technologies including React, Next.js, Node.js, and cloud platforms'),
         hidden: false
       }
     ],
@@ -139,7 +139,7 @@ export default function ResumeSection() {
             <div>
               <h3 className={`text-2xl font-bold dark:text-white text-black mb-6 flex items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
                 <GraduationCap className={`w-6 h-6 text-primary ${isRTL ? 'ml-3' : 'mr-3'}`} />
-                <MixedContent text={t('resume.education.title')} isRTL={isRTL} />
+                <MixedContent text={t('resume.education.title', 'Education')} isRTL={isRTL} />
               </h3>
               <Card className="p-6 bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 cursor-pointer">
                 <div className="space-y-4">
@@ -169,7 +169,7 @@ export default function ResumeSection() {
             <div>
               <h3 className={`text-2xl font-bold dark:text-white text-black mb-6 flex items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
                 <Award className={`w-6 h-6 text-accent ${isRTL ? 'ml-3' : 'mr-3'}`} />
-                <MixedContent text={t('resume.certifications.title')} isRTL={isRTL} />
+                <MixedContent text={t('resume.certifications.title', 'Certifications')} isRTL={isRTL} />
               </h3>
               <Card className="p-6 bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 cursor-pointer">
                 <div className="space-y-4">
@@ -214,7 +214,7 @@ export default function ResumeSection() {
             <div>
               <h3 className={`text-2xl font-bold dark:text-white text-black mb-6 flex items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
                 <Briefcase className={`w-6 h-6 text-primary ${isRTL ? 'ml-3' : 'mr-3'}`} />
-                <MixedContent text={t('resume.experience.title')} isRTL={isRTL} />
+                <MixedContent text={t('resume.experience.title', 'Experience')} isRTL={isRTL} />
               </h3>
               <Card className="p-6 bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 cursor-pointer">
                 <div className="space-y-6">
@@ -249,12 +249,12 @@ export default function ResumeSection() {
             <div>
               <h3 className={`text-2xl font-bold dark:text-white text-black mb-6 flex items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
                 <Code className={`w-6 h-6 text-accent ${isRTL ? 'ml-3' : 'mr-3'}`} />
-                <MixedContent text={t('resume.technicalSkills.title')} isRTL={isRTL} />
+                <MixedContent text={t('resume.technicalSkills.title', 'Technical Skills')} isRTL={isRTL} />
               </h3>
               <Card className="p-6 bg-transparent border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/40 cursor-pointer">
                 <div className="space-y-4">
                   <div>
-                    <h4 className={`font-semibold dark:text-white text-black mb-3 ${isRTL ? 'text-right' : 'text-left'}`}><MixedContent text={t('resume.technicalSkills.languages')} isRTL={isRTL} /></h4>
+                    <h4 className={`font-semibold dark:text-white text-black mb-3 ${isRTL ? 'text-right' : 'text-left'}`}><MixedContent text={t('resume.technicalSkills.languages', 'Programming Languages')} isRTL={isRTL} /></h4>
                     <div className="flex flex-wrap gap-2">
                       {(skills?.languages||[]).map((label, i)=> (
                         <TechBadge key={i} name={label} size="sm" isRTL={isRTL} />
@@ -262,7 +262,7 @@ export default function ResumeSection() {
                     </div>
                   </div>
                   <div>
-                    <h4 className={`font-semibold dark:text-white text-black mb-3 ${isRTL ? 'text-right' : 'text-left'}`}><MixedContent text={t('resume.technicalSkills.frameworks')} isRTL={isRTL} /></h4>
+                    <h4 className={`font-semibold dark:text-white text-black mb-3 ${isRTL ? 'text-right' : 'text-left'}`}><MixedContent text={t('resume.technicalSkills.frameworks', 'Frameworks & Libraries')} isRTL={isRTL} /></h4>
                     <div className="flex flex-wrap gap-2">
                       {(skills?.frameworks||[]).map((label, i)=> (
                         <TechBadge key={i} name={label} size="sm" variant="outline" isRTL={isRTL} />
@@ -270,7 +270,7 @@ export default function ResumeSection() {
                     </div>
                   </div>
                   <div>
-                    <h4 className={`font-semibold dark:text-white text-black mb-3 ${isRTL ? 'text-right' : 'text-left'}`}><MixedContent text={t('resume.technicalSkills.tools')} isRTL={isRTL} /></h4>
+                    <h4 className={`font-semibold dark:text-white text-black mb-3 ${isRTL ? 'text-right' : 'text-left'}`}><MixedContent text={t('resume.technicalSkills.tools', 'Tools & Technologies')} isRTL={isRTL} /></h4>
                     <div className="flex flex-wrap gap-2">
                       {(skills?.tools||[]).map((label, i)=> (
                         <TechBadge key={i} name={label} size="sm" isRTL={isRTL} />

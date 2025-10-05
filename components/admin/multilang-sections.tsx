@@ -1,9 +1,9 @@
 "use client"
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { MultilangField } from './multilang-field'
 import { MultilangDynamicList } from './multilang-dynamic-list'
-import { TechnicalSkillsManager } from './technical-skills-manager'
 import { ServicesManager } from './services-manager'
 import { AdminButton } from '@/components/ui/admin-button'
 import { useToast } from '@/hooks/use-toast'
@@ -12,7 +12,7 @@ import { Save, RotateCcw, RefreshCw, Eye, EyeOff, GripVertical } from 'lucide-re
 const SUPPORTED_LOCALES = ['en', 'ar', 'tr', 'it', 'fr', 'de']
 
 interface MultilangSectionsProps {
-  section: 'hero' | 'navbar' | 'about' | 'services' | 'technical_skills'
+  section: 'hero' | 'navbar' | 'about' | 'services'
   onSave: (content: Record<string, Record<string, string>>) => Promise<void>
   onReset: () => void
   onRefresh: () => void
@@ -35,12 +35,25 @@ export function MultilangSections({
   const [hiddenTranslations, setHiddenTranslations] = useState<Record<string, any>>({})
   const [loading, setLoading] = useState(true)
   const [hasChanges, setHasChanges] = useState(false)
+  const isFetchingRef = useRef(false)
+  const isMountedRef = useRef(false)
 
   // Fetch multi-language content
-  const fetchContent = async () => {
+  const fetchContent = useCallback(async () => {
+    if (isFetchingRef.current) return
+    isFetchingRef.current = true
     try {
       setLoading(true)
-      const response = await fetch(`/api/content/multilang?section=${section}`)
+      const controller = new AbortController()
+      const response = await fetch(`/api/content/multilang?section=${section}` , {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0'
+        },
+        signal: controller.signal
+      })
       const data = await response.json()
       
       if (data.error) {
@@ -78,10 +91,12 @@ export function MultilangSections({
         return acc
       }, {} as Record<string, Record<string, string>>)
       
-      setContent(filteredContent)
-      setHiddenFields(extractedHiddenFields)
-      setHiddenTranslations(extractedHiddenTranslations)
-      setHasChanges(false)
+      if (isMountedRef.current) {
+        setContent(filteredContent)
+        setHiddenFields(extractedHiddenFields)
+        setHiddenTranslations(extractedHiddenTranslations)
+        setHasChanges(false)
+      }
     } catch (error) {
       console.error('Failed to fetch content:', error)
       toast({
@@ -91,12 +106,15 @@ export function MultilangSections({
       })
     } finally {
       setLoading(false)
+      isFetchingRef.current = false
     }
-  }
+  }, [section, toast])
 
   useEffect(() => {
+    isMountedRef.current = true
     fetchContent()
-  }, [section])
+    return () => { isMountedRef.current = false }
+  }, [section, fetchContent])
 
   const handleFieldUpdate = (fieldKey: string, translations: Record<string, string>) => {
     setContent(prev => ({
@@ -156,25 +174,37 @@ export function MultilangSections({
       // Include hidden states in the content to save
       const contentWithHiddenStates = {
         ...content,
-        // Add hidden field states
+        // Only persist hidden flags for fields that actually exist in this section's content
         ...Object.keys(hiddenFields).reduce((acc, field) => {
-          acc[`${field}_hidden`] = { en: hiddenFields[field] ? 'true' : 'false' }
+          if (Object.prototype.hasOwnProperty.call(content, field)) {
+            acc[`${field}_hidden`] = { en: hiddenFields[field] ? 'true' : 'false' }
+          }
           return acc
         }, {} as Record<string, Record<string, string>>),
-        // Add hidden translation states
+        // Only persist per-locale hidden flags for fields present in content
         ...Object.keys(hiddenTranslations).reduce((acc, field) => {
-          const fieldHiddenTranslations = hiddenTranslations[field]
-          if (fieldHiddenTranslations) {
-            acc[`${field}_translations_hidden`] = Object.keys(fieldHiddenTranslations).reduce((localeAcc, locale) => {
-              localeAcc[locale] = fieldHiddenTranslations[locale] ? 'true' : 'false'
-              return localeAcc
-            }, {} as Record<string, string>)
+          if (Object.prototype.hasOwnProperty.call(content, field)) {
+            const fieldHiddenTranslations = hiddenTranslations[field]
+            if (fieldHiddenTranslations && Object.keys(fieldHiddenTranslations).length > 0) {
+              acc[`${field}_translations_hidden`] = Object.keys(fieldHiddenTranslations).reduce((localeAcc, locale) => {
+                localeAcc[locale] = fieldHiddenTranslations[locale] ? 'true' : 'false'
+                return localeAcc
+              }, {} as Record<string, string>)
+            }
           }
           return acc
         }, {} as Record<string, Record<string, string>>)
       }
       
       await onSave(contentWithHiddenStates)
+      // Broadcast to refresh all tabs
+      try {
+        if (typeof window !== 'undefined' && 'BroadcastChannel' in window) {
+          const bc = new BroadcastChannel('translations-sync')
+          bc.postMessage({ type: 'translations-updated', section })
+          bc.close()
+        }
+      } catch {}
       setHasChanges(false)
       toast({
         title: 'Success',
@@ -332,12 +362,12 @@ export function MultilangSections({
                 try {
                   const skillsString = content.skills?.en || content.skills || '[]'
                   const parsedSkills = typeof skillsString === 'string' ? JSON.parse(skillsString) : skillsString
-                  return Array.isArray(parsedSkills) ? parsedSkills.map((skill: any, index: number) => ({
+                  return Array.isArray(parsedSkills) ? parsedSkills.map((skill: { name?: string; icon?: string; hidden?: boolean; hiddenTranslations?: Record<string, Record<string, boolean>> }, index: number) => ({
                     id: skill.name || `skill_${index}`,
                     title: { en: skill.name || '', ar: '', tr: '', it: '', fr: '', de: '' },
                     description: { en: skill.icon || '', ar: '', tr: '', it: '', fr: '', de: '' },
                     hidden: skill.hidden || false,
-                    hiddenTranslations: skill.hiddenTranslations || {}
+                    hiddenTranslations: skill.hiddenTranslations
                   })) : []
                 } catch (error) {
                   console.error('Error parsing hero skills:', error)
@@ -565,17 +595,60 @@ export function MultilangSections({
               placeholder="Skilled in AWS, Firebase, and building automated workflows..."
             />
             
-            <MultilangField
-              label="Profile Image"
-              fieldKey="profile_image"
-              translations={content.profile_image || {}}
-              onUpdate={handleFieldUpdate}
-              hidden={hiddenFields.profile_image}
-              onToggleHidden={() => handleToggleFieldHidden('profile_image')}
-              hiddenTranslations={hiddenTranslations.profile_image || {}}
-              onToggleHiddenTranslation={(locale) => handleToggleTranslationHidden('profile_image', locale)}
-              placeholder="/photo.png"
-            />
+            <div className="space-y-2">
+              <label className="block text-sm font-semibold dark:text-gray-200 text-gray-800">Profile Image</label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <input
+                    value={content.profile_image?.en || ''}
+                    onChange={(e) => {
+                      const url = e.target.value
+                      const allLocales = Object.fromEntries(
+                        SUPPORTED_LOCALES.map((l) => [l, url])
+                      ) as Record<string, string>
+                      handleFieldUpdate('profile_image', allLocales)
+                    }}
+                    placeholder="/photo.png or https://..."
+                    className="w-full px-3 py-2 bg-white dark:bg-gray-900/70 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white text-sm"
+                  />
+                  <div className="flex items-center justify-between">
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Single URL applies to all languages</p>
+                    {Boolean(content.profile_image?.en) && (
+                      <a
+                        href={content.profile_image?.en}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-blue-600 hover:underline"
+                      >
+                        Open image
+                      </a>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const url = '/photo.png'
+                        const allLocales = Object.fromEntries(
+                          SUPPORTED_LOCALES.map((l) => [l, url])
+                        ) as Record<string, string>
+                        handleFieldUpdate('profile_image', allLocales)
+                      }}
+                      className="text-xs px-2 py-1 rounded bg-gray-600 hover:bg-gray-500 text-white"
+                    >
+                      Use default
+                    </button>
+                  </div>
+                </div>
+                <div className="p-3 border rounded-xl bg-white/50 dark:bg-black/30 flex items-center justify-center">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={(content.profile_image?.en) || '/photo.png'}
+                    alt="Profile preview"
+                    className="w-32 h-32 rounded-full object-cover border"
+                    onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/photo.png' }}
+                  />
+                </div>
+              </div>
+            </div>
           </>
         )}
 
@@ -636,60 +709,7 @@ export function MultilangSections({
           </>
         )}
 
-        {section === 'technical_skills' && (
-          <>
-            <MultilangField
-              label="Section Title"
-              fieldKey="title"
-              translations={content.title || {}}
-              onUpdate={handleFieldUpdate}
-              hidden={hiddenFields.title}
-              onToggleHidden={() => handleToggleFieldHidden('title')}
-              hiddenTranslations={hiddenTranslations.title || {}}
-              onToggleHiddenTranslation={(locale) => handleToggleTranslationHidden('title', locale)}
-              placeholder="Technical Skills"
-            />
-            
-            <MultilangField
-              label="Section Subtitle"
-              fieldKey="subtitle"
-              translations={content.subtitle || {}}
-              onUpdate={handleFieldUpdate}
-              hidden={hiddenFields.subtitle}
-              onToggleHidden={() => handleToggleFieldHidden('subtitle')}
-              hiddenTranslations={hiddenTranslations.subtitle || {}}
-              onToggleHiddenTranslation={(locale) => handleToggleTranslationHidden('subtitle', locale)}
-              placeholder="Technologies and tools I work with"
-            />
-            
-            <div className={`space-y-4 p-4 border border-gray-300 dark:border-gray-700 rounded-xl bg-white/50 dark:bg-black/30 ${hiddenFields.categories ? 'opacity-50 grayscale' : ''}`}>
-              <div className="flex items-center justify-between mb-4">
-                <label className="block text-sm font-semibold dark:text-gray-200 text-gray-800 flex items-center gap-2">
-                  <GripVertical className="w-4 h-4" />
-                  Skill Categories & Skills
-                </label>
-                <button 
-                  onClick={() => handleToggleFieldHidden('categories')}
-                  className={`text-xs rounded px-2 py-1 flex items-center gap-1 ${
-                    hiddenFields.categories ? 'bg-gray-800 text-gray-300' : 'bg-gray-600 text-white'
-                  } hover:opacity-90`}
-                >
-                  {hiddenFields.categories ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
-                  {hiddenFields.categories ? 'Show Categories' : 'Hide Categories'}
-                </button>
-              </div>
-              
-              <TechnicalSkillsManager
-                content={content}
-                onUpdate={handleFieldUpdate}
-                hiddenFields={hiddenFields}
-                onToggleFieldHidden={handleToggleFieldHidden}
-                hiddenTranslations={hiddenTranslations}
-                onToggleTranslationHidden={handleToggleTranslationHidden}
-              />
-            </div>
-          </>
-        )}
+        
 
         
       </div>
@@ -697,9 +717,7 @@ export function MultilangSections({
       {/* Changes indicator */}
       {hasChanges && (
         <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
-          <p className="text-sm text-yellow-800 dark:text-yellow-200">
-            You have unsaved changes. Click "Save Changes" to persist them.
-          </p>
+          <p className="text-sm text-yellow-800 dark:text-yellow-200">You have unsaved changes. Click &quot;Save Changes&quot; to persist them.</p>
         </div>
       )}
     </div>

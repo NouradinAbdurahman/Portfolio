@@ -36,14 +36,32 @@ function AboutSection({ className }: AboutSectionProps) {
   const dataEngineeringHeader = t('about.dataEngineeringHeader', 'Data Engineering:')
   const cloudAutomationHeader = t('about.cloudAutomationHeader', 'Cloud & Automation:')
   
-  // Non-translatable fields
-  const profile_image = '/photo.png'
+  // Hidden flags (managed from Admin). If not present, default to false
+  const sectionHidden = (t('about.hidden', 'false') || 'false').toString().toLowerCase() === 'true'
+  const hideTitle = (t('about.title_hidden', 'false') || 'false').toString().toLowerCase() === 'true'
+  const hideSubtitle = (t('about.subtitle_hidden', 'false') || 'false').toString().toLowerCase() === 'true'
+  const hideName = (t('about.name_hidden', 'false') || 'false').toString().toLowerCase() === 'true'
+  const hideRole = (t('about.role_hidden', 'false') || 'false').toString().toLowerCase() === 'true'
+  const hideBody = (t('about.body_hidden', 'false') || 'false').toString().toLowerCase() === 'true'
+  const hideFsHeader = (t('about.fullstackExpertiseHeader_hidden', 'false') || 'false').toString().toLowerCase() === 'true'
+  const hideFs = (t('about.fullstackExpertise_hidden', 'false') || 'false').toString().toLowerCase() === 'true'
+  const hideDeHeader = (t('about.dataEngineeringHeader_hidden', 'false') || 'false').toString().toLowerCase() === 'true'
+  const hideDe = (t('about.dataEngineering_hidden', 'false') || 'false').toString().toLowerCase() === 'true'
+  const hideCaHeader = (t('about.cloudAutomationHeader_hidden', 'false') || 'false').toString().toLowerCase() === 'true'
+  const hideCa = (t('about.cloudAutomation_hidden', 'false') || 'false').toString().toLowerCase() === 'true'
   
+  // Profile image can be managed via admin translations
+  const profile_image = t('about.profile_image', '/photo.png')
+  const [imageSrc, setImageSrc] = React.useState<string>(profile_image)
+  React.useEffect(() => { setImageSrc(profile_image || '/photo.png') }, [profile_image])
+  
+  if (sectionHidden) return null
+
   return (
     <Section id="about" variant="light" className={className}>
       <SectionHeader 
-        title={title}
-        description={subtitle}
+        title={hideTitle ? '' : title}
+        description={hideSubtitle ? '' : subtitle}
       />
 
       <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${isRTL ? 'lg:grid-flow-col-dense' : ''}`}>
@@ -68,15 +86,17 @@ function AboutSection({ className }: AboutSectionProps) {
           >
             <div className="relative w-80 h-80 rounded-full overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center border-2 border-gray-300 dark:border-white/20">
               <Image 
-                src={profile_image}
+                src={imageSrc}
                 alt={name}
                 fill
                 sizes="(max-width: 640px) 320px, (max-width: 1024px) 480px, 640px"
+                unoptimized
                 priority
                 className="object-cover rounded-full select-none pointer-events-none profile-image"
                 draggable={false}
                 onContextMenu={(e) => e.preventDefault()}
                 onDragStart={(e) => e.preventDefault()}
+                onError={() => setImageSrc('/photo.png')}
                 onLoad={(e) => {
                   // Disable right-click and drag on the image element
                   const target = e.target as HTMLImageElement
@@ -106,41 +126,59 @@ function AboutSection({ className }: AboutSectionProps) {
           lang={isRTL ? 'ar' : 'en'}
         >
           <div className="space-y-4">
-            <Typography variant="h3" className="text-2xl md:text-3xl font-bold">
-              <MixedContent text={name} isRTL={isRTL} />
-            </Typography>
-            <Typography variant="h4" className="text-xl md:text-2xl font-semibold text-muted-foreground dark:text-primary">
-              <MixedContent text={role} isRTL={isRTL} />
-            </Typography>
-            <div className="prose prose-invert max-w-none">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {processMixedContent(body, isRTL)}
-              </ReactMarkdown>
-            </div>
+            {!hideName && (
+              <Typography variant="h3" className="text-2xl md:text-3xl font-bold">
+                <MixedContent text={name} isRTL={isRTL} />
+              </Typography>
+            )}
+            {!hideRole && (
+              <Typography variant="h4" className="text-xl md:text-2xl font-semibold text-muted-foreground dark:text-primary">
+                <MixedContent text={role} isRTL={isRTL} />
+              </Typography>
+            )}
+            {!hideBody && (
+              <div className="prose prose-invert max-w-none">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {processMixedContent(body, isRTL)}
+                </ReactMarkdown>
+              </div>
+            )}
           </div>
 
           <div className="space-y-4">
             <div className="space-y-3">
-              <Typography variant="p" className="font-medium">
-                <strong className="text-muted-foreground dark:text-primary">
-                  <MixedContent text={fullstackExpertiseHeader} isRTL={isRTL} />
-                </strong>{' '}
-                <MixedContent text={fullstackExpertise} isRTL={isRTL} />
-              </Typography>
+              {!hideFs && (
+                <Typography variant="p" className="font-medium">
+                  {!hideFsHeader && (
+                    <strong className="text-muted-foreground dark:text-primary">
+                      <MixedContent text={fullstackExpertiseHeader} isRTL={isRTL} />
+                    </strong>
+                  )}{!hideFsHeader ? ' ' : ''}
+                  <MixedContent text={fullstackExpertise} isRTL={isRTL} />
+                </Typography>
+              )}
               
-              <Typography variant="p" className="font-medium">
-                <strong className="text-muted-foreground dark:text-primary">
-                  <MixedContent text={dataEngineeringHeader} isRTL={isRTL} />
-                </strong>{' '}
-                <MixedContent text={dataEngineering} isRTL={isRTL} />
-              </Typography>
+              {!hideDe && (
+                <Typography variant="p" className="font-medium">
+                  {!hideDeHeader && (
+                    <strong className="text-muted-foreground dark:text-primary">
+                      <MixedContent text={dataEngineeringHeader} isRTL={isRTL} />
+                    </strong>
+                  )}{!hideDeHeader ? ' ' : ''}
+                  <MixedContent text={dataEngineering} isRTL={isRTL} />
+                </Typography>
+              )}
               
-              <Typography variant="p" className="font-medium">
-                <strong className="text-muted-foreground dark:text-primary">
-                  <MixedContent text={cloudAutomationHeader} isRTL={isRTL} />
-                </strong>{' '}
-                <MixedContent text={cloudAutomation} isRTL={isRTL} />
-              </Typography>
+              {!hideCa && (
+                <Typography variant="p" className="font-medium">
+                  {!hideCaHeader && (
+                    <strong className="text-muted-foreground dark:text-primary">
+                      <MixedContent text={cloudAutomationHeader} isRTL={isRTL} />
+                    </strong>
+                  )}{!hideCaHeader ? ' ' : ''}
+                  <MixedContent text={cloudAutomation} isRTL={isRTL} />
+                </Typography>
+              )}
             </div>
           </div>
 

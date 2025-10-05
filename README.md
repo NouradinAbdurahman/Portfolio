@@ -671,3 +671,40 @@ The admin panel includes 21+ different button types for complete content control
 - `npm run dev` — start dev server
 - `npm run build` — production build
 - `npm run lint` — run ESLint
+
+### 🌍 Multilingual System Overhaul (October 2025)
+
+- Supabase is now the single source of truth for all translations at runtime
+- All sections (Navbar, Hero, About, Services, Technical Skills, Projects, Contact, Resume, Footer) read text via `useSupabaseTranslations.t('key', fallback)`
+- Local `messages/*.json` kept only for seeding/dev; not used in production rendering
+- Google Translate is used only from Admin → “Auto Translate”; never during frontend rendering
+- Instant Admin → Site sync: edits save to Supabase and the site reads the latest values immediately
+- Projects resolve from `projects.items.<slug>.*` (title, description, problem, solution, outcome, features, challenges, learnings, impact)
+- Services resolve from `services.items`; if per‑locale fields are missing, fallback keys are used:
+  - `services.webDevelopment.title|description`
+  - `services.dataEngineering.title|description`
+  - `services.mobileDevelopment.title|description`
+  - `services.cloudSolutions.title|description`
+- Server-only Supabase client added at `lib/supabaseServerClient.ts`; API routes updated accordingly
+- Translation upserts now use `onConflict: 'key'` and always include EN baseline
+
+Useful commands
+```bash
+# Seed translations from local messages (optional, dev only)
+node scripts/sync-messages-to-db.js
+
+# Process pending auto-translation jobs
+curl -X POST http://localhost:3000/api/translate/process-queue
+```
+
+### October 2025 updates
+
+- Services and Technical Skills now render strictly via translation keys, mirroring Hero:
+  - Services cards use `services.<key>.title|description` with per-card hide flags.
+  - Technical Skills uses `skills.title`, `skills.lead`, and `skills.cat*` keys for category titles/descriptions and visibility.
+- Persistent Services localization: if a locale has empty/missing values, the UI falls back to that locale’s per-key strings before static defaults, preventing unwanted English regressions.
+- Placeholder handling: values like `[TRANSLATE_NEEDED]` are treated as missing; the client falls back to English automatically.
+- Resume employment type updated to Part-time across locales:
+  - Default fallback in UI set to `Part-time`.
+  - Script to upsert translations: `node scripts/update-resume-from-admin.js` (requires `SUPABASE_SERVICE_ROLE_KEY`).
+- Footer: remains link-only; to localize labels/tagline, add keys under `footer.*` and read them with `useSupabaseTranslations`.

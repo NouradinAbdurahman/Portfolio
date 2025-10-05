@@ -16,15 +16,15 @@ import { AdminButton } from "@/components/ui/admin-button"
 import { TechBadge } from "@/components/ui/tech-badge"
 import { RotateCcw, Undo2, ExternalLink, Globe } from "lucide-react"
 import { MultilangSections } from "@/components/admin/multilang-sections"
+import { ProjectsManager } from "@/components/admin/projects-manager"
 
-type SectionId = "hero"|"navbar"|"about"|"services"|"technical_skills"|"projects"|"contact"|"resume"|"footer"
+type SectionId = "hero"|"navbar"|"about"|"services"|"projects"|"contact"|"resume"|"footer"
 
 const sections: { id: SectionId; name: string }[] = [
   { id: "hero", name: "Hero" },
   { id: "navbar", name: "Navbar" },
   { id: "about", name: "About" },
   { id: "services", name: "Services" },
-  { id: "technical_skills", name: "Technical Skills" },
   { id: "projects", name: "Projects" },
   { id: "contact", name: "Contact" },
   { id: "resume", name: "Resume" },
@@ -48,6 +48,8 @@ export default function ContentAdminPage() {
   const [content, setContent] = useState<Record<string, any>>({})
   const [saving, setSaving] = useState(false)
   const [refreshing, setRefreshing] = useState(false)
+  const [hiddenFields, setHiddenFields] = useState<Record<string, boolean>>({})
+  const [hiddenTranslations, setHiddenTranslations] = useState<Record<string, Record<string, boolean>>>({})
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
   const [showDebug, setShowDebug] = useState(false)
   const [dragIndex, setDragIndex] = useState<number | null>(null)
@@ -272,6 +274,23 @@ export default function ContentAdminPage() {
     
     toast({ title: 'Undone', description: `Reverted ${sections.find(s=>s.id===active)?.name} section to last saved state` })
   }, [active, changeHistory, lastSavedContent, toast, DEFAULTS])
+
+  const handleToggleFieldHidden = useCallback((field: string) => {
+    setHiddenFields(prev => ({
+      ...prev,
+      [field]: !prev[field]
+    }))
+  }, [])
+
+  const handleToggleTranslationHidden = useCallback((field: string, locale: string) => {
+    setHiddenTranslations(prev => ({
+      ...prev,
+      [field]: {
+        ...prev[field],
+        [locale]: !prev[field]?.[locale]
+      }
+    }))
+  }, [])
 
 
   const fetchContent = useCallback(async () => {
@@ -617,8 +636,8 @@ export default function ContentAdminPage() {
             </div>
           </div>
           <div className={`space-y-4 ${currentData.hidden? 'opacity-50 grayscale pointer-events-none' : ''}`}>
-            {/* Multi-language sections for Hero, Navbar, About, Services, Technical Skills, and Skills */}
-            {(active === 'hero' || active === 'navbar' || active === 'about' || active === 'services' || active === 'technical_skills') && (
+            {/* Multi-language sections for Hero, Navbar, About, Services */}
+            {(active === 'hero' || active === 'navbar' || active === 'about' || active === 'services') && (
               <MultilangSections
                 section={active}
                 onSave={async (content) => {
@@ -672,8 +691,28 @@ export default function ContentAdminPage() {
               />
             )}
 
+            {/* Projects Section */}
+            {active === 'projects' && (
+              <div className="space-y-4 p-4 border border-gray-300 dark:border-gray-700 rounded-xl bg-white/50 dark:bg-black/30">
+                <div className="flex items-center justify-between mb-4">
+                  <label className="block text-sm font-semibold dark:text-gray-200 text-gray-800">
+                    Projects Management
+                  </label>
+                </div>
+                
+                <ProjectsManager
+                  content={content}
+                  onUpdate={setField}
+                  hiddenFields={hiddenFields}
+                  onToggleFieldHidden={handleToggleFieldHidden}
+                  hiddenTranslations={hiddenTranslations}
+                  onToggleTranslationHidden={handleToggleTranslationHidden}
+                />
+              </div>
+            )}
+
             {/* Legacy single-language sections */}
-            {active !== 'hero' && active !== 'navbar' && active !== 'about' && active !== 'services' && active !== 'technical_skills' && (
+            {active !== 'hero' && active !== 'navbar' && active !== 'about' && active !== 'services' && active !== 'technical_skills' && active !== 'projects' && (
               <>
                 {/* Title (most sections) */}
                 {active !== 'footer' && (
@@ -1404,166 +1443,7 @@ export default function ContentAdminPage() {
               </div>
             )}
 
-            {/* Skills editor (three category cards) */}
-            {active === 'skills' && (
-              <div className="space-y-6">
-                {/* Category titles/descriptions */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm dark:text-gray-300 text-gray-800 mb-1">Category 1 Title</label>
-                    <input value={currentData.catFullTitle || ''} onChange={(e)=>setField('catFullTitle', e.target.value)} className="w-full px-3 py-2 bg-gray-900/70 border border-gray-700 rounded-xl text-white" />
-                  </div>
-                  <div>
-                    <label className="block text-sm dark:text-gray-300 text-gray-800 mb-1">Category 1 Description</label>
-                    <input value={currentData.catFullDesc || ''} onChange={(e)=>setField('catFullDesc', e.target.value)} className="w-full px-3 py-2 bg-gray-900/70 border border-gray-700 rounded-xl text-white" />
-                  </div>
-                  <div>
-                    <label className="block text-sm dark:text-gray-300 text-gray-800 mb-1">Category 2 Title</label>
-                    <input value={currentData.catDataTitle || ''} onChange={(e)=>setField('catDataTitle', e.target.value)} className="w-full px-3 py-2 bg-gray-900/70 border border-gray-700 rounded-xl text-white" />
-                  </div>
-                  <div>
-                    <label className="block text-sm dark:text-gray-300 text-gray-800 mb-1">Category 2 Description</label>
-                    <input value={currentData.catDataDesc || ''} onChange={(e)=>setField('catDataDesc', e.target.value)} className="w-full px-3 py-2 bg-gray-900/70 border border-gray-700 rounded-xl text-white" />
-                  </div>
-                  <div>
-                    <label className="block text-sm dark:text-gray-300 text-gray-800 mb-1">Category 3 Title</label>
-                    <input value={currentData.catCloudTitle || ''} onChange={(e)=>setField('catCloudTitle', e.target.value)} className="w-full px-3 py-2 bg-gray-900/70 border border-gray-700 rounded-xl text-white" />
-                  </div>
-                  <div>
-                    <label className="block text-sm dark:text-gray-300 text-gray-800 mb-1">Category 3 Description</label>
-                    <input value={currentData.catCloudDesc || ''} onChange={(e)=>setField('catCloudDesc', e.target.value)} className="w-full px-3 py-2 bg-gray-900/70 border border-gray-700 rounded-xl text-white" />
-                  </div>
-                </div>
-                {/* Category 1 skills */}
-                <div className="p-4 rounded-2xl border border-white/10 bg-white/5">
-                  <div className="flex items-center justify-between mb-3">
-                    <h4 className="text-white font-semibold">{currentData.catFullTitle || 'Full-Stack Development'}</h4>
-                    <AdminButton onClick={() => setField('itemsFull', [ ...(currentData.itemsFull || []), { name: '', icon: 'SiJavascript', color: 'text-white', category: 'framework' } ])} className="h-8 px-3 text-xs">Add Skill</AdminButton>
-                  </div>
-                  <div className="space-y-3">
-                    {(currentData.itemsFull || []).map((it: any, idx: number) => (
-                      <div key={idx} className="p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/60">
-                        <div className="flex items-center justify-between mb-3">
-                          <span className="text-sm dark:text-gray-300 text-gray-800">Skill #{idx+1}</span>
-                          <div className="flex gap-2">
-                            <button onClick={()=>{ const list=[...(currentData.itemsFull||[])]; list[idx]={...list[idx], hidden:!list[idx].hidden}; setField('itemsFull', list as any) }} className={`px-2 py-1 text-xs rounded ${it.hidden? 'bg-gray-800 text-gray-300' : 'bg-gray-600 text-white'} hover:opacity-90`}>{it.hidden? 'Unhide' : 'Hide'}</button>
-                            <button onClick={()=>{ const list=[...(currentData.itemsFull||[])]; if(idx<=0) return; const [m]=list.splice(idx,1); list.splice(idx-1,0,m); setField('itemsFull', list as any) }} className="px-2 py-1 text-xs rounded bg-gray-700 text-white hover:bg-gray-600">Up</button>
-                            <button onClick={()=>{ const list=[...(currentData.itemsFull||[])]; if(idx>=list.length-1) return; const [m]=list.splice(idx,1); list.splice(idx+1,0,m); setField('itemsFull', list as any) }} className="px-2 py-1 text-xs rounded bg-gray-700 text-white hover:bg-gray-600">Down</button>
-                            <button onClick={()=>{ const list=[...(currentData.itemsFull||[])]; list.splice(idx,1); setField('itemsFull', list as any) }} className="px-2 py-1 text-xs rounded bg-red-600 text-white hover:bg-red-500">Remove</button>
-                          </div>
-                        </div>
-                        <div className={`grid grid-cols-1 md:grid-cols-2 gap-3 ${it.hidden? 'pointer-events-none' : ''}`}>
-                          <div>
-                            <label className="block text-xs text-gray-400 mb-1">Name</label>
-                            <input value={it.name || ''} onChange={(e)=>{ const list=[...(currentData.itemsFull||[])]; list[idx]={...list[idx], name:e.target.value}; setField('itemsFull', list as any) }} className="w-full px-3 py-2 bg-white dark:bg-gray-950/60 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white" />
-                            <div className="mt-1"><TechBadge name={it.name || ''} size="sm" /></div>
-                          </div>
-                          <div>
-                            <label className="block text-xs text-gray-400 mb-1">Icon</label>
-                            <input value={it.icon || ''} onChange={(e)=>{ const list=[...(currentData.itemsFull||[])]; list[idx]={...list[idx], icon:e.target.value}; setField('itemsFull', list as any) }} className="w-full px-3 py-2 bg-white dark:bg-gray-950/60 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white" />
-                            <div className="mt-1"><TechBadge name={it.icon || ''} size="sm" /></div>
-                          </div>
-                          <div>
-                            <label className="block text-xs text-gray-400 mb-1">Color</label>
-                            <input value={it.color || ''} onChange={(e)=>{ const list=[...(currentData.itemsFull||[])]; list[idx]={...list[idx], color:e.target.value}; setField('itemsFull', list as any) }} className="w-full px-3 py-2 bg-white dark:bg-gray-950/60 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white" />
-                          </div>
-                          <div>
-                            <label className="block text-xs text-gray-400 mb-1">Category</label>
-                            <input value={it.category || 'framework'} onChange={(e)=>{ const list=[...(currentData.itemsFull||[])]; list[idx]={...list[idx], category:e.target.value}; setField('itemsFull', list as any) }} className="w-full px-3 py-2 bg-white dark:bg-gray-950/60 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white" />
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Category 2 skills */}
-                <div className="p-4 rounded-2xl border border-white/10 bg-white/5">
-                  <div className="flex items-center justify-between mb-3">
-                    <h4 className="text-white font-semibold">{currentData.catDataTitle || 'Data Engineering'}</h4>
-                    <AdminButton onClick={() => setField('itemsData', [ ...(currentData.itemsData || []), { name: '', icon: 'FaPython', color: 'text-white', category: 'language' } ])} className="h-8 px-3 text-xs">Add Skill</AdminButton>
-                  </div>
-                  <div className="space-y-3">
-                    {(currentData.itemsData || []).map((it: any, idx: number) => (
-                      <div key={idx} className="p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/60">
-                        <div className="flex items-center justify-between mb-3">
-                          <span className="text-sm dark:text-gray-300 text-gray-800">Skill #{idx+1}</span>
-                          <div className="flex gap-2">
-                            <button onClick={()=>{ const list=[...(currentData.itemsData||[])]; list[idx]={...list[idx], hidden:!list[idx].hidden}; setField('itemsData', list as any) }} className={`px-2 py-1 text-xs rounded ${it.hidden? 'bg-gray-800 text-gray-300' : 'bg-gray-600 text-white'} hover:opacity-90`}>{it.hidden? 'Unhide' : 'Hide'}</button>
-                            <button onClick={()=>{ const list=[...(currentData.itemsData||[])]; if(idx<=0) return; const [m]=list.splice(idx,1); list.splice(idx-1,0,m); setField('itemsData', list as any) }} className="px-2 py-1 text-xs rounded bg-gray-700 text-white hover:bg-gray-600">Up</button>
-                            <button onClick={()=>{ const list=[...(currentData.itemsData||[])]; if(idx>=list.length-1) return; const [m]=list.splice(idx,1); list.splice(idx+1,0,m); setField('itemsData', list as any) }} className="px-2 py-1 text-xs rounded bg-gray-700 text-white hover:bg-gray-600">Down</button>
-                            <button onClick={()=>{ const list=[...(currentData.itemsData||[])]; list.splice(idx,1); setField('itemsData', list as any) }} className="px-2 py-1 text-xs rounded bg-red-600 text-white hover:bg-red-500">Remove</button>
-                          </div>
-                        </div>
-                        <div className={`grid grid-cols-1 md:grid-cols-2 gap-3 ${it.hidden? 'pointer-events-none' : ''}`}>
-                          <div>
-                            <label className="block text-xs text-gray-400 mb-1">Name</label>
-                            <input value={it.name || ''} onChange={(e)=>{ const list=[...(currentData.itemsData||[])]; list[idx]={...list[idx], name:e.target.value}; setField('itemsData', list as any) }} className="w-full px-3 py-2 bg-white dark:bg-gray-950/60 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white" />
-                            <div className="mt-1"><TechBadge name={it.name || ''} size="sm" /></div>
-                          </div>
-                          <div>
-                            <label className="block text-xs text-gray-400 mb-1">Icon</label>
-                            <input value={it.icon || ''} onChange={(e)=>{ const list=[...(currentData.itemsData||[])]; list[idx]={...list[idx], icon:e.target.value}; setField('itemsData', list as any) }} className="w-full px-3 py-2 bg-white dark:bg-gray-950/60 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white" />
-                            <div className="mt-1"><TechBadge name={it.icon || ''} size="sm" /></div>
-                          </div>
-                          <div>
-                            <label className="block text-xs text-gray-400 mb-1">Color</label>
-                            <input value={it.color || ''} onChange={(e)=>{ const list=[...(currentData.itemsData||[])]; list[idx]={...list[idx], color:e.target.value}; setField('itemsData', list as any) }} className="w-full px-3 py-2 bg-white dark:bg-gray-950/60 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white" />
-                          </div>
-                          <div>
-                            <label className="block text-xs text-gray-400 mb-1">Category</label>
-                            <input value={it.category || 'language'} onChange={(e)=>{ const list=[...(currentData.itemsData||[])]; list[idx]={...list[idx], category:e.target.value}; setField('itemsData', list as any) }} className="w-full px-3 py-2 bg-white dark:bg-gray-950/60 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white" />
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Category 3 skills */}
-                <div className="p-4 rounded-2xl border border-white/10 bg-white/5">
-                  <div className="flex items-center justify-between mb-3">
-                    <h4 className="text-white font-semibold">{currentData.catCloudTitle || 'Cloud & DevOps'}</h4>
-                    <AdminButton onClick={() => setField('itemsCloud', [ ...(currentData.itemsCloud || []), { name: '', icon: 'FaAws', color: 'text-white', category: 'cloud' } ])} className="h-8 px-3 text-xs">Add Skill</AdminButton>
-                  </div>
-                  <div className="space-y-3">
-                    {(currentData.itemsCloud || []).map((it: any, idx: number) => (
-                      <div key={idx} className="p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/60">
-                        <div className="flex items-center justify-between mb-3">
-                          <span className="text-sm dark:text-gray-300 text-gray-800">Skill #{idx+1}</span>
-                          <div className="flex gap-2">
-                            <button onClick={()=>{ const list=[...(currentData.itemsCloud||[])]; list[idx]={...list[idx], hidden:!list[idx].hidden}; setField('itemsCloud', list as any) }} className={`px-2 py-1 text-xs rounded ${it.hidden? 'bg-gray-800 text-gray-300' : 'bg-gray-600 text-white'} hover:opacity-90`}>{it.hidden? 'Unhide' : 'Hide'}</button>
-                            <button onClick={()=>{ const list=[...(currentData.itemsCloud||[])]; if(idx<=0) return; const [m]=list.splice(idx,1); list.splice(idx-1,0,m); setField('itemsCloud', list as any) }} className="px-2 py-1 text-xs rounded bg-gray-700 text-white hover:bg-gray-600">Up</button>
-                            <button onClick={()=>{ const list=[...(currentData.itemsCloud||[])]; if(idx>=list.length-1) return; const [m]=list.splice(idx,1); list.splice(idx+1,0,m); setField('itemsCloud', list as any) }} className="px-2 py-1 text-xs rounded bg-gray-700 text-white hover:bg-gray-600">Down</button>
-                            <button onClick={()=>{ const list=[...(currentData.itemsCloud||[])]; list.splice(idx,1); setField('itemsCloud', list as any) }} className="px-2 py-1 text-xs rounded bg-red-600 text-white hover:bg-red-500">Remove</button>
-                          </div>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                          <div>
-                            <label className="block text-xs text-gray-400 mb-1">Name</label>
-                            <input value={it.name || ''} onChange={(e)=>{ const list=[...(currentData.itemsCloud||[])]; list[idx]={...list[idx], name:e.target.value}; setField('itemsCloud', list as any) }} className="w-full px-3 py-2 bg-white dark:bg-gray-950/60 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white" />
-                            <div className="mt-1"><TechBadge name={it.name || ''} size="sm" /></div>
-                          </div>
-                          <div>
-                            <label className="block text-xs text-gray-400 mb-1">Icon</label>
-                            <input value={it.icon || ''} onChange={(e)=>{ const list=[...(currentData.itemsCloud||[])]; list[idx]={...list[idx], icon:e.target.value}; setField('itemsCloud', list as any) }} className="w-full px-3 py-2 bg-white dark:bg-gray-950/60 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white" />
-                            <div className="mt-1"><TechBadge name={it.icon || ''} size="sm" /></div>
-                          </div>
-                          <div>
-                            <label className="block text-xs text-gray-400 mb-1">Color</label>
-                            <input value={it.color || ''} onChange={(e)=>{ const list=[...(currentData.itemsCloud||[])]; list[idx]={...list[idx], color:e.target.value}; setField('itemsCloud', list as any) }} className="w-full px-3 py-2 bg-white dark:bg-gray-950/60 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white" />
-                          </div>
-                          <div>
-                            <label className="block text-xs text-gray-400 mb-1">Category</label>
-                            <input value={it.category || 'cloud'} onChange={(e)=>{ const list=[...(currentData.itemsCloud||[])]; list[idx]={...list[idx], category:e.target.value}; setField('itemsCloud', list as any) }} className="w-full px-3 py-2 bg-white dark:bg-gray-950/60 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white" />
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
+            
 
             {/* Footer social links */}
             {active === 'footer' && (

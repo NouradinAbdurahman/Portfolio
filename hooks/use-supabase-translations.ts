@@ -26,6 +26,7 @@ export function useSupabaseTranslations(options: UseSupabaseTranslationsOptions 
   const [translations, setTranslations] = useState<Record<string, string>>({})
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [broadcastChannel] = useState(() => (typeof window !== 'undefined' && 'BroadcastChannel' in window) ? new BroadcastChannel('translations-sync') : null)
 
   const fetchTranslations = useCallback(async (forceRefresh = false) => {
     try {
@@ -76,6 +77,27 @@ export function useSupabaseTranslations(options: UseSupabaseTranslationsOptions 
 
     return () => clearInterval(interval)
   }, [autoRefresh, refreshInterval, fetchTranslations])
+
+  // Listen for cross-tab/admin updates to refresh immediately
+  useEffect(() => {
+    if (!broadcastChannel) return
+    const handler = (event: MessageEvent) => {
+      const data = event.data as { type?: string; key?: string; locale?: string }
+      if (data?.type === 'translations-updated' && (!data.locale || data.locale === locale)) {
+        // Clear locale cache and force refresh
+        delete globalCache[locale]
+        fetchTranslations(true)
+      }
+      if (data?.type === 'translations-cleared') {
+        delete globalCache[locale]
+        setTranslations({})
+      }
+    }
+    broadcastChannel.addEventListener('message', handler)
+    return () => {
+      broadcastChannel.removeEventListener('message', handler)
+    }
+  }, [broadcastChannel, locale, fetchTranslations])
 
   // Function to get a specific translation with fallback
   const t = useCallback((key: string, fallback?: string): string => {

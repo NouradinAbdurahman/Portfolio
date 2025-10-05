@@ -15,6 +15,7 @@ import { z } from "zod"
 import { useSupabaseTranslations } from "@/hooks/use-supabase-translations"
 import { useLocale } from "next-intl"
 import { useToast } from "@/hooks/use-toast"
+import { MixedContent } from "@/lib/rtl-utils"
 
 const ContactSchema = z.object({
   firstName: z.string().min(2, "First name is too short"),
@@ -117,8 +118,8 @@ export default function ContactForm() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4 dark:text-white text-black text-center">{title}</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-center">{subtitle}</p>
+          <h2 className="text-4xl font-bold mb-4 dark:text-white text-black text-center"><MixedContent text={title} isRTL={isRTL} /></h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-center"><MixedContent text={subtitle} isRTL={isRTL} /></p>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -131,9 +132,9 @@ export default function ContactForm() {
             className={`space-y-8 ${isRTL ? 'text-right lg:order-2' : 'text-left lg:order-1'}`}
           >
             <div>
-              <h3 className={`text-2xl font-bold dark:text-white text-black mb-6 ${isRTL ? 'text-right' : 'text-left'}`}>{letsConnect}</h3>
+              <h3 className={`text-2xl font-bold dark:text-white text-black mb-6 ${isRTL ? 'text-right' : 'text-left'}`}><MixedContent text={letsConnect} isRTL={isRTL} /></h3>
               <p className={`text-muted-foreground leading-relaxed mb-8 ${isRTL ? 'text-right' : 'text-left'}`}>
-                {introText}
+                <MixedContent text={introText} isRTL={isRTL} />
               </p>
             </div>
 
@@ -146,7 +147,7 @@ export default function ContactForm() {
                   <Mail className="w-6 h-6 text-primary" />
                 </div>
                 <div className={isRTL ? 'text-right' : 'text-left'}>
-                  <div className="font-semibold dark:text-white text-black">{t('contact.email', 'Email')}</div>
+                  <div className="font-semibold dark:text-white text-black"><MixedContent text={t('contact.email', 'Email')} isRTL={isRTL} /></div>
                   <div className="text-muted-foreground">{email}</div>
                 </div>
               </motion.div>
@@ -159,7 +160,7 @@ export default function ContactForm() {
                   <Phone className="w-6 h-6 text-accent" />
                 </div>
                 <div className={isRTL ? 'text-right' : 'text-left'}>
-                  <div className="font-semibold dark:text-white text-black">{t('contact.phone', 'Phone')}</div>
+                  <div className="font-semibold dark:text-white text-black"><MixedContent text={t('contact.phone', 'Phone')} isRTL={isRTL} /></div>
                   <div className="text-muted-foreground">{phone}</div>
                 </div>
               </motion.div>
@@ -172,7 +173,7 @@ export default function ContactForm() {
                   <MapPin className="w-6 h-6 text-primary" />
                 </div>
                 <div className={isRTL ? 'text-right' : 'text-left'}>
-                  <div className="font-semibold dark:text-white text-black">{t('contact.location', 'Location')}</div>
+                  <div className="font-semibold dark:text-white text-black"><MixedContent text={t('contact.location', 'Location')} isRTL={isRTL} /></div>
                   <div className="text-muted-foreground">{location}</div>
                 </div>
               </motion.div>
@@ -231,7 +232,7 @@ export default function ContactForm() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="firstName" className={`text-sm font-medium dark:text-white text-black ${isRTL ? 'text-right' : 'text-left'}`}>
-                      {t('contact.firstName', 'First Name')}
+                      <MixedContent text={t('contact.firstName', 'First Name')} isRTL={isRTL} />
                     </Label>
                     <Input
                       id="firstName"
@@ -245,7 +246,7 @@ export default function ContactForm() {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="lastName" className={`text-sm font-medium dark:text-white text-black ${isRTL ? 'text-right' : 'text-left'}`}>
-                      {t('contact.lastName', 'Last Name')}
+                      <MixedContent text={t('contact.lastName', 'Last Name')} isRTL={isRTL} />
                     </Label>
                     <Input
                       id="lastName"
@@ -261,7 +262,7 @@ export default function ContactForm() {
 
                 <div className="space-y-2">
                   <Label htmlFor="email" className={`text-sm font-medium dark:text-white text-black ${isRTL ? 'text-right' : 'text-left'}`}>
-                    {t('contact.email', 'Email')}
+                    <MixedContent text={t('contact.email', 'Email')} isRTL={isRTL} />
                   </Label>
                   <Input
                     id="email"
@@ -277,7 +278,7 @@ export default function ContactForm() {
 
                 <div className="space-y-2">
                   <Label htmlFor="subject" className={`text-sm font-medium dark:text-white text-black ${isRTL ? 'text-right' : 'text-left'}`}>
-                    {t('contact.subject', 'Subject')}
+                    <MixedContent text={t('contact.subject', 'Subject')} isRTL={isRTL} />
                   </Label>
                   <Input
                     id="subject"
@@ -292,7 +293,7 @@ export default function ContactForm() {
 
                 <div className="space-y-2">
                   <Label htmlFor="message" className={`text-sm font-medium dark:text-white text-black ${isRTL ? 'text-right' : 'text-left'}`}>
-                    {t('contact.message', 'Message')}
+                    <MixedContent text={t('contact.message', 'Message')} isRTL={isRTL} />
                   </Label>
                   <Textarea
                     id="message"
@@ -318,7 +319,7 @@ export default function ContactForm() {
                   {isSubmitting && (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      {t('contact.sending', 'Sending...')}
+                      <MixedContent text={t('contact.sending', 'Sending...')} isRTL={isRTL} />
                     </>
                   )}
                   {submitState === "success" && !isSubmitting && (
@@ -335,7 +336,7 @@ export default function ContactForm() {
                   )}
                   {submitState === "idle" && !isSubmitting && (
                     <>
-                      {t('contact.sendMessage', 'Send Message')}
+                      <MixedContent text={t('contact.sendMessage', 'Send Message')} isRTL={isRTL} />
                       <Send className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </>
                   )}

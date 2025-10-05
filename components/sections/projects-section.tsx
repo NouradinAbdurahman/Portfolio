@@ -14,6 +14,9 @@ import { Spotlight } from "@/components/ui/spotlight-new"
 import { cn } from "@/lib/utils"
 import { useSupabaseProjects } from "@/hooks/use-supabase-projects"
 import { useSettings } from "@/contexts/settings-context"
+import { useSupabaseTranslations } from "@/hooks/use-supabase-translations"
+import { useLocale } from "next-intl"
+import { MixedContent } from "@/lib/rtl-utils"
 
 // Define the Project type from the hook
 interface Project {
@@ -55,6 +58,9 @@ function ProjectsSection({
 }: ProjectsSectionProps) {
   const { projects, labels } = useSupabaseProjects()
   const { settings } = useSettings()
+  const { t } = useSupabaseTranslations()
+  const locale = useLocale()
+  const isRTL = locale === 'ar'
   
   // Filter out hidden projects
   const filteredProjects = projects.filter((p: Project) => !p.hidden)
@@ -71,14 +77,36 @@ function ProjectsSection({
     source = ordered.filter((p: Project) => !p.hidden)
   }
   
-  // Apply title overrides if provided
+  // Apply title overrides if provided and translate project content
   const titles = (settings?.featured_titles || {}) as Record<string,string>
   const withTitles = source
     .filter((p: Project) => (p.title || '').toLowerCase() !== 'sample project' && !(String(p.id||'').toLowerCase().startsWith('sample')))
     .map((p: Project) => {
     const key = (p.slug || p.id || p.title).toLowerCase()
     const title = titles[key]
-    return title ? { ...p, title } : p
+    
+    // Get translated content for each project
+    const translatedProject = {
+      ...p,
+      title: title || t(`projects.items.${p.slug}.title`, p.title),
+      description: t(`projects.items.${p.slug}.description`, p.description),
+      problem: t(`projects.items.${p.slug}.problem`, p.problem || ''),
+      solution: t(`projects.items.${p.slug}.solution`, p.solution || ''),
+      outcome: t(`projects.items.${p.slug}.outcome`, p.outcome || ''),
+      architecture: t(`projects.items.${p.slug}.architecture`, p.architecture || ''),
+      impact: t(`projects.items.${p.slug}.impact`, p.impact || ''),
+      features: p.features?.map((feature: string, index: number) => 
+        t(`projects.items.${p.slug}.features.${index}`, feature)
+      ) || [],
+      challenges: p.challenges?.map((challenge: string, index: number) => 
+        t(`projects.items.${p.slug}.challenges.${index}`, challenge)
+      ) || [],
+      learnings: p.learnings?.map((learning: string, index: number) => 
+        t(`projects.items.${p.slug}.learnings.${index}`, learning)
+      ) || []
+    }
+    
+    return translatedProject
   })
   const displayProjects = showAll ? withTitles : withTitles.slice(0, 4)
 
@@ -92,8 +120,8 @@ function ProjectsSection({
       <Spotlight />
       <div className="relative z-10">
         <SectionHeader 
-          title={labels.title}
-          description={labels.subtitle}
+          title={<MixedContent text={labels.title} isRTL={isRTL} />}
+          description={<MixedContent text={labels.subtitle} isRTL={isRTL} />}
         />
 
         <Grid cols={2} gap="lg">
@@ -119,8 +147,8 @@ function ProjectsSection({
                 size="lg"
                 className="group neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/90 cursor-pointer border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/60"
               >
-                {labels.allProjects}
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                <MixedContent text={labels.allProjects} isRTL={isRTL} />
+                <ArrowRight className={`${isRTL ? 'mr-2' : 'ml-2'} h-4 w-4 group-hover:translate-x-1 transition-transform`} />
               </Button>
             </Link>
           </motion.div>
