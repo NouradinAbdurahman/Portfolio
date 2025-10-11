@@ -27,8 +27,40 @@ function HeroSection({ className }: HeroSectionProps) {
   const subtitle = t('hero.subtitle', 'Building scalable applications, cloud-driven systems, and data-powered solutions. Passionate about creating efficient ETL pipelines, modern web experiences, and automated workflows.')
   const ctaPrimaryLabel = t('hero.ctaPrimaryLabel', 'View My LinkedIn')
   const ctaSecondaryLabel = t('hero.ctaSecondaryLabel', 'Contact Me')
-  const ctaPrimaryHref = t('hero.ctaPrimaryHref', 'https://linkedin.com/in/nouraddin')
-  const ctaSecondaryHref = t('hero.ctaSecondaryHref', '#contact')
+  
+  // Ensure href values are strings, not objects
+  const ctaPrimaryHrefRaw = t('hero.ctaPrimaryHref', 'https://linkedin.com/in/nouraddin')
+  const ctaSecondaryHrefRaw = t('hero.ctaSecondaryHref', '#contact')
+  
+  // Convert to string and ensure proper format
+  let ctaPrimaryHref = 'https://linkedin.com/in/nouraddin'
+  let ctaSecondaryHref = '#contact'
+  
+  if (typeof ctaPrimaryHrefRaw === 'string') {
+    ctaPrimaryHref = ctaPrimaryHrefRaw
+  } else if (ctaPrimaryHrefRaw && typeof ctaPrimaryHrefRaw === 'object') {
+    // If it's an object, try to extract a string value
+    console.warn('Primary CTA href is an object:', ctaPrimaryHrefRaw)
+    ctaPrimaryHref = 'https://linkedin.com/in/nouraddin' // Fallback to default
+  }
+  
+  if (typeof ctaSecondaryHrefRaw === 'string') {
+    ctaSecondaryHref = ctaSecondaryHrefRaw
+  } else if (ctaSecondaryHrefRaw && typeof ctaSecondaryHrefRaw === 'object') {
+    // If it's an object, try to extract a string value
+    console.warn('Secondary CTA href is an object:', ctaSecondaryHrefRaw)
+    ctaSecondaryHref = '#contact' // Fallback to default
+  }
+  
+  // Debug logging (can be removed in production)
+  // console.log('Hero CTA Debug:', {
+  //   ctaPrimaryHrefRaw,
+  //   ctaPrimaryHref,
+  //   ctaSecondaryHrefRaw,
+  //   ctaSecondaryHref,
+  //   primaryType: typeof ctaPrimaryHrefRaw,
+  //   secondaryType: typeof ctaSecondaryHrefRaw
+  // })
   const heroHidden = (t('hero.hidden', 'false') || 'false').toString().toLowerCase() === 'true'
   const hideTitle = (t('hero.title_hidden', 'false') || 'false').toString().toLowerCase() === 'true'
   const hideSubtitle = (t('hero.subtitle_hidden', 'false') || 'false').toString().toLowerCase() === 'true'
@@ -120,15 +152,36 @@ function HeroSection({ className }: HeroSectionProps) {
                 size="lg" 
                 className="group neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/90 cursor-pointer border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/60"
               >
-                <a href={ctaPrimaryHref} target="_blank" rel="noopener noreferrer">
+                <a 
+                  href={ctaPrimaryHref} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    // Ensure we have a valid href
+                    if (!ctaPrimaryHref || ctaPrimaryHref === '[object Object]' || typeof ctaPrimaryHref !== 'string') {
+                      e.preventDefault()
+                      console.error('Invalid href detected:', ctaPrimaryHref)
+                      return
+                    }
+                    
+                    // If it's a relative link, handle it properly
+                    if (ctaPrimaryHref.startsWith('#')) {
+                      e.preventDefault()
+                      const targetElement = document.querySelector(ctaPrimaryHref)
+                      if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' })
+                      }
+                    }
+                  }}
+                >
                   {isRTL ? (
                     <>
                       <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-                      <MixedContent text={ctaPrimaryLabel} isRTL={isRTL} />
+                      {ctaPrimaryLabel}
                     </>
                   ) : (
                     <>
-                      <MixedContent text={ctaPrimaryLabel} isRTL={isRTL} />
+                      {ctaPrimaryLabel}
                       <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </>
                   )}
@@ -145,9 +198,28 @@ function HeroSection({ className }: HeroSectionProps) {
                 variant="outline"
                 className="group neumorphic-button dark:text-white text-black hover:text-black dark:bg-transparent bg-white/90 cursor-pointer border-gray-300 dark:border-white/20 hover:border-gray-500 dark:hover:border-white/60"
               >
-                <a href={ctaSecondaryHref}>
+                <a 
+                  href={ctaSecondaryHref}
+                  onClick={(e) => {
+                    // Ensure we have a valid href
+                    if (!ctaSecondaryHref || ctaSecondaryHref === '[object Object]' || typeof ctaSecondaryHref !== 'string') {
+                      e.preventDefault()
+                      console.error('Invalid href detected:', ctaSecondaryHref)
+                      return
+                    }
+                    
+                    // If it's a relative link, handle it properly
+                    if (ctaSecondaryHref.startsWith('#')) {
+                      e.preventDefault()
+                      const targetElement = document.querySelector(ctaSecondaryHref)
+                      if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' })
+                      }
+                    }
+                  }}
+                >
                   <Mail className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
-                  <MixedContent text={ctaSecondaryLabel} isRTL={isRTL} />
+                  {ctaSecondaryLabel}
                 </a>
               </Button>
             )}

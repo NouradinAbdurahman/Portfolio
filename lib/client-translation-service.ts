@@ -73,9 +73,18 @@ export class ClientTranslationService {
         const fallbackEn = row.en || ''
         const chosen = (!localized || isPlaceholder(localized)) ? fallbackEn : localized
         if (chosen) {
-          // Remove extra quotes that might be stored in the database
-          const cleanTranslation = typeof chosen === 'string' ? chosen.replace(/^"(.*)"$/, '$1') : chosen
-          translations[row.key] = cleanTranslation as string
+          // Ensure we always have a string and remove extra quotes
+          let cleanTranslation: string
+          if (typeof chosen === 'string') {
+            cleanTranslation = chosen.replace(/^"(.*)"$/, '$1')
+          } else if (typeof chosen === 'object' && chosen !== null) {
+            // If it's an object, try to stringify it or use a fallback
+            console.warn(`Translation for key ${row.key} is an object:`, chosen)
+            cleanTranslation = JSON.stringify(chosen)
+          } else {
+            cleanTranslation = String(chosen)
+          }
+          translations[row.key] = cleanTranslation
         }
       })
 

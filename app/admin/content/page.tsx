@@ -896,22 +896,86 @@ export default function ContentAdminPage() {
 
             {/* Hero CTAs */}
             {active === 'hero' && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm dark:text-gray-300 text-gray-800 mb-1">Primary CTA Label</label>
-                  <input value={currentData.ctaPrimaryLabel || ''} onChange={(e)=>setField('ctaPrimaryLabel', e.target.value)} className="w-full px-3 py-2 bg-white dark:bg-gray-900/70 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white" />
-                </div>
-                <div>
-                  <label className="block text-sm dark:text-gray-300 text-gray-800 mb-1">Primary CTA Href</label>
-                  <input value={currentData.ctaPrimaryHref || ''} onChange={(e)=>setField('ctaPrimaryHref', e.target.value)} className="w-full px-3 py-2 bg-white dark:bg-gray-900/70 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white" />
-                </div>
-                <div>
-                  <label className="block text-sm dark:text-gray-300 text-gray-800 mb-1">Secondary CTA Label</label>
-                  <input value={currentData.ctaSecondaryLabel || ''} onChange={(e)=>setField('ctaSecondaryLabel', e.target.value)} className="w-full px-3 py-2 bg-white dark:bg-gray-900/70 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white" />
-                </div>
-                <div>
-                  <label className="block text-sm dark:text-gray-300 text-gray-800 mb-1">Secondary CTA Href</label>
-                  <input value={currentData.ctaSecondaryHref || ''} onChange={(e)=>setField('ctaSecondaryHref', e.target.value)} className="w-full px-3 py-2 bg-white dark:bg-gray-900/70 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white" />
+              <div className="space-y-6">
+                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                  <h3 className="text-lg font-semibold dark:text-blue-200 text-blue-800 mb-2">Hero CTA Buttons</h3>
+                  <p className="text-sm dark:text-blue-300 text-blue-700 mb-4">
+                    Configure the call-to-action buttons in the hero section. Use full URLs for external links or #section for internal navigation.
+                  </p>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm dark:text-gray-300 text-gray-800 mb-1">Primary CTA Label</label>
+                      <input 
+                        value={currentData.ctaPrimaryLabel || ''} 
+                        onChange={(e)=>setField('ctaPrimaryLabel', e.target.value)} 
+                        placeholder="View My LinkedIn"
+                        className="w-full px-3 py-2 bg-white dark:bg-gray-900/70 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white" 
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm dark:text-gray-300 text-gray-800 mb-1">Primary CTA Link</label>
+                      <div className="flex gap-2">
+                        <input 
+                          value={currentData.ctaPrimaryHref || ''} 
+                          onChange={(e)=>setField('ctaPrimaryHref', e.target.value)} 
+                          placeholder="https://linkedin.com/in/nouraddin"
+                          className="flex-1 px-3 py-2 bg-white dark:bg-gray-900/70 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white" 
+                        />
+                        {currentData.ctaPrimaryHref && (
+                          <a 
+                            href={currentData.ctaPrimaryHref} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl flex items-center gap-1 text-sm"
+                          >
+                            <ExternalLink className="w-4 h-4" />
+                            Test
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-sm dark:text-gray-300 text-gray-800 mb-1">Secondary CTA Label</label>
+                      <input 
+                        value={currentData.ctaSecondaryLabel || ''} 
+                        onChange={(e)=>setField('ctaSecondaryLabel', e.target.value)} 
+                        placeholder="Contact Me"
+                        className="w-full px-3 py-2 bg-white dark:bg-gray-900/70 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white" 
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm dark:text-gray-300 text-gray-800 mb-1">Secondary CTA Link</label>
+                      <div className="flex gap-2">
+                        <input 
+                          value={currentData.ctaSecondaryHref || ''} 
+                          onChange={(e)=>setField('ctaSecondaryHref', e.target.value)} 
+                          placeholder="#contact"
+                          className="flex-1 px-3 py-2 bg-white dark:bg-gray-900/70 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white" 
+                        />
+                        {currentData.ctaSecondaryHref && (
+                          <a 
+                            href={currentData.ctaSecondaryHref} 
+                            target={currentData.ctaSecondaryHref.startsWith('#') ? '_self' : '_blank'}
+                            rel="noopener noreferrer"
+                            className="px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl flex items-center gap-1 text-sm"
+                          >
+                            <ExternalLink className="w-4 h-4" />
+                            Test
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Current Values Display */}
+                  <div className="mt-4 p-3 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                    <h4 className="text-sm font-medium dark:text-gray-200 text-gray-800 mb-2">Current Values:</h4>
+                    <div className="text-sm space-y-1">
+                      <div><strong>Primary:</strong> "{currentData.ctaPrimaryLabel || 'Not set'}" → {currentData.ctaPrimaryHref || 'Not set'}</div>
+                      <div><strong>Secondary:</strong> "{currentData.ctaSecondaryLabel || 'Not set'}" → {currentData.ctaSecondaryHref || 'Not set'}</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
